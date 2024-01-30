@@ -1,0 +1,28 @@
+{
+  "configurations": {
+    "wikiLangName": "he",
+    "docTitle": "שם קוד"
+  },
+
+  "header": {
+    "title": "שם קוד",
+    "routes": {
+      "gameRules": "חוקי המשחק",
+      "about": "על הפרויקט",
+      "settings": "הגדרות"
+    }
+  },
+  "initGame": {
+    "family": "משפחה",
+    "adults": "מבוגרים",
+    "goNuts": "השתגע!"
+  },
+  "board": {
+    "cards": {
+      "hoverStatement": ".אין עוד מידע זמין"
+    }
+  },
+  "gameCard": {
+    "replaceBtn": "החלף"
+  }
+}

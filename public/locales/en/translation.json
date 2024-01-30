@@ -1,0 +1,28 @@
+{
+  "configurations": {
+    "wikiLangName": "en",
+    "docTitle": "Code Name"
+  },
+
+  "header": {
+    "title": "Code Name",
+    "routes": {
+      "gameRules": "The Rules",
+      "about": "About This Project",
+      "settings": "Settings"
+    }
+  },
+  "initGame": {
+    "family": "Family",
+    "adults": "Adults",
+    "goNuts": "Go Nuts!"
+  },
+  "board": {
+    "cards": {
+      "hoverStatement": "No more info available."
+    }
+  },
+  "gameCard": {
+    "replaceBtn": "Replace"
+  }
+}

@@ -1,0 +1,14 @@
+.game-card:hover .replace-btn {
+  opacity: 1;
+  transition: opacity var(--fade-time) ease-in-out;
+}
+
+.replace-btn {
+  opacity: 0;
+  transition: opacity var(--fade-time) ease-in-out;
+}
+
+.game-card:not(:hover) .replace-btn {
+  opacity: 0;
+  transition: opacity var(--fade-time) ease-in-out;
+}
