@@ -5,8 +5,10 @@ import "./i18n";
 import { ThemeProvider } from "./components/theme-provider";
 import { Suspense } from "react";
 import useSetTitle from "./Hooks/useSetTitle";
+import { GameProvider } from "./components/game-provider";
 
 const queryClient = new QueryClient();
+
 function App() {
   useSetTitle();
 
@@ -14,7 +16,9 @@ function App() {
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <Suspense>
         <QueryClientProvider client={queryClient}>
-          <Layout />
+          <GameProvider>
+            <Layout />
+          </GameProvider>
         </QueryClientProvider>
       </Suspense>
     </ThemeProvider>
