@@ -1,14 +1,15 @@
 import useGetWords from "@/Hooks/useGetWords";
 import { teams } from "../../../../public/db/teams";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import GameCard from "../GameCard";
 import { setNewItemInArrAtIndex } from "@/Utils/setNewItemInArrAtIndex";
 import RandomWord from "@/Models/randomWord";
 import "../GameArea.css";
+import useDisplayCards from "@/Hooks/useDisplayCards";
 function Adults(): JSX.Element {
   const [words, setWords] = useState<RandomWord[]>(); // a state for 25 words to use on first render
   const [spareWords, setSpareWords] = useState<RandomWord[]>(); // a state for 25 words to use for spare if user changes a word
-
+  const [showCards, setShowCards] = useState<boolean[]>(Array(25).fill(false));
   const [currIndexForReplacement, setCurrIndexForReplacement] = useState(0); // the index by which to chose a word from spare words array
 
   const randomizedTeams = useMemo(() => {
@@ -21,12 +22,12 @@ function Adults(): JSX.Element {
     isLoading: adultsIsLoading,
   } = useGetWords(false);
 
-  useEffect(() => {
-    if (randomWords?.length) {
-      setWords(randomWords.slice(0, 25)); // set 25 words for initial setting of the game.
-      setSpareWords(randomWords.slice(25)); // set other 25 words for spare, in case user opts to replace some of the words.
-    }
-  }, [randomWords]);
+  useDisplayCards<RandomWord>( // visit 'Hooks/' to learn more what the hook does.
+    randomWords,
+    setWords,
+    setSpareWords,
+    setShowCards
+  );
 
   if (adultsIsLoading) {
     return <div>Loading...</div>; // display loading component.NOTE TO SELF: create loading component.
@@ -39,6 +40,7 @@ function Adults(): JSX.Element {
       {words?.length &&
         words.map((_, index) => (
           <GameCard
+            showCard={showCards[index]}
             wordType="RandomWord"
             isFamily={false}
             team={randomizedTeams[index]}

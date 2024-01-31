@@ -13,6 +13,7 @@ type GameCardProps = {
   onReplaceBtnClick: (newWord?: any, index?: number) => void;
   team: "red" | "blue" | "bomb" | "neutral";
   wordHasBeenReplaced: number;
+  showCard: boolean;
 };
 
 function GameCard(props: GameCardProps): JSX.Element {
@@ -32,7 +33,11 @@ function GameCard(props: GameCardProps): JSX.Element {
   }
 
   return (
-    <Card className={`${teamAssignClass(props.team)} game-card relative`}>
+    <Card
+      className={`${teamAssignClass(props.team)} game-card relative ${
+        props.showCard ? "show" : ""
+      }`}
+    >
       <Popover
         open={popoverState}
         onOpenChange={(isOpen) => {

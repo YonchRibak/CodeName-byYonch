@@ -12,7 +12,7 @@ function Wiki(): JSX.Element {
   const [wikis, setWikis] = useState<WikiObj[]>(); // a state for 25 wiki words to use on first render
   const [spareWikis, setSpareWikis] = useState<WikiObj[]>(); // a state for 25 wiki words to use for spare if user changes a word
   const [currIndexForReplacement, setCurrIndexForReplacement] = useState(0); // the index by which to chose a word from spare words array
-
+  const [showCards, setShowCards] = useState<boolean[]>(Array(25).fill(false)); // 25 states defaulted to 'false' for the display of the cards.
   const randomizedTeams = useMemo(() => {
     return teams.sort(() => Math.random() - 0.5); // randomize teams for the game.
   }, []);
@@ -42,10 +42,22 @@ function Wiki(): JSX.Element {
     }
   }, [doneFetch]);
 
-  //   function handleFreshWikis() {
-  //     setWikis(spareWikis.slice(-25));
-  //     setSpareWikis((prev) => prev.slice(0, -25));
-  //   }
+  useEffect(() => {
+    if (wikis?.length > 0) {
+      const showDelay = 100;
+
+      for (let i = 0; i < 25; i++) {
+        //change state of each showCard props to 'true' on a delay.
+        window.setTimeout(() => {
+          setShowCards((prev) => {
+            const newShowCards = [...prev];
+            newShowCards[i] = true;
+            return newShowCards;
+          });
+        }, i * showDelay);
+      }
+    }
+  }, [wikis]);
 
   if (!doneFetch && !wikis?.length) {
     return <div>Loading...</div>; // display loading component.NOTE TO SELF: create loading component.
@@ -56,6 +68,7 @@ function Wiki(): JSX.Element {
       {wikis?.length &&
         wikis.map((_, index) => (
           <GameCard
+            showCard={showCards[index]}
             key={wikis[index].pageid}
             wordType="WikiObj"
             isFamily={false}

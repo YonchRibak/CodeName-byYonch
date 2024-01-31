@@ -1,15 +1,16 @@
 import useGetWords from "@/Hooks/useGetWords";
 import { teams } from "../../../../public/db/teams";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import GameCard from "../GameCard";
 import { setNewItemInArrAtIndex } from "@/Utils/setNewItemInArrAtIndex";
 import RandomWord from "@/Models/randomWord";
 import "../GameArea.css";
+import useDisplayCards from "@/Hooks/useDisplayCards";
 
 function Family(): JSX.Element {
   const [familyWords, setFamilyWords] = useState<RandomWord[]>(); // a state for 25 family words to use on first render
   const [spareFamilyWords, setSpareFamilyWords] = useState<RandomWord[]>(); // a state for 25 family words to use for spare if user changes a word
-
+  const [showCards, setShowCards] = useState<boolean[]>(Array(25).fill(false)); // 25 states defaulted to 'false' for the display of the cards.
   const [currIndexForReplacement, setCurrIndexForReplacement] = useState(0); // the index by which to chose a word from spare words array
 
   const randomizedTeams = useMemo(() => {
@@ -20,12 +21,12 @@ function Family(): JSX.Element {
 
   const { randomWords, isError, isLoading } = useGetWords(true);
 
-  useEffect(() => {
-    if (randomWords?.length) {
-      setFamilyWords(randomWords.slice(0, 25)); // set 25 words for initial setting of the game.
-      setSpareFamilyWords(randomWords.slice(25)); // set other 25 words for spare, in case user opts to replace some of the words.
-    }
-  }, [randomWords]);
+  useDisplayCards<RandomWord>( // visit 'Hooks/' to learn more what the hook does.
+    randomWords,
+    setFamilyWords,
+    setSpareFamilyWords,
+    setShowCards
+  );
 
   if (isLoading) return <div>Loading...</div>; // display loading component.NOTE TO SELF: create loading component.
   if (isError) return <div>Error</div>; // display error component.NOTE TO SELF: create error component.
@@ -35,6 +36,7 @@ function Family(): JSX.Element {
       {familyWords?.length &&
         familyWords.map((_, index) => (
           <GameCard
+            showCard={showCards[index]}
             wordType="RandomWord"
             isFamily
             team={randomizedTeams[index]}

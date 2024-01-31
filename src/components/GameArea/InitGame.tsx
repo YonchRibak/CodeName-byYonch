@@ -10,9 +10,9 @@ function InitGame(): JSX.Element {
   const { setGameStarted } = useGameContext();
 
   const decks = [
-    { text: t("initGame.family"), href: "/family" },
-    { text: t("initGame.adults"), href: "/adults" },
-    { text: t("initGame.goNuts"), href: "/go-nuts" },
+    { id: 1, text: t("initGame.family"), href: "/family" },
+    { id: 2, text: t("initGame.adults"), href: "/adults" },
+    { id: 3, text: t("initGame.goNuts"), href: "/go-nuts" },
   ];
 
   return (
@@ -21,6 +21,7 @@ function InitGame(): JSX.Element {
         <h1 className="text-4xl">{t("initGame.title")}</h1>
         {decks.map((deck) => (
           <Card
+            key={deck.id}
             className="h-24 cursor-pointer"
             onClick={() => navigate(deck.href)}
           >

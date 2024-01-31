@@ -18,7 +18,6 @@ function CardText({
       const containerHeight = textContainer.current.offsetHeight;
       const screenHeight = window.innerHeight;
       const containerRelativeHeight = (containerHeight / screenHeight) * 100;
-      console.log(containerRelativeHeight, children); // NOTE TO SELF: REMEMBER TO REMOVE THIS LINE POST-PRODUCTION
 
       if (containerRelativeHeight > 20) {
         setAdjustedFontSize("text-xl");
