@@ -5,6 +5,7 @@ import { Info, RefreshCcw } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { useState } from "react";
 import CardText from "./CardText";
+import useGameContext from "@/Hooks/useGameContext";
 
 type GameCardProps = {
   isFamily: boolean;
@@ -18,6 +19,9 @@ type GameCardProps = {
 function GameCard(props: GameCardProps): JSX.Element {
   const [popoverState, setPopoverState] = useState(false);
   const [wordHasBeenReplaced, setWordHasBeenReplaced] = useState(false);
+
+  const { gameStarted } = useGameContext();
+
   function teamAssignClass(team: string): string {
     switch (team) {
       case "red":
@@ -35,7 +39,7 @@ function GameCard(props: GameCardProps): JSX.Element {
     <Card
       className={`${teamAssignClass(props.team)} game-card relative ${
         props.showCard ? "show" : ""
-      }`}
+      } ${gameStarted ? "game-in-session" : ""}`}
     >
       <Popover
         open={popoverState}
@@ -68,13 +72,15 @@ function GameCard(props: GameCardProps): JSX.Element {
         </CardText>
       </CardContent>
 
-      <RefreshCcw
-        className="replace-btn absolute top-1 right-1"
-        onClick={() => {
-          setWordHasBeenReplaced((prev) => !prev);
-          props.onReplaceBtnClick();
-        }}
-      />
+      {!gameStarted && (
+        <RefreshCcw
+          className="replace-btn absolute top-1 right-1"
+          onClick={() => {
+            setWordHasBeenReplaced((prev) => !prev);
+            props.onReplaceBtnClick();
+          }}
+        />
+      )}
     </Card>
   );
 }
