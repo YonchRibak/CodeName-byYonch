@@ -3,7 +3,7 @@ import "./GameArea.css";
 
 type CardTextProps = {
   children: ReactNode;
-  wordHasBeenReplaced: number;
+  wordHasBeenReplaced: boolean;
 };
 
 function CardText({

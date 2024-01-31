@@ -3,7 +3,6 @@ import { useEffect } from "react";
 
 function useStoreWikiData(wikiData: unknown[]) {
   useEffect(() => {
-    console.log("useStoreRan");
     if (
       !localStorage.getItem(`${i18n.language}-initWikis`) ||
       !localStorage.getItem(`${i18n.language}-spareWikis`)

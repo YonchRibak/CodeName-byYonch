@@ -46,7 +46,6 @@ function Adults(): JSX.Element {
             team={randomizedTeams[index]}
             key={words[index].id}
             word={words[index]}
-            wordHasBeenReplaced={currIndexForReplacement}
             onReplaceBtnClick={() => {
               setNewItemInArrAtIndex(
                 // visit function at 'Utils/' to learn about it's functionality.

@@ -12,13 +12,12 @@ type GameCardProps = {
   word: any;
   onReplaceBtnClick: (newWord?: any, index?: number) => void;
   team: "red" | "blue" | "bomb" | "neutral";
-  wordHasBeenReplaced: number;
   showCard: boolean;
 };
 
 function GameCard(props: GameCardProps): JSX.Element {
   const [popoverState, setPopoverState] = useState(false);
-
+  const [wordHasBeenReplaced, setWordHasBeenReplaced] = useState(false);
   function teamAssignClass(team: string): string {
     switch (team) {
       case "red":
@@ -60,7 +59,7 @@ function GameCard(props: GameCardProps): JSX.Element {
       </Popover>
 
       <CardContent className="card-content h-full flex justify-center items-center p-4">
-        <CardText wordHasBeenReplaced={props.wordHasBeenReplaced}>
+        <CardText wordHasBeenReplaced={wordHasBeenReplaced}>
           {props.wordType === "RandomWord" // card content depending on props.wordType.
             ? i18n.language === "en-US" // card content language depending on current selected language.
               ? props.word.English
@@ -71,7 +70,10 @@ function GameCard(props: GameCardProps): JSX.Element {
 
       <RefreshCcw
         className="replace-btn absolute top-1 right-1"
-        onClick={() => props.onReplaceBtnClick()}
+        onClick={() => {
+          setWordHasBeenReplaced((prev) => !prev);
+          props.onReplaceBtnClick();
+        }}
       />
     </Card>
   );

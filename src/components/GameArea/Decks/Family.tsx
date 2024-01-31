@@ -42,7 +42,6 @@ function Family(): JSX.Element {
             team={randomizedTeams[index]}
             key={familyWords[index].id}
             word={familyWords[index]}
-            wordHasBeenReplaced={currIndexForReplacement}
             onReplaceBtnClick={() => {
               setNewItemInArrAtIndex(
                 // visit function at 'Utils/' to learn about it's functionality.

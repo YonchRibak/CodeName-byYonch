@@ -74,7 +74,6 @@ function Wiki(): JSX.Element {
             isFamily={false}
             team={randomizedTeams[index]}
             word={wikis[index]}
-            wordHasBeenReplaced={currIndexForReplacement}
             onReplaceBtnClick={() => {
               setNewItemInArrAtIndex(
                 // visit function at 'Utils/' to learn about it's functionality.
