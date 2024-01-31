@@ -6,6 +6,7 @@ import { ThemeProvider } from "./components/theme-provider";
 import { Suspense } from "react";
 import useSetTitle from "./Hooks/useSetTitle";
 import { GameProvider } from "./components/game-provider";
+import { RevealCardsProvider } from "./components/reveal-cards-provider";
 
 const queryClient = new QueryClient();
 
@@ -17,7 +18,9 @@ function App() {
       <Suspense>
         <QueryClientProvider client={queryClient}>
           <GameProvider>
-            <Layout />
+            <RevealCardsProvider>
+              <Layout />
+            </RevealCardsProvider>
           </GameProvider>
         </QueryClientProvider>
       </Suspense>
