@@ -5,8 +5,6 @@ import GameCard from "../GameCard";
 import { setNewItemInArrAtIndex } from "@/Utils/setNewItemInArrAtIndex";
 import RandomWord from "@/Models/randomWord";
 import "../GameArea.css";
-import useGameContext from "@/Hooks/useGameContext";
-import { Button } from "@/components/ui/button";
 
 function Family(): JSX.Element {
   const [familyWords, setFamilyWords] = useState<RandomWord[]>(); // a state for 25 family words to use on first render
@@ -35,7 +33,7 @@ function Family(): JSX.Element {
   return (
     <div className="cards-container">
       {familyWords?.length &&
-        familyWords.map((familyWord, index) => (
+        familyWords.map((_, index) => (
           <GameCard
             wordType="RandomWord"
             isFamily

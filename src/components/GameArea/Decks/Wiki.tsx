@@ -13,36 +13,6 @@ function Wiki(): JSX.Element {
   const [spareWikis, setSpareWikis] = useState<WikiObj[]>(); // a state for 25 wiki words to use for spare if user changes a word
   const [currIndexForReplacement, setCurrIndexForReplacement] = useState(0); // the index by which to chose a word from spare words array
 
-  const [popoverStates, setPopoverStates] = useState([
-    // this is an array of 25 booleans set to false, to handle PopOver's "open" state
-    false,
-
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]);
-
   const randomizedTeams = useMemo(() => {
     return teams.sort(() => Math.random() - 0.5); // randomize teams for the game.
   }, []);
@@ -72,10 +42,10 @@ function Wiki(): JSX.Element {
     }
   }, [doneFetch]);
 
-  function handleFreshWikis() {
-    setWikis(spareWikis.slice(-25));
-    setSpareWikis((prev) => prev.slice(0, -25));
-  }
+  //   function handleFreshWikis() {
+  //     setWikis(spareWikis.slice(-25));
+  //     setSpareWikis((prev) => prev.slice(0, -25));
+  //   }
 
   if (!doneFetch && !wikis?.length) {
     return <div>Loading...</div>; // display loading component.NOTE TO SELF: create loading component.
@@ -84,7 +54,7 @@ function Wiki(): JSX.Element {
   return (
     <div className="cards-container">
       {wikis?.length &&
-        wikis.map((randomWiki, index) => (
+        wikis.map((_, index) => (
           <GameCard
             key={wikis[index].pageid}
             wordType="WikiObj"

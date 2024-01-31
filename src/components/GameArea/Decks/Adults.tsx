@@ -37,7 +37,7 @@ function Adults(): JSX.Element {
   return (
     <div className="cards-container">
       {words?.length &&
-        words.map((adultWord, index) => (
+        words.map((_, index) => (
           <GameCard
             wordType="RandomWord"
             isFamily={false}
