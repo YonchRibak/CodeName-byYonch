@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import GameCard from "../GameCard";
 import { setNewItemInArrAtIndex } from "@/Utils/setNewItemInArrAtIndex";
 import RandomWord from "@/Models/randomWord";
-
+import "../GameArea.css";
 function Adults(): JSX.Element {
   const [words, setWords] = useState<RandomWord[]>(); // a state for 25 words to use on first render
   const [spareWords, setSpareWords] = useState<RandomWord[]>(); // a state for 25 words to use for spare if user changes a word
@@ -35,7 +35,7 @@ function Adults(): JSX.Element {
   }
 
   return (
-    <div className="grid grid-cols-5 grid-rows-6 gap-8">
+    <div className="cards-container">
       {words?.length &&
         words.map((adultWord, index) => (
           <GameCard
@@ -44,6 +44,7 @@ function Adults(): JSX.Element {
             team={randomizedTeams[index]}
             key={words[index].id}
             word={words[index]}
+            wordHasBeenReplaced={currIndexForReplacement}
             onReplaceBtnClick={() => {
               setNewItemInArrAtIndex(
                 // visit function at 'Utils/' to learn about it's functionality.

@@ -3,14 +3,10 @@ import i18n from "@/i18n";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import GameCard from "../GameCard";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { setNewItemInArrAtIndex } from "@/Utils/setNewItemInArrAtIndex";
 import WikiObj from "@/Models/WikiObj";
 import { teams } from "../../../../public/db/teams";
+import "../GameArea.css";
 
 function Wiki(): JSX.Element {
   const [wikis, setWikis] = useState<WikiObj[]>(); // a state for 25 wiki words to use on first render
@@ -80,30 +76,13 @@ function Wiki(): JSX.Element {
     setWikis(spareWikis.slice(-25));
     setSpareWikis((prev) => prev.slice(0, -25));
   }
-  function handleMouseEnter(index: number) {
-    //this handles the hovering (mouse-enter) over a wiki value, and sets specified popOverState to true.
-    setPopoverStates((prevStates) => {
-      const newStates = [...prevStates];
-      newStates[index] = true;
-      return newStates;
-    });
-  }
-
-  function handleMouseLeave(index: number) {
-    //this handles the hovering (mouse-leave) over a wiki value, and sets specified popOverState back to false.
-    setPopoverStates((prevStates) => {
-      const newStates = [...prevStates];
-      newStates[index] = false;
-      return newStates;
-    });
-  }
 
   if (!doneFetch && !wikis?.length) {
     return <div>Loading...</div>; // display loading component.NOTE TO SELF: create loading component.
   }
 
   return (
-    <div className="grid grid-cols-5 grid-rows-6 gap-8">
+    <div className="cards-container">
       {wikis?.length &&
         wikis.map((randomWiki, index) => (
           <GameCard
@@ -112,6 +91,7 @@ function Wiki(): JSX.Element {
             isFamily={false}
             team={randomizedTeams[index]}
             word={wikis[index]}
+            wordHasBeenReplaced={currIndexForReplacement}
             onReplaceBtnClick={() => {
               setNewItemInArrAtIndex(
                 // visit function at 'Utils/' to learn about it's functionality.

@@ -1,0 +1,7 @@
+.main-container {
+  height: clamp(75vh, 100%, 90vh);
+  display: grid;
+  grid-template-columns: 1fr 6fr;
+  padding: 2rem;
+  gap: 2rem;
+}

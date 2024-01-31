@@ -1,3 +1,31 @@
+.cards-container {
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: 2rem;
+
+  overflow-y: hidden;
+}
+
+.game-card {
+  height: clamp(110px, 11vh, 15vh);
+}
+.card-content {
+  font-size: clamp(1px, 1.3rem, 1rem);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.another-class {
+  height: 20px;
+  background-color: aqua;
+}
+.text-container {
+  font-size: 2.125rem;
+  height: fit-content;
+  width: 100%;
+}
+
 .game-card:hover .replace-btn {
   opacity: 1;
   transition: opacity var(--fade-time) ease-in-out;
@@ -11,4 +39,11 @@
 .game-card:not(:hover) .replace-btn {
   opacity: 0;
   transition: opacity var(--fade-time) ease-in-out;
+}
+
+.ltr {
+  direction: ltr;
+}
+.rtl {
+  direction: rtl;
 }

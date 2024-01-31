@@ -4,6 +4,9 @@ import { useEffect, useMemo, useState } from "react";
 import GameCard from "../GameCard";
 import { setNewItemInArrAtIndex } from "@/Utils/setNewItemInArrAtIndex";
 import RandomWord from "@/Models/randomWord";
+import "../GameArea.css";
+import useGameContext from "@/Hooks/useGameContext";
+import { Button } from "@/components/ui/button";
 
 function Family(): JSX.Element {
   const [familyWords, setFamilyWords] = useState<RandomWord[]>(); // a state for 25 family words to use on first render
@@ -14,6 +17,8 @@ function Family(): JSX.Element {
   const randomizedTeams = useMemo(() => {
     return teams.sort(() => Math.random() - 0.5); // randomize teams for the game.
   }, []);
+
+  //   const { gameStarted, setGameStarted } = useGameContext();
 
   const { randomWords, isError, isLoading } = useGetWords(true);
 
@@ -28,7 +33,7 @@ function Family(): JSX.Element {
   if (isError) return <div>Error</div>; // display error component.NOTE TO SELF: create error component.
 
   return (
-    <div className="grid grid-cols-5 grid-rows-6 gap-8">
+    <div className="cards-container">
       {familyWords?.length &&
         familyWords.map((familyWord, index) => (
           <GameCard
@@ -37,6 +42,7 @@ function Family(): JSX.Element {
             team={randomizedTeams[index]}
             key={familyWords[index].id}
             word={familyWords[index]}
+            wordHasBeenReplaced={currIndexForReplacement}
             onReplaceBtnClick={() => {
               setNewItemInArrAtIndex(
                 // visit function at 'Utils/' to learn about it's functionality.

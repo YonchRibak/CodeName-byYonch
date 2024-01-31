@@ -6,15 +6,21 @@ function InitGame(): JSX.Element {
   const { t } = useTranslation();
   const navigate = useNavigate();
   return (
-    <div className="">
+    <div className="flex flex-col gap-8 ">
       <Card onClick={() => navigate("/family")}>
-        <CardContent>{t("initGame.family")}</CardContent>
+        <CardContent className="flex justify-center items-center h-full p-2">
+          {t("initGame.family")}
+        </CardContent>
       </Card>
       <Card onClick={() => navigate("/adults")}>
-        <CardContent>{t("initGame.adults")}</CardContent>
+        <CardContent className="flex justify-center items-center h-full p-2">
+          {t("initGame.adults")}
+        </CardContent>
       </Card>
       <Card onClick={() => navigate("/go-nuts")}>
-        <CardContent>{t("initGame.goNuts")}</CardContent>
+        <CardContent className="flex justify-center items-center h-full p-2">
+          {t("initGame.goNuts")}
+        </CardContent>
       </Card>
     </div>
   );

@@ -24,14 +24,10 @@ function useGetWords(isFamily: boolean = false) {
       // if isFamily is true, filter through and select only objects that have isFamily: true.
       return fetchedArr
         .filter((obj: RandomWord) => obj.isFamily)
-        .sort(() => Math.random() - 0.5) // sort the array randomly.
-        .slice(0, 50); // return only 50 objects. later they will be sliced to 2 arrays of length 25:
-      // an initial array to map through, and a spare one for when a user chooses to replace a word.
+        .sort(() => Math.random() - 0.5); // sort the array randomly.
     }
-    return fetchedArr.sort(() => Math.random() - 0.5).slice(0, 50); // if isFamily is false, sort the array randomly,
-  } // and return only 50 objects. later they will be sliced to 2 arrays of length 25:
-  // an initial array to map through,
-  // and a spare one for when a user chooses to replace a word.
+    return fetchedArr.sort(() => Math.random() - 0.5); // if isFamily is false, sort the array randomly,
+  }
 
   return { randomWords, isLoading, isError, refetch };
 }
