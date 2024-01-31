@@ -29,6 +29,7 @@
     "react-i18next": "^14.0.1",
     "react-query": "^3.39.3",
     "react-router-dom": "^6.21.3",
+    "string-to-path": "^1.0.5",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7"
   },
