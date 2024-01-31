@@ -13,9 +13,11 @@
     }
   },
   "initGame": {
+    "title": "בחרו קלפים",
     "family": "משפחה",
     "adults": "מבוגרים",
-    "goNuts": "!השתגע"
+    "goNuts": "!השתגע",
+    "startGameBtn": "התחל את המשחק"
   },
   "board": {
     "cards": {

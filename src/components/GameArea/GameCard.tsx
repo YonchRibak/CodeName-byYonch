@@ -47,7 +47,9 @@ function GameCard(props: GameCardProps): JSX.Element {
         >
           <Info className={props.wordType === "RandomWord" ? "hidden" : ""} />
         </PopoverTrigger>
-        <PopoverContent className={i18n.language === "en-US" ? "ltr" : "rtl"}>
+        <PopoverContent
+          className={"text-4xl " + i18n.language === "en-US" ? "ltr" : "rtl"}
+        >
           {props.word.extract}
         </PopoverContent>
       </Popover>

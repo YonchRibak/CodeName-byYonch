@@ -13,9 +13,11 @@
     }
   },
   "initGame": {
+    "title": "Select a Deck",
     "family": "Family",
     "adults": "Adults",
-    "goNuts": "Go Nuts!"
+    "goNuts": "Go Nuts!",
+    "startGameBtn": "Start the Game"
   },
   "board": {
     "cards": {

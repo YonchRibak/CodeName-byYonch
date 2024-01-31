@@ -18,13 +18,13 @@ function CardText({
       const containerHeight = textContainer.current.offsetHeight;
       const screenHeight = window.innerHeight;
       const containerRelativeHeight = (containerHeight / screenHeight) * 100;
-      console.log(containerRelativeHeight);
+      console.log(containerRelativeHeight, children); // NOTE TO SELF: REMEMBER TO REMOVE THIS LINE POST-PRODUCTION
 
       if (containerRelativeHeight > 20) {
         setAdjustedFontSize("text-xl");
-      } else if (containerRelativeHeight > 17 && containerRelativeHeight < 20) {
+      } else if (containerRelativeHeight > 15 && containerRelativeHeight < 20) {
         setAdjustedFontSize("text-2xl");
-      } else if (containerRelativeHeight > 9 && containerRelativeHeight < 17) {
+      } else if (containerRelativeHeight > 9 && containerRelativeHeight < 15) {
         setAdjustedFontSize("text-3xl");
       }
     }

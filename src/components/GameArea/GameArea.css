@@ -2,14 +2,15 @@
   height: 100%;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(5, 1fr);
-  gap: 2rem;
+  grid-template-rows: repeat(5, 15vh);
+  column-gap: 1.25rem;
+  row-gap: 0.25rem;
 
   overflow-y: hidden;
 }
 
 .game-card {
-  height: clamp(110px, 11vh, 15vh);
+  height: clamp(110px, 14vh, 15vh);
 }
 .card-content {
   font-size: clamp(1px, 1.3rem, 1rem);
@@ -43,7 +44,9 @@
 
 .ltr {
   direction: ltr;
+  font-size: 1.25rem;
 }
 .rtl {
   direction: rtl;
+  font-size: 1.25rem;
 }

@@ -3,11 +3,12 @@ import InitGame from "../GameArea/InitGame";
 import Wiki from "../GameArea/Decks/Wiki";
 import Family from "../GameArea/Decks/Family";
 import Adults from "../GameArea/Decks/Adults";
+import StartScreen from "./StartScreen";
 
 function Routing(): JSX.Element {
   return (
     <Routes>
-      <Route path="/" element={<InitGame />} />
+      <Route path="/" element={<StartScreen />} />
       <Route path="/go-nuts" element={<Wiki />} />
       <Route path="/family" element={<Family />} />
       <Route path="/adults" element={<Adults />} />

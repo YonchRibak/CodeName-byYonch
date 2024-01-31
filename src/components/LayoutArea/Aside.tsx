@@ -3,7 +3,7 @@ import "./LayoutArea.css";
 
 function Aside(): JSX.Element {
   return (
-    <div className="">
+    <div className="h-full">
       <InitGame />
     </div>
   );
