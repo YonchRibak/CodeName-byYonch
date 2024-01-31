@@ -2,7 +2,7 @@ import { Moon, Sun } from "lucide-react";
 import { useTheme } from "../theme-provider";
 import { Button } from "../ui/button";
 import { Link } from "react-router-dom";
-
+import appIconSrc from "../../../public/codeNameIcon.png";
 import { useTranslation } from "react-i18next";
 import { Toggle } from "../ui/toggle";
 
@@ -28,18 +28,14 @@ function Header(): JSX.Element {
   return (
     <div className="Header sm:flex sm:justify-between py-3 px-4 border-b">
       <div className="relative px-4 sm:px-6 lg:px-8 flex h-16 items-center justify-between w-full">
-        <div className="flex items-center">
-          <Link to="/" className="ml-4 lg:ml-0">
-            <h1 className="text-xl font-bold">{t("header.title")}</h1>
-          </Link>
+        <div className="grid grid-rows-1 grid-cols-3 w-[15%] items-center">
+          <img src={appIconSrc} className="scale-[70%] " />
+          <h1 className="text-4xl col-span-2 ">{t("header.title")}</h1>
         </div>
         <nav className="mx-6 flex items-center space-x-4 lg:space-x-6 hidden md:block">
           {routes.map((route, i) => (
             <Button key={i} asChild variant="ghost">
-              <Link
-                to={route.href}
-                className="text-sm font-medium transition-colors"
-              >
+              <Link to={route.href} className="text-3xl">
                 {route.label}
               </Link>
             </Button>
@@ -56,6 +52,7 @@ function Header(): JSX.Element {
             <span className="sr-only">Toggle Theme</span>
           </Button>
           <Toggle
+            className="text-3xl"
             onClick={() =>
               i18n.changeLanguage(i18n.language === "he-IL" ? "en-US" : "he-IL")
             }
