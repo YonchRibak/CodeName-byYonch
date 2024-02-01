@@ -19,6 +19,10 @@
     "goNuts": "!השתגע",
     "startGameBtn": "התחל את המשחק"
   },
+  "manageGame": {
+    "submitBtn": "הגישו תשובה",
+    "abortBtn": "יציאה מהמשחק"
+  },
   "board": {
     "cards": {
       "hoverStatement": ".אין עוד מידע זמין"

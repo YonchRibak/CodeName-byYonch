@@ -19,6 +19,10 @@
     "goNuts": "Go Nuts!",
     "startGameBtn": "Start the Game"
   },
+  "manageGame": {
+    "submitBtn": "Submit answer",
+    "abortBtn": "Abort Game"
+  },
   "board": {
     "cards": {
       "hoverStatement": "No more info available."
