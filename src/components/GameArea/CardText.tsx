@@ -4,11 +4,13 @@ import "./GameArea.css";
 type CardTextProps = {
   children: ReactNode;
   wordHasBeenReplaced: boolean;
+  className: string;
 };
 
 function CardText({
   children,
   wordHasBeenReplaced,
+  className,
 }: CardTextProps): JSX.Element {
   const textContainer = useRef(null);
   const [adjustedFontSize, setAdjustedFontSize] = useState("text-4xl");
@@ -30,7 +32,10 @@ function CardText({
   }, [wordHasBeenReplaced]);
 
   return (
-    <div ref={textContainer} className={"h-auto w-full " + adjustedFontSize}>
+    <div
+      ref={textContainer}
+      className={"h-auto w-full " + adjustedFontSize + " " + className}
+    >
       {children}
     </div>
   );

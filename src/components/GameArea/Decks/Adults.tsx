@@ -6,9 +6,8 @@ import { setNewItemInArrAtIndex } from "@/Utils/setNewItemInArrAtIndex";
 import RandomWord from "@/Models/randomWord";
 import "../GameArea.css";
 import useDisplayCards from "@/Hooks/useDisplayCards";
+import useGameContext from "@/Hooks/useGameContext";
 function Adults(): JSX.Element {
-  const [words, setWords] = useState<RandomWord[]>(); // a state for 25 words to use on first render
-  const [spareWords, setSpareWords] = useState<RandomWord[]>(); // a state for 25 words to use for spare if user changes a word
   const [showCards, setShowCards] = useState<boolean[]>(Array(25).fill(false));
   const [currIndexForReplacement, setCurrIndexForReplacement] = useState(0); // the index by which to chose a word from spare words array
 
@@ -16,41 +15,38 @@ function Adults(): JSX.Element {
     return teams.sort(() => Math.random() - 0.5); // randomize teams for the game.
   }, []);
 
-  const {
-    randomWords,
-    isError: adultsIsError,
-    isLoading: adultsIsLoading,
-  } = useGetWords(false);
+  const { session } = useGameContext();
+
+  const { randomWords, isError, isLoading } = useGetWords(false);
 
   useDisplayCards<RandomWord>( // visit 'Hooks/' to learn more what the hook does.
     randomWords,
-    setWords,
-    setSpareWords,
+
     setShowCards
   );
 
-  if (adultsIsLoading) {
+  if (isLoading) {
     return <div>Loading...</div>; // display loading component.NOTE TO SELF: create loading component.
-  } else if (adultsIsError) {
+  } else if (isError) {
     return <div>Error!!</div>; // display error component.NOTE TO SELF: create error component.
   }
 
   return (
     <div className="cards-container">
-      {words?.length &&
-        words.map((_, index) => (
+      {session.cards?.length &&
+        session.cards.map((_, index) => (
           <GameCard
             showCard={showCards[index]}
             wordType="RandomWord"
             isFamily={false}
             team={randomizedTeams[index]}
-            key={words[index].id}
-            word={words[index]}
+            key={(session.cards[index] as RandomWord).id}
+            word={session.cards[index]}
             onReplaceBtnClick={() => {
               setNewItemInArrAtIndex(
                 // visit function at 'Utils/' to learn about it's functionality.
-                setWords,
-                spareWords[currIndexForReplacement],
+
+                session.spareCards[currIndexForReplacement],
                 index
               );
               setCurrIndexForReplacement((prev) => prev + 1);

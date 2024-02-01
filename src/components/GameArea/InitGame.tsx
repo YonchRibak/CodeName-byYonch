@@ -3,11 +3,15 @@ import { Card, CardContent } from "../ui/card";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
 import useGameContext from "@/Hooks/useGameContext";
+import { uid } from "uid";
+import { useState } from "react";
 
 function InitGame(): JSX.Element {
+  const [deckSelectedId, SetDeckSelectedId] = useState<number>(0);
+
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { setGameStarted } = useGameContext();
+  const { setSession } = useGameContext();
 
   const decks = [
     { id: 1, text: t("initGame.family"), href: "/family" },
@@ -23,7 +27,10 @@ function InitGame(): JSX.Element {
           <Card
             key={deck.id}
             className="h-24 cursor-pointer"
-            onClick={() => navigate(deck.href)}
+            onClick={() => {
+              SetDeckSelectedId(deck.id);
+              navigate(deck.href);
+            }}
           >
             <CardContent className="flex justify-center items-center h-full p-2 text-4xl">
               {deck.text}
@@ -32,8 +39,23 @@ function InitGame(): JSX.Element {
         ))}
       </div>
       <Button
-        onClick={() => setGameStarted(true)}
-        className="text-4xl h-40 bg-pink-500 mb-56"
+        onClick={() =>
+          setSession((prevSession) => ({
+            ...prevSession,
+            sessionId: uid(6),
+            gameStarted: true,
+            redScore: 0,
+            blueScore: 0,
+            turnsPlayed: 0,
+            currDeck:
+              deckSelectedId === 1
+                ? "Family"
+                : deckSelectedId === 2
+                ? "Adults"
+                : "Wiki",
+          }))
+        }
+        className="text-4xl h-40 bg-primary mb-56"
       >
         {t("initGame.startGameBtn")}
       </Button>

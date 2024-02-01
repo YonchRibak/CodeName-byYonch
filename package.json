@@ -25,13 +25,16 @@
     "i18next-http-backend": "^2.4.2",
     "lucide-react": "^0.316.0",
     "react": "^18.2.0",
+    "react-confetti-explosion": "^2.1.2",
     "react-dom": "^18.2.0",
     "react-i18next": "^14.0.1",
     "react-query": "^3.39.3",
     "react-router-dom": "^6.21.3",
+    "react-timer-mixin": "^0.13.4",
     "string-to-path": "^1.0.5",
     "tailwind-merge": "^2.2.1",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "uid": "^2.0.2"
   },
   "devDependencies": {
     "@types/node": "^20.11.9",

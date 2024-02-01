@@ -7,12 +7,14 @@ import { setNewItemInArrAtIndex } from "@/Utils/setNewItemInArrAtIndex";
 import WikiObj from "@/Models/WikiObj";
 import { teams } from "../../../../public/db/teams";
 import "../GameArea.css";
+import useGameContext from "@/Hooks/useGameContext";
 
 function Wiki(): JSX.Element {
-  const [wikis, setWikis] = useState<WikiObj[]>(); // a state for 25 wiki words to use on first render
-  const [spareWikis, setSpareWikis] = useState<WikiObj[]>(); // a state for 25 wiki words to use for spare if user changes a word
   const [currIndexForReplacement, setCurrIndexForReplacement] = useState(0); // the index by which to chose a word from spare words array
   const [showCards, setShowCards] = useState<boolean[]>(Array(25).fill(false)); // 25 states defaulted to 'false' for the display of the cards.
+
+  const { session, setSession } = useGameContext();
+
   const randomizedTeams = useMemo(() => {
     return teams.sort(() => Math.random() - 0.5); // randomize teams for the game.
   }, []);
@@ -24,10 +26,16 @@ function Wiki(): JSX.Element {
       localStorage.getItem(`${i18n.language}-initWikis`) ||
       localStorage.getItem(`${i18n.language}-spareWikis`)
     ) {
-      setWikis(JSON.parse(localStorage.getItem(`${i18n.language}-initWikis`)));
-      setSpareWikis(
-        JSON.parse(localStorage.getItem(`${i18n.language}-spareWikis`))
-      );
+      setSession((prevSession) => ({
+        ...prevSession,
+        cards: JSON.parse(localStorage.getItem(`${i18n.language}-initWikis`)),
+      }));
+      setSession((prevSession) => ({
+        ...prevSession,
+        spareCards: JSON.parse(
+          localStorage.getItem(`${i18n.language}-spareWikis`)
+        ),
+      }));
     }
   }, []);
 
@@ -35,15 +43,21 @@ function Wiki(): JSX.Element {
 
   useEffect(() => {
     if (doneFetch) {
-      setWikis(JSON.parse(localStorage.getItem(`${i18n.language}-initWikis`)));
-      setSpareWikis(
-        JSON.parse(localStorage.getItem(`${i18n.language}-spareWikis`))
-      );
+      setSession((prevSession) => ({
+        ...prevSession,
+        cards: JSON.parse(localStorage.getItem(`${i18n.language}-initWikis`)),
+      }));
+      setSession((prevSession) => ({
+        ...prevSession,
+        spareCards: JSON.parse(
+          localStorage.getItem(`${i18n.language}-spareWikis`)
+        ),
+      }));
     }
   }, [doneFetch]);
 
   useEffect(() => {
-    if (wikis?.length > 0) {
+    if (session.cards?.length > 0) {
       const showDelay = 100;
 
       for (let i = 0; i < 25; i++) {
@@ -57,28 +71,28 @@ function Wiki(): JSX.Element {
         }, i * showDelay);
       }
     }
-  }, [wikis]);
+  }, [session.cards]);
 
-  if (!doneFetch && !wikis?.length) {
+  if (!doneFetch && !session.cards?.length) {
     return <div>Loading...</div>; // display loading component.NOTE TO SELF: create loading component.
   }
 
   return (
     <div className="cards-container">
-      {wikis?.length &&
-        wikis.map((_, index) => (
+      {session.cards?.length &&
+        session.cards.map((_, index) => (
           <GameCard
             showCard={showCards[index]}
-            key={wikis[index].pageid}
+            key={(session.cards[index] as WikiObj).pageid}
             wordType="WikiObj"
             isFamily={false}
             team={randomizedTeams[index]}
-            word={wikis[index]}
+            word={session.cards[index]}
             onReplaceBtnClick={() => {
               setNewItemInArrAtIndex(
                 // visit function at 'Utils/' to learn about it's functionality.
-                setWikis,
-                spareWikis[currIndexForReplacement],
+
+                session.spareCards[currIndexForReplacement],
                 index
               );
               setCurrIndexForReplacement((prev) => prev + 1);
