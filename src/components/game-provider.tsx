@@ -17,7 +17,7 @@ export type Session = {
   sessionId: string;
   gameStarted: boolean;
   currDeck: "Family" | "Adults" | "Wiki" | undefined;
-  cards: RandomWord[] | WikiObj[];
+  cards: (RandomWord | WikiObj)[];
   spareCards: RandomWord[] | WikiObj[];
   teamAscription: string[];
   turnsPlayed: number;

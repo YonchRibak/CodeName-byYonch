@@ -87,14 +87,19 @@ function Wiki(): JSX.Element {
             team={session.teamAscription[index]}
             word={session.cards[index]}
             onReplaceBtnClick={() => {
-              setNewItemInArrAtIndex(
-                // visit function at 'Utils/' to learn about it's functionality.
+              setSession((prevSession) => {
+                return {
+                  ...prevSession,
+                  cards: [
+                    ...prevSession.cards.slice(0, index),
+                    prevSession.spareCards[currIndexForReplacement] as WikiObj,
+                    ...prevSession.cards.slice(index + 1),
+                  ],
+                };
+              });
 
-                session.spareCards[currIndexForReplacement],
-                index
-              );
               setCurrIndexForReplacement((prev) => prev + 1);
-              // increase currIndexForReplacement so that next card change will bring a different word from spare words array.
+              // increase currIndexForReplacement so that the next card change will bring a different word from spare words array.
             }}
           />
         ))}

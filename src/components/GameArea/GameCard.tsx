@@ -132,7 +132,7 @@ function GameCard(props: GameCardProps): JSX.Element {
 
       {!session.gameStarted && (
         <RefreshCcw
-          className="replace-btn absolute top-1 right-1 "
+          className="replace-btn absolute top-4 right-4 scale-125 cursor-pointer "
           onClick={() => {
             setWordHasBeenReplaced((prev) => !prev);
             props.onReplaceBtnClick();

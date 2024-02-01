@@ -15,7 +15,7 @@ function useDisplayCards<T>(
       setSession((prevSession) => ({
         ...prevSession,
         cards: wordsArr.slice(0, 25) as RandomWord[] | WikiObj[], // set 25 words for initial setting of the game.
-        spareCards: wordsArr.slice(25) as RandomWord[] | WikiObj[], // set other 25 words for spare, in case user opts to replace some of the words.
+        spareCards: wordsArr.slice(25) as RandomWord[] | WikiObj[], // set other words for spare, in case user opts to replace some of the words.
       }));
 
       const showDelay = 100;
