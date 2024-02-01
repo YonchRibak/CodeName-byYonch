@@ -1,11 +1,11 @@
 import useGetRandomWikiVals from "@/Hooks/useGetRandomWikiVals";
 import i18n from "@/i18n";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import GameCard from "../GameCard";
 import { setNewItemInArrAtIndex } from "@/Utils/setNewItemInArrAtIndex";
 import WikiObj from "@/Models/WikiObj";
-import { teams } from "../../../../public/db/teams";
+
 import "../GameArea.css";
 import useGameContext from "@/Hooks/useGameContext";
 
@@ -15,9 +15,6 @@ function Wiki(): JSX.Element {
 
   const { session, setSession } = useGameContext();
 
-  const randomizedTeams = useMemo(() => {
-    return teams.sort(() => Math.random() - 0.5); // randomize teams for the game.
-  }, []);
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -86,7 +83,7 @@ function Wiki(): JSX.Element {
             key={(session.cards[index] as WikiObj).pageid}
             wordType="WikiObj"
             isFamily={false}
-            team={randomizedTeams[index]}
+            team={session.teamAscription[index]}
             word={session.cards[index]}
             onReplaceBtnClick={() => {
               setNewItemInArrAtIndex(

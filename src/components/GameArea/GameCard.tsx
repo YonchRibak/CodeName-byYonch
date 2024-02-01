@@ -12,7 +12,7 @@ type GameCardProps = {
   wordType: string;
   word: any;
   onReplaceBtnClick: (newWord?: any, index?: number) => void;
-  team: "red" | "blue" | "bomb" | "neutral";
+  team: string;
   showCard: boolean;
 };
 

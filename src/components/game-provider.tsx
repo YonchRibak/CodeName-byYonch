@@ -7,6 +7,7 @@ import {
   createContext,
   useState,
 } from "react";
+import { uid } from "uid";
 
 type GameProviderProps = {
   children: ReactNode;
@@ -15,12 +16,13 @@ type GameProviderProps = {
 export type Session = {
   sessionId: string;
   gameStarted: boolean;
-  redScore: number;
-  blueScore: number;
-  turnsPlayed: number;
+  currDeck: "Family" | "Adults" | "Wiki" | undefined;
   cards: RandomWord[] | WikiObj[];
   spareCards: RandomWord[] | WikiObj[];
-  currDeck: "Family" | "Adults" | "Wiki";
+  teamAscription: string[];
+  turnsPlayed: number;
+  redScore: number;
+  blueScore: number;
 };
 
 type GameModeController = {
@@ -32,7 +34,17 @@ export const GameContext = createContext<GameModeController | undefined>(
 );
 
 export function GameProvider({ children }: GameProviderProps) {
-  const [session, setSession] = useState<Session>();
+  const [session, setSession] = useState<Session>({
+    sessionId: uid(6),
+    gameStarted: false,
+    currDeck: undefined,
+    cards: [],
+    spareCards: [],
+    turnsPlayed: 0,
+    teamAscription: [],
+    redScore: 0,
+    blueScore: 0,
+  });
 
   return (
     <GameContext.Provider
