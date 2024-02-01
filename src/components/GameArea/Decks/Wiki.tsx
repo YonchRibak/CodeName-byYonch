@@ -8,6 +8,7 @@ import WikiObj from "@/Models/WikiObj";
 
 import "../GameArea.css";
 import useGameContext from "@/Hooks/useGameContext";
+import Loading from "@/components/SharedArea/Interact/Loading";
 
 function Wiki(): JSX.Element {
   const [currIndexForReplacement, setCurrIndexForReplacement] = useState(0); // the index by which to chose a word from spare words array
@@ -71,7 +72,7 @@ function Wiki(): JSX.Element {
   }, [session.cards]);
 
   if (!doneFetch && !session.cards?.length) {
-    return <div>Loading...</div>; // display loading component.NOTE TO SELF: create loading component.
+    return <Loading />; // display loading component.
   }
 
   return (

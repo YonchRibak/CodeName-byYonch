@@ -1,5 +1,4 @@
 import { Route, Routes } from "react-router-dom";
-import InitGame from "../GameArea/InitGame";
 import Wiki from "../GameArea/Decks/Wiki";
 import Family from "../GameArea/Decks/Family";
 import Adults from "../GameArea/Decks/Adults";

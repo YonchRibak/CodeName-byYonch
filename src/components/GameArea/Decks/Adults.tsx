@@ -6,6 +6,7 @@ import RandomWord from "@/Models/randomWord";
 import "../GameArea.css";
 import useDisplayCards from "@/Hooks/useDisplayCards";
 import useGameContext from "@/Hooks/useGameContext";
+import Loading from "@/components/SharedArea/Interact/Loading";
 function Adults(): JSX.Element {
   const [showCards, setShowCards] = useState<boolean[]>(Array(25).fill(false));
   const [currIndexForReplacement, setCurrIndexForReplacement] = useState(0); // the index by which to chose a word from spare words array
@@ -21,7 +22,7 @@ function Adults(): JSX.Element {
   );
 
   if (isLoading) {
-    return <div>Loading...</div>; // display loading component.NOTE TO SELF: create loading component.
+    return <Loading />; // display loading component.
   } else if (isError) {
     return <div>Error!!</div>; // display error component.NOTE TO SELF: create error component.
   }
