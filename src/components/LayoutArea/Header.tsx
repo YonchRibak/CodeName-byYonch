@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import appIconSrc from "../../../public/codeNameIcon.png";
 import { useTranslation } from "react-i18next";
 import { Toggle } from "../ui/toggle";
+import "./LayoutArea.css";
 
 function Header(): JSX.Element {
   const { theme, setTheme } = useTheme();
@@ -34,8 +35,8 @@ function Header(): JSX.Element {
         </div>
         <nav className="mx-6 flex items-center space-x-4 lg:space-x-6 hidden md:block">
           {routes.map((route, i) => (
-            <Button key={i} asChild variant="ghost">
-              <Link to={route.href} className="text-3xl">
+            <Button key={i} asChild size="lg" variant="ghost">
+              <Link to={route.href} className="text-size-important">
                 {route.label}
               </Link>
             </Button>

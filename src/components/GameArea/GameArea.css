@@ -7,61 +7,78 @@
   row-gap: 0.25rem;
 }
 
-.game-card {
+.cards-container > .game-card {
   height: clamp(110px, 14vh, 15vh);
   opacity: 0;
   transform: translate(20px, 20px);
   transition: all 0.5s ease;
 }
-.game-card.game-in-session {
+.cards-container > .game-card.game-in-session {
   /* box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); */
   transition: all 0.3s ease-in-out;
 }
-.game-card.game-in-session:hover {
+.cards-container > .game-card.game-in-progress:hover {
   transform: scale(110%);
   /* box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0.7); */
 }
-.show {
+.cards-container > .selected {
+  /* scale: 110%; */
+  box-shadow: 0 0 20px rgba(255, 255, 255, 1) !important;
+  box-shadow: 0 0 40px rgba(255, 255, 255, 1) !important;
+  box-shadow: 0 0 60px rgba(255, 255, 255, 1) !important;
+  box-shadow: 0 0 80px rgba(255, 255, 255, 1) !important;
+
+  transition: box-shadow 1s;
+}
+.cards-container > .bomb {
+  z-index: 3;
+
+  box-shadow: 0 0 0 20px rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 0 0 40px rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 0 0 80px rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 0 0 160px rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 0 0 320px rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 0 0 640px rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 0 0 880px rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 0 0 1280px rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 0 0 1880px rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 0 0 2560px rgba(255, 255, 255, 0.1) !important;
+}
+/* .exploded > .card-content > .card-text {
+  text-shadow: 3px 3px 6px var(--accent);
+  color: var(--accent);
+} */
+.cards-container > .show {
   opacity: 1;
   transform: translate(0, 0);
 }
-.selected {
-}
-.card-content {
+
+.cards-container > .game-card > .card-content {
   font-size: clamp(1px, 1.3rem, 1rem);
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.another-class {
-  height: 20px;
-  background-color: aqua;
-}
-.text-container {
-  font-size: 2.125rem;
-  height: fit-content;
-  width: 100%;
-}
 
-.game-card:hover .replace-btn {
+.cards-container > .game-card:hover .replace-btn {
   opacity: 1;
   transition: opacity var(--fade-time) ease-in-out;
 }
 
-.replace-btn {
+.cards-container > .game-card > .replace-btn {
   opacity: 0;
   transition: opacity var(--fade-time) ease-in-out;
 }
 
-.game-card:not(:hover) .replace-btn {
+.cards-container > .game-card:not(:hover) .replace-btn {
   opacity: 0;
   transition: opacity var(--fade-time) ease-in-out;
 }
 
-.ltr {
+.game-card > .ltr {
   direction: ltr;
   font-size: 1.25rem;
 }
-.rtl {
+.game-card > .rtl {
   direction: rtl;
   font-size: 1.25rem;
 }
