@@ -12,6 +12,7 @@
   opacity: 0;
   transform: translate(20px, 20px);
   transition: all 0.5s ease;
+  box-shadow: ;
 }
 .cards-container > .game-card.game-in-session {
   /* box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); */
@@ -74,11 +75,15 @@
   transition: opacity var(--fade-time) ease-in-out;
 }
 
-.game-card > .ltr {
+.ltr {
   direction: ltr;
-  font-size: 1.25rem;
 }
-.game-card > .rtl {
+.rtl {
   direction: rtl;
+}
+.card-text {
+  user-select: none;
+}
+.popover-text {
   font-size: 1.25rem;
 }

@@ -104,14 +104,16 @@ function GameCard(props: GameCardProps): JSX.Element {
       >
         <PopoverTrigger
           disabled={props.wordType === "RandomWord"}
-          className="max-w-min absolute top-1 left-1"
+          className="max-w-min absolute top-2 left-2 4xl:top-4 4xl:left-4 4xl:scale-125"
           onMouseEnter={() => setPopoverState(true)}
           onMouseLeave={() => setPopoverState(false)}
         >
           <Info className={props.wordType === "RandomWord" ? "hidden" : " "} />
         </PopoverTrigger>
         <PopoverContent
-          className={"text-4xl " + i18n.language === "en-US" ? "ltr " : "rtl "}
+          className={
+            "popover-text " + (i18n.language === "en-US" ? "ltr " : "rtl ")
+          }
         >
           {props.word.extract}
         </PopoverContent>
@@ -120,7 +122,7 @@ function GameCard(props: GameCardProps): JSX.Element {
       <CardContent className="card-content h-full flex justify-center items-center p-4 ">
         <CardText
           wordHasBeenReplaced={wordHasBeenReplaced}
-          className="card-text "
+          className={"card-text " + i18n.language === "en-US" ? "ltr " : "rtl "}
         >
           {props.wordType === "RandomWord" // card content depending on props.wordType.
             ? i18n.language === "en-US" // card content language depending on current selected language.
@@ -132,7 +134,7 @@ function GameCard(props: GameCardProps): JSX.Element {
 
       {!session.gameStarted && (
         <RefreshCcw
-          className="replace-btn absolute top-4 right-4 scale-125 cursor-pointer "
+          className="replace-btn absolute top-2 left-2 4xl:top-4 4xl:left-4 4xl:scale-125 cursor-pointer "
           onClick={() => {
             setWordHasBeenReplaced((prev) => !prev);
             props.onReplaceBtnClick();
