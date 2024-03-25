@@ -22,12 +22,10 @@ type GameCardProps = {
 function GameCard(props: GameCardProps): JSX.Element {
   const [popoverState, setPopoverState] = useState(false);
   const [wordHasBeenReplaced, setWordHasBeenReplaced] = useState(false);
-  const [activeTurnNumber, setActiveTurnNumber] = useState<number>(0);
 
   const { session } = useGameContext();
 
   function handleCardStatus() {
-    setActiveTurnNumber(session.turnsPlayed);
     if (
       session.gameStarted &&
       props.cardStatus !== "selected" &&
@@ -39,22 +37,14 @@ function GameCard(props: GameCardProps): JSX.Element {
         updatedStatus[props.index] = "selected"; // Updating the status at the specified index
         return updatedStatus; // Returning the updated array
       });
-
-      setActiveTurnNumber(session.turnsPlayed + 1);
     }
-    if (
-      session.gameStarted &&
-      session.turnsPlayed === activeTurnNumber &&
-      props.cardStatus === "selected"
-    ) {
+    if (session.gameStarted && props.cardStatus === "selected") {
       // card was clicked again after selection
       props.setCardStatus((prev) => {
         const updatedStatus = [...prev]; // Creating a copy of the previous state
         updatedStatus[props.index] = ""; // Updating the status at the specified index
         return updatedStatus; // Returning the updated array
       });
-
-      setActiveTurnNumber(-1);
     }
   }
 
