@@ -2,7 +2,6 @@ import { useEffect } from "react";
 
 function useStoreWikiData(wikiData: unknown[], lang: string) {
   useEffect(() => {
-    console.log(lang);
     if (
       !localStorage.getItem(`${lang}-initWikis`) ||
       !localStorage.getItem(`${lang}-spareWikis`)
