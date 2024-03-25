@@ -27,11 +27,11 @@ function Family(): JSX.Element {
       {session.cards?.length &&
         session.cards.map((_, index) => (
           <GameCard
+            key={(session.cards[index] as RandomWord).id}
             showCard={showCards[index]}
             wordType="RandomWord"
             isFamily
             team={session.teamAscription[index]}
-            key={(session.cards[index] as RandomWord).id}
             word={session.cards[index]}
             onReplaceBtnClick={() => {
               setSession((prevSession) => {
