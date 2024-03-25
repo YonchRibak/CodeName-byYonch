@@ -24,7 +24,7 @@ function GameCard(props: GameCardProps): JSX.Element {
   const [wordHasBeenReplaced, setWordHasBeenReplaced] = useState(false);
   const [activeTurnNumber, setActiveTurnNumber] = useState<number>(0);
 
-  const { session, setSession } = useGameContext();
+  const { session } = useGameContext();
 
   function handleCardStatus() {
     setActiveTurnNumber(session.turnsPlayed);
