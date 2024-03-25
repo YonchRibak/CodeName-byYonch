@@ -3,23 +3,25 @@ import i18n from "@/i18n";
 import "./GameArea.css";
 import { Info, RefreshCcw } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import CardText from "./CardText";
 import useGameContext from "@/Hooks/useGameContext";
 
 type GameCardProps = {
+  index: number;
   isFamily: boolean;
   wordType: string;
   word: any;
   onReplaceBtnClick: (newWord?: any, index?: number) => void;
   team: string;
   showCard: boolean;
+  cardStatus: string;
+  setCardStatus: Dispatch<SetStateAction<string[]>>;
 };
 
 function GameCard(props: GameCardProps): JSX.Element {
   const [popoverState, setPopoverState] = useState(false);
   const [wordHasBeenReplaced, setWordHasBeenReplaced] = useState(false);
-  const [cardStatus, setCardStatus] = useState("");
   const [activeTurnNumber, setActiveTurnNumber] = useState<number>(0);
 
   const { session, setSession } = useGameContext();
@@ -28,53 +30,33 @@ function GameCard(props: GameCardProps): JSX.Element {
     setActiveTurnNumber(session.turnsPlayed);
     if (
       session.gameStarted &&
-      cardStatus !== "selected" &&
-      cardStatus !== "revealed"
+      props.cardStatus !== "selected" &&
+      props.cardStatus !== "revealed"
     ) {
       // card was first selected
-      setCardStatus("selected");
+      props.setCardStatus((prev) => {
+        const updatedStatus = [...prev]; // Creating a copy of the previous state
+        updatedStatus[props.index] = "selected"; // Updating the status at the specified index
+        return updatedStatus; // Returning the updated array
+      });
+
       setActiveTurnNumber(session.turnsPlayed + 1);
     }
     if (
       session.gameStarted &&
       session.turnsPlayed === activeTurnNumber &&
-      cardStatus === "selected"
+      props.cardStatus === "selected"
     ) {
       // card was clicked again after selection
-      setCardStatus("");
+      props.setCardStatus((prev) => {
+        const updatedStatus = [...prev]; // Creating a copy of the previous state
+        updatedStatus[props.index] = ""; // Updating the status at the specified index
+        return updatedStatus; // Returning the updated array
+      });
+
       setActiveTurnNumber(-1);
     }
   }
-
-  useEffect(() => {
-    if (
-      session.gameStarted &&
-      session.turnsPlayed === activeTurnNumber &&
-      cardStatus === "selected"
-    ) {
-      if (props.team === "bomb") {
-        setCardStatus(`revealed ${teamAssignClass(props.team)}`);
-        setTimeout(() => {
-          setCardStatus("exploded");
-        }, 500);
-      }
-      setCardStatus(`revealed ${teamAssignClass(props.team)}`);
-      if (props.team === "red")
-        setSession((prevSession) => ({
-          ...prevSession,
-          redScore: session.redScore + 1,
-        }));
-      if (props.team === "blue")
-        setSession((prevSession) => ({
-          ...prevSession,
-          redScore: session.blueScore + 1,
-        }));
-    }
-
-    if (!session.gameStarted) {
-      setCardStatus("");
-    }
-  }, [session.turnsPlayed, session.gameStarted]);
 
   function teamAssignClass(team: string): string {
     switch (team) {
@@ -91,10 +73,12 @@ function GameCard(props: GameCardProps): JSX.Element {
 
   return (
     <Card
-      onClick={cardStatus === "revealed" ? null : handleCardStatus}
-      className={`${cardStatus} game-card relative ${
-        props.showCard ? "show " : " "
-      } ${session.gameStarted ? "game-in-progress cursor-pointer " : " "} `}
+      onClick={props.cardStatus === "revealed" ? null : handleCardStatus}
+      className={`${props.cardStatus} ${
+        props.cardStatus === "revealed" ? teamAssignClass(props.team) : " "
+      } game-card relative ${props.showCard ? "show " : " "} ${
+        session.gameStarted ? "game-in-progress cursor-pointer " : " "
+      } `}
     >
       <Popover
         open={popoverState}

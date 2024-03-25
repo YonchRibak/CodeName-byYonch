@@ -6,11 +6,12 @@ import WikiObj from "@/Models/WikiObj";
 import "../GameArea.css";
 import useGameContext from "@/Hooks/useGameContext";
 import Loading from "@/components/SharedArea/Interact/Loading";
+import useRevealSelectedCards from "@/Hooks/useRevealSelectedCards";
 
 function Wiki(): JSX.Element {
   const [currIndexForReplacement, setCurrIndexForReplacement] = useState(0); // the index by which to chose a word from spare words array
   const [showCards, setShowCards] = useState<boolean[]>(Array(25).fill(false)); // 25 states defaulted to 'false' for the display of the cards.
-
+  const [cardStatus, setCardStatus] = useState<string[]>(Array(25).fill(""));
   const { session, setSession } = useGameContext();
 
   useEffect(() => {
@@ -73,6 +74,7 @@ function Wiki(): JSX.Element {
     }
   }, [doneEngFetch, doneHebFetch]);
 
+  useRevealSelectedCards(cardStatus, setCardStatus);
   if (
     (!localStorage.getItem("en-US-initWikis") && i18n.language === "en-US") ||
     (!localStorage.getItem("he-IL-initWikis") && i18n.language === "he-IL")
@@ -83,13 +85,16 @@ function Wiki(): JSX.Element {
   return (
     <div className="cards-container">
       {session.cards?.length &&
-        session.cards.map((_, index) => (
+        session.cards.map((card, index) => (
           <GameCard
+            key={(card as WikiObj).pageid}
+            index={index}
             showCard={showCards[index]}
-            key={(session.cards[index] as WikiObj).pageid}
             wordType="WikiObj"
             isFamily={false}
             team={session.teamAscription[index]}
+            cardStatus={cardStatus[index]}
+            setCardStatus={setCardStatus}
             word={session.cards[index]}
             onReplaceBtnClick={() => {
               setSession((prevSession) => {

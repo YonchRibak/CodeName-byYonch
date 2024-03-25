@@ -1,17 +1,17 @@
 import useGetWords from "@/Hooks/useGetWords";
-
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GameCard from "../GameCard";
-import { setNewItemInArrAtIndex } from "@/Utils/setNewItemInArrAtIndex";
 import RandomWord from "@/Models/randomWord";
 import "../GameArea.css";
 import useDisplayCards from "@/Hooks/useDisplayCards";
 import useGameContext from "@/Hooks/useGameContext";
 import Loading from "@/components/SharedArea/Interact/Loading";
+import useRevealSelectedCards from "@/Hooks/useRevealSelectedCards";
 
 function Family(): JSX.Element {
   const [showCards, setShowCards] = useState<boolean[]>(Array(25).fill(false)); // 25 states defaulted to 'false' for the display of the cards.
   const [currIndexForReplacement, setCurrIndexForReplacement] = useState(0); // the index by which to chose a word from spare words array
+  const [cardStatus, setCardStatus] = useState<string[]>(Array(25).fill(""));
 
   const { session, setSession } = useGameContext();
 
@@ -19,19 +19,24 @@ function Family(): JSX.Element {
 
   useDisplayCards<RandomWord>(randomWords, setShowCards); // visit 'Hooks/' to learn more what the hook does.
 
+  useRevealSelectedCards(cardStatus, setCardStatus);
+
   if (isLoading) return <Loading />; // display loading component.
   if (isError) return <div>Error</div>; // display error component.NOTE TO SELF: create error component.
 
   return (
     <div className="cards-container">
       {session.cards?.length &&
-        session.cards.map((_, index) => (
+        session.cards.map((card, index) => (
           <GameCard
-            key={(session.cards[index] as RandomWord).id}
+            key={(card as RandomWord).id}
+            index={index}
             showCard={showCards[index]}
             wordType="RandomWord"
             isFamily
             team={session.teamAscription[index]}
+            cardStatus={cardStatus[index]}
+            setCardStatus={setCardStatus}
             word={session.cards[index]}
             onReplaceBtnClick={() => {
               setSession((prevSession) => {
