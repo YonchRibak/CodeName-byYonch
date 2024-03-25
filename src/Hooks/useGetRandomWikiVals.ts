@@ -6,16 +6,23 @@ import useStoreWikiData from "./useStoreWikiData";
 
 function useGetRandomWikiVals(lang: string, pages: number) {
   const [allData, setAllData] = useState([]); // state to regroup all data to.
-  const [isStored, setIsStored] = useState(true); // boolean to indicate whether there are already items in local storage (rendering the fetch unnecessary)
+  const [isEngStored, setIsEngStored] = useState(true); // boolean to indicate whether there are already items in local storage (rendering the fetch unnecessary)
+  const [isHebStored, setIsHebStored] = useState(true); // boolean to indicate whether there are already items in local storage (rendering the fetch unnecessary)
   const [doneFetch, setDoneFetch] = useState(false); //boolean to indicate whether fetching finished. useQueries's features failed at production.
 
   useEffect(() => {
     // if no corresponding items are in storage, set isStored to false.
     if (
-      !localStorage.getItem(`${i18n.language}-initWikis`) ||
-      !localStorage.getItem(`${i18n.language}-spareWikis`)
+      !localStorage.getItem(`en-US-initWikis`) ||
+      !localStorage.getItem(`en-US-spareWikis`)
     ) {
-      setIsStored(false);
+      setIsEngStored(false);
+    }
+    if (
+      !localStorage.getItem(`he-IL-initWikis`) ||
+      !localStorage.getItem(`he-IL-spareWikis`)
+    ) {
+      setIsHebStored(false);
     }
   }, []);
 
@@ -24,12 +31,12 @@ function useGetRandomWikiVals(lang: string, pages: number) {
   const results = useQueries(
     Array.from({ length: pages }, (_, i) => i).map((index) => {
       return {
-        queryKey: [`getRandomWikis-${index}`],
+        queryKey: [`getRandomWikis-${index}-${lang}`],
         queryFn: async () => {
           const res = await axios.get(url);
           return res;
         },
-        enabled: !isStored, // only if isStored is falsy (meaning: no items in storage), run the query.
+        enabled: i18n.language === "en-US" ? !isEngStored : !isHebStored, // only if isStored is falsy (meaning: no items in storage), run the query.
       };
     })
   );
@@ -47,7 +54,7 @@ function useGetRandomWikiVals(lang: string, pages: number) {
     }
   }, [results[pages - 1].data?.data]);
 
-  useStoreWikiData(allData); // store in local storage.
+  useStoreWikiData(allData, lang === "en" ? "en-US" : "he-IL"); // store in local storage.
 
   return doneFetch; // returns a boolean indicting fetching is in progress (false) or has finished (true)
 }

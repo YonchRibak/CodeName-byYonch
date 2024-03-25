@@ -3,9 +3,7 @@ import i18n from "@/i18n";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import GameCard from "../GameCard";
-import { setNewItemInArrAtIndex } from "@/Utils/setNewItemInArrAtIndex";
 import WikiObj from "@/Models/WikiObj";
-
 import "../GameArea.css";
 import useGameContext from "@/Hooks/useGameContext";
 import Loading from "@/components/SharedArea/Interact/Loading";
@@ -15,8 +13,6 @@ function Wiki(): JSX.Element {
   const [showCards, setShowCards] = useState<boolean[]>(Array(25).fill(false)); // 25 states defaulted to 'false' for the display of the cards.
 
   const { session, setSession } = useGameContext();
-
-  const { t } = useTranslation();
 
   useEffect(() => {
     if (
@@ -37,10 +33,14 @@ function Wiki(): JSX.Element {
     }
   }, []);
 
-  const doneFetch = useGetRandomWikiVals(t("configurations.wikiLangName"), 30); // retrieves random values from wikipedia, go to 'Hooks/' to learn more.
+  const doneEngFetch = useGetRandomWikiVals("en", 30); // retrieves random values from wikipedia in English, go to 'Hooks/' to learn more.
+  const doneHebFetch = useGetRandomWikiVals("he", 30); // retrieves random values from wikipedia in Hebrew, go to 'Hooks/' to learn more.
 
   useEffect(() => {
-    if (doneFetch) {
+    if (
+      localStorage.getItem(`${i18n.language}-initWikis`) &&
+      localStorage.getItem(`${i18n.language}-spareWikis`)
+    ) {
       setSession((prevSession) => ({
         ...prevSession,
         cards: JSON.parse(localStorage.getItem(`${i18n.language}-initWikis`)),
@@ -52,10 +52,13 @@ function Wiki(): JSX.Element {
         ),
       }));
     }
-  }, [doneFetch]);
+  }, [doneEngFetch, doneHebFetch]);
 
   useEffect(() => {
-    if (session.cards?.length > 0) {
+    if (
+      (doneEngFetch && i18n.language === "en-US") ||
+      (doneHebFetch && i18n.language === "he-IL")
+    ) {
       const showDelay = 100;
 
       for (let i = 0; i < 25; i++) {
@@ -69,9 +72,12 @@ function Wiki(): JSX.Element {
         }, i * showDelay);
       }
     }
-  }, [session.cards]);
+  }, [doneEngFetch, doneHebFetch]);
 
-  if (!doneFetch && !session.cards?.length) {
+  if (
+    (!doneEngFetch && i18n.language === "en-US") ||
+    (!doneHebFetch && i18n.language === "he-IL")
+  ) {
     return <Loading />; // display loading component.
   }
 
