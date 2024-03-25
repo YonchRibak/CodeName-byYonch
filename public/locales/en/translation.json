@@ -30,5 +30,11 @@
   },
   "gameCard": {
     "replaceBtn": "Replace"
+  },
+
+  "captain": {
+    "loginScreen": {
+      "enterCode": "Enter Game Code"
+    }
   }
 }
