@@ -134,10 +134,11 @@ function GameCard(props: GameCardProps): JSX.Element {
 
       {!session.gameStarted && (
         <RefreshCcw
-          className="replace-btn absolute top-2 left-2 4xl:top-4 4xl:left-4 4xl:scale-125 cursor-pointer "
+          className={`replace-btn absolute top-2 right-2 4xl:top-4 4xl:right-2 4xl:scale-125 cursor-pointer`}
           onClick={() => {
             setWordHasBeenReplaced((prev) => !prev);
             props.onReplaceBtnClick();
+            
           }}
         />
       )}
