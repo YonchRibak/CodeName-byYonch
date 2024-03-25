@@ -6,6 +6,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import CardText from "./CardText";
 import useGameContext from "@/Hooks/useGameContext";
+import useKeepScore from "@/Hooks/useKeepScore";
 
 type GameCardProps = {
   index: number;
@@ -23,7 +24,7 @@ function GameCard(props: GameCardProps): JSX.Element {
   const [popoverState, setPopoverState] = useState(false);
   const [wordHasBeenReplaced, setWordHasBeenReplaced] = useState(false);
 
-  const { session } = useGameContext();
+  const { session, setSession } = useGameContext();
 
   function handleCardStatus() {
     if (
@@ -58,6 +59,8 @@ function GameCard(props: GameCardProps): JSX.Element {
       });
     }
   }, [props.cardStatus]);
+
+  useKeepScore(props.cardStatus, props.team);
 
   function teamAssignClass(team: string): string {
     switch (team) {
