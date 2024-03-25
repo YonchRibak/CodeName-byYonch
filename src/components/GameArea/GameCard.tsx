@@ -3,7 +3,7 @@ import i18n from "@/i18n";
 import "./GameArea.css";
 import { Info, RefreshCcw } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import CardText from "./CardText";
 import useGameContext from "@/Hooks/useGameContext";
 
@@ -47,6 +47,17 @@ function GameCard(props: GameCardProps): JSX.Element {
       });
     }
   }
+
+  useEffect(() => {
+    //resetting neutral cards after being revealed so they can be reselected
+    if (props.team === "neutral" && props.cardStatus === "revealed") {
+      props.setCardStatus((prev) => {
+        const updatedStatus = [...prev]; // Creating a copy of the previous state
+        updatedStatus[props.index] = ""; // Updating the status at the specified index
+        return updatedStatus; // Returning the updated array
+      });
+    }
+  }, [props.cardStatus]);
 
   function teamAssignClass(team: string): string {
     switch (team) {
