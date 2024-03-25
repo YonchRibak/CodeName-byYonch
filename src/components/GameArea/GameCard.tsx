@@ -24,7 +24,7 @@ function GameCard(props: GameCardProps): JSX.Element {
   const [popoverState, setPopoverState] = useState(false);
   const [wordHasBeenReplaced, setWordHasBeenReplaced] = useState(false);
 
-  const { session, setSession } = useGameContext();
+  const { session } = useGameContext();
 
   function handleCardStatus() {
     if (
