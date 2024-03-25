@@ -20,6 +20,8 @@
     "startGameBtn": "התחל את המשחק"
   },
   "manageGame": {
+    "blueScore": "הכחולים: ",
+    "redScore": "האדומים: ",
     "submitBtn": "הגישו תשובה",
     "abortBtn": "יציאה מהמשחק"
   },

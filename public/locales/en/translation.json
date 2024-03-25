@@ -20,6 +20,8 @@
     "startGameBtn": "Start the Game"
   },
   "manageGame": {
+    "blueScore": "Blue Team's Score: ",
+    "redScore": "Red Team's Score: ",
     "submitBtn": "Submit answer",
     "abortBtn": "Abort Game"
   },

@@ -4,9 +4,14 @@ import useGameContext from "@/Hooks/useGameContext";
 
 function ManageGame(): JSX.Element {
   const { t } = useTranslation();
-  const { setSession } = useGameContext();
+  const { session, setSession } = useGameContext();
   return (
     <div className="h-full flex flex-col justify-around">
+      <div className="flex flex-col">
+        <span>{t("manageGame.blueScore") + session.blueScore}</span>
+        <span>{t("manageGame.redScore") + session.redScore}</span>
+      </div>
+
       <Button
         className="text-4xl h-40 bg-primary w-full "
         onClick={() =>
