@@ -33,6 +33,20 @@ export const GameContext = createContext<GameModeController | undefined>(
   undefined
 );
 
+function generateRandomTeamAscription(): string[] {
+  const reds = Array(9).fill("red");
+  const blues = Array(8).fill("blue");
+  const neutrals = Array(7).fill("neutral");
+  const bomb = "bomb";
+
+  let fullArray: string[] = [];
+  const randomizedArray = fullArray
+    .concat(reds, blues, neutrals, bomb)
+    .sort(() => Math.random() - 0.5);
+
+  return randomizedArray;
+}
+
 export function GameProvider({ children }: GameProviderProps) {
   const [session, setSession] = useState<Session>({
     sessionId: uid(6),
@@ -41,7 +55,7 @@ export function GameProvider({ children }: GameProviderProps) {
     cards: [],
     spareCards: [],
     turnsPlayed: 0,
-    teamAscription: [],
+    teamAscription: generateRandomTeamAscription(),
     redScore: 0,
     blueScore: 0,
   });
