@@ -22,7 +22,7 @@ function InitGame(): JSX.Element {
   return (
     <div className="flex flex-col h-full">
       <div className="flex flex-col gap-8 h-full">
-        <h1 className="text-4xl">{t("initGame.title")}</h1>
+        <h1 className="text-4xl select-none">{t("initGame.title")}</h1>
         {decks.map((deck) => (
           <Card
             key={deck.id}
@@ -32,7 +32,7 @@ function InitGame(): JSX.Element {
               navigate(deck.href);
             }}
           >
-            <CardContent className="flex justify-center items-center h-full p-2 text-4xl">
+            <CardContent className="flex justify-center select-none items-center h-full p-2 text-4xl">
               {deck.text}
             </CardContent>
           </Card>
@@ -55,7 +55,7 @@ function InitGame(): JSX.Element {
                 : "Wiki",
           }))
         }
-        className="text-4xl h-40 bg-primary mb-56"
+        className="text-4xl h-40 bg-primary select-none mb-56"
       >
         {t("initGame.startGameBtn")}
       </Button>
