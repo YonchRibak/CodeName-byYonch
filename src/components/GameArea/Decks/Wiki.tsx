@@ -30,7 +30,7 @@ function Wiki(): JSX.Element {
         ),
       }));
     }
-  }, []);
+  }, [i18n.language]);
 
   const doneEngFetch = useGetRandomWikiVals("en", 30); // retrieves random values from wikipedia in English, go to 'Hooks/' to learn more.
   const doneHebFetch = useGetRandomWikiVals("he", 30); // retrieves random values from wikipedia in Hebrew, go to 'Hooks/' to learn more.
