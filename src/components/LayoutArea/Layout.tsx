@@ -14,8 +14,8 @@ function Layout(): JSX.Element {
   const isCaptainScreen = window.location.pathname.includes("/captain");
 
   useEffect(() => {
-    if (session.blueScore === 9) setBlueVictory(true);
-    if (session.redScore === 8) setRedVictory(true);
+    if (session.blueScore === 8) setBlueVictory(true);
+    if (session.redScore === 9) setRedVictory(true);
   }, [session.blueScore, session.redScore]);
 
   return (
