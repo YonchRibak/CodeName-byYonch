@@ -1,7 +1,6 @@
 import useGetWords from "@/Hooks/useGetWords";
 import { useState } from "react";
 import GameCard from "../GameCard";
-import { setNewItemInArrAtIndex } from "@/Utils/setNewItemInArrAtIndex";
 import RandomWord from "@/Models/randomWord";
 import "../GameArea.css";
 import useDisplayCards from "@/Hooks/useDisplayCards";
@@ -17,7 +16,6 @@ function Adults(): JSX.Element {
 
   useDisplayCards<RandomWord>(randomWords, setShowCards); // visit 'Hooks/' to learn more what the hook does.
 
-  console.log(session.spareCards);
   if (isLoading) {
     return <Loading />; // display loading component.
   } else if (isError) {
