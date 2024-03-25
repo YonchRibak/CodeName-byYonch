@@ -1,5 +1,5 @@
 import useGetWords from "@/Hooks/useGetWords";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import GameCard from "../GameCard";
 import RandomWord from "@/Models/randomWord";
 import "../GameArea.css";
