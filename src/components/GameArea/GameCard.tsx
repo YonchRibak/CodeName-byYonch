@@ -138,7 +138,6 @@ function GameCard(props: GameCardProps): JSX.Element {
           onClick={() => {
             setWordHasBeenReplaced((prev) => !prev);
             props.onReplaceBtnClick();
-            
           }}
         />
       )}
