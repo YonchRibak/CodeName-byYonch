@@ -11,6 +11,7 @@ function Layout(): JSX.Element {
   const [redVictory, setRedVictory] = useState(false);
 
   const { session } = useGameContext();
+  const isCaptainScreen = window.location.pathname.includes("/captain");
 
   useEffect(() => {
     if (session.blueScore === 9) setBlueVictory(true);
@@ -18,15 +19,20 @@ function Layout(): JSX.Element {
   }, [session.blueScore, session.redScore]);
 
   return (
-    <div className="h-full">
-      <header>
-        <Header />
-      </header>
+    <div className="h-full relative">
+      {!isCaptainScreen && (
+        <header>
+          <Header />
+        </header>
+      )}
 
-      <main className="main-container">
-        <aside>
-          <Aside />
-        </aside>
+      <main className={"main-container " + (!isCaptainScreen ? "p-8" : "")}>
+        {!isCaptainScreen && (
+          <aside>
+            <Aside />
+          </aside>
+        )}
+
         {blueVictory && (
           <>
             <ConfettiExplosion
