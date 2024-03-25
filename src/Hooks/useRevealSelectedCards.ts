@@ -43,7 +43,7 @@ function useRevealSelectedCards(
       });
 
       currentIndex++; // Move to the next selected card
-    }, 500);
+    }, 750);
 
     // Clean up function to clear the interval on component unmount or when the session changes
     return () => clearInterval(interval);
