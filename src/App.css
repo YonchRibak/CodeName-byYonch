@@ -1,10 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Secular+One&family=Suez+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&family=Secular+One&family=Suez+One&display=swap");
+
 #root {
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
   height: 100%;
-  font-family: "Suez One", serif;
+  font-family: "Assistant", serif;
   font-weight: 200;
   font-style: normal;
   /* font-family: "Secular One", sans-serif; */
