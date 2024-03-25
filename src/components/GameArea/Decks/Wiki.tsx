@@ -55,8 +55,8 @@ function Wiki(): JSX.Element {
 
   useEffect(() => {
     if (
-      (doneEngFetch && i18n.language === "en-US") ||
-      (doneHebFetch && i18n.language === "he-IL")
+      (localStorage.getItem("en-US-initWikis") && i18n.language === "en-US") ||
+      (localStorage.getItem("he-IL-initWikis") && i18n.language === "he-IL")
     ) {
       const showDelay = 100;
 
@@ -74,8 +74,8 @@ function Wiki(): JSX.Element {
   }, [doneEngFetch, doneHebFetch]);
 
   if (
-    (!doneEngFetch && i18n.language === "en-US") ||
-    (!doneHebFetch && i18n.language === "he-IL")
+    (!localStorage.getItem("en-US-initWikis") && i18n.language === "en-US") ||
+    (!localStorage.getItem("he-IL-initWikis") && i18n.language === "he-IL")
   ) {
     return <Loading />; // display loading component.
   }
