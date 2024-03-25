@@ -1,7 +1,6 @@
 import useGetRandomWikiVals from "@/Hooks/useGetRandomWikiVals";
 import i18n from "@/i18n";
 import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import GameCard from "../GameCard";
 import WikiObj from "@/Models/WikiObj";
 import "../GameArea.css";
