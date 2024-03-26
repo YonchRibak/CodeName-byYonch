@@ -77,8 +77,10 @@ function GameCard(props: GameCardProps): JSX.Element {
     <Card
       onClick={props.cardStatus === "revealed" ? null : handleCardStatus}
       className={`${props.cardStatus} ${
-        props.cardStatus === "revealed" ? assignClassToTeam(props.team) : " "
-      } game-card relative bg-blue-100 dark:bg-zinc-800
+        props.cardStatus === "revealed"
+          ? assignClassToTeam(props.team)
+          : "bg-blue-100 dark:bg-zinc-800"
+      } game-card relative
        ${props.showCard ? "show " : " "} ${
         session.gameStarted ? "game-in-progress cursor-pointer " : " "
       } `}
