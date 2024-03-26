@@ -47,7 +47,7 @@ function useRevealSelectedCards(
 
     // Clean up function to clear the interval on component unmount or when the session changes
     return () => clearInterval(interval);
-  }, [session.turnsPlayed]); // Include session.teamAscription in the dependencies array
+  }, [session.turnsPlayed]);
 }
 
 export default useRevealSelectedCards;
