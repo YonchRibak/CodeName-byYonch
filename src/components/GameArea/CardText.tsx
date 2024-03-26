@@ -35,7 +35,10 @@ function CardText({
     <div
       ref={textContainer}
       className={
-        "h-auto w-full select-none " + adjustedFontSize + " " + className
+        "h-auto w-full font-medium select-none " +
+        adjustedFontSize +
+        " " +
+        className
       }
     >
       {children}

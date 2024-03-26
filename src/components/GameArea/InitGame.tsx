@@ -32,7 +32,7 @@ function InitGame(): JSX.Element {
               navigate(deck.href);
             }}
           >
-            <CardContent className="flex justify-center select-none items-center h-full p-2 text-4xl">
+            <CardContent className="flex justify-center select-none font-medium items-center h-full p-2 text-4xl">
               {deck.text}
             </CardContent>
           </Card>
