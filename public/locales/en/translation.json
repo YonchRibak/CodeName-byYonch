@@ -25,6 +25,10 @@
     "submitBtn": "Submit answer",
     "abortBtn": "Abort Game"
   },
+  "captainsData": {
+    "instructions": "To enter as a captain, scan the barcode.\n Or, alternatively, just go to\nhttp://localhost:5173/captain\non your device and enter the game code.",
+    "sessionCode": "Game Code:  "
+  },
   "board": {
     "cards": {
       "hoverStatement": "No more info available."
@@ -36,7 +40,8 @@
 
   "captain": {
     "loginScreen": {
-      "enterCode": "Enter Game Code"
+      "enterCode": "Enter Game Code",
+      "enterGame": "Enter"
     }
   }
 }

@@ -25,6 +25,10 @@
     "submitBtn": "הגישו תשובה",
     "abortBtn": "יציאה מהמשחק"
   },
+  "captainsData": {
+    "instructions": "בכדי להצטרף כקפטן, סרוק את הברקוד.\n או, לחלופין, גש במכשיר שלך לכתובת - http://localhost:5173/captain\n  והזן שם את קוד המשחק.",
+    "sessionCode": "קוד משחק:  "
+  },
   "board": {
     "cards": {
       "hoverStatement": ".אין עוד מידע זמין"
@@ -35,7 +39,8 @@
   },
   "captain": {
     "loginScreen": {
-      "enterCode": "הזן קוד משחק"
+      "enterCode": "הזן קוד משחק",
+      "enterGame": "היכנס"
     }
   }
 }
