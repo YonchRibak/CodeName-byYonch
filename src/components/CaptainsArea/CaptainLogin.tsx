@@ -3,8 +3,13 @@ import iconSrc from "../../../public/codeNameIcon.png";
 import { Input } from "../ui/input";
 import ThemeToggler from "../SharedArea/ThemeToggler";
 import LangToggler from "../SharedArea/LangToggler";
+import { useState } from "react";
+import { Button } from "../ui/button";
+import { useNavigate } from "react-router-dom";
 
 function CaptainLogin(): JSX.Element {
+  const [gameCode, setGameCode] = useState("");
+  const navigate = useNavigate();
   const { t } = useTranslation();
   return (
     <div className="h-full flex flex-col grid-col-1 col-span-2 landscape:relative items-center portrait:justify-start landscape:justify-center overflow-hidden">
@@ -19,11 +24,18 @@ function CaptainLogin(): JSX.Element {
         />
       </div>
 
-      <div className="row-start-2 flex flex-col items-center">
+      <div className="row-start-2 flex flex-col items-center gap-3">
         <h1 className="text-4xl landscape:text-3xl">
           {t("captain.loginScreen.enterCode")}
         </h1>
-        <Input type="text" className="mt-4 dark:border-orange-300 w-[75%]" />
+        <Input
+          onChange={(e) => setGameCode(e.target.value)}
+          type="text"
+          className=" dark:border-orange-300 w-[75%]"
+        />
+        <Button onClick={() => navigate("/captain/" + gameCode)}>
+          {t("captain.loginScreen.enterGame")}
+        </Button>
       </div>
     </div>
   );
