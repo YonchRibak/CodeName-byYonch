@@ -3,15 +3,12 @@ import { Card, CardContent } from "../ui/card";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
 import useGameContext from "@/Hooks/useGameContext";
-import { useState } from "react";
-import { socketService } from "@/Services/SocketService";
 
 function InitGame(): JSX.Element {
-  const [deckSelectedId, SetDeckSelectedId] = useState<number>(0);
 
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { session, setSession } = useGameContext();
+  const { setSession } = useGameContext();
 
   const decks = [
     { id: 1, text: t("initGame.family"), href: "/family" },
@@ -19,25 +16,6 @@ function InitGame(): JSX.Element {
     { id: 3, text: t("initGame.goNuts"), href: "/go-nuts" },
   ];
 
-  function handleStartGame(): void {
-    setSession((prevSession) => ({
-      ...prevSession,
-      gameStarted: true,
-      redScore: 0,
-      blueScore: 0,
-      turnsPlayed: 0,
-      currDeck:
-        deckSelectedId === 1
-          ? "Family"
-          : deckSelectedId === 2
-          ? "Adults"
-          : "Wiki",
-    }));
-    socketService.connect((msg: string) => {
-      console.log(msg);
-    });
-    socketService.initRoom(session.sessionId);
-  }
   return (
     <div className="flex flex-col h-full">
       <div className="flex flex-col gap-8 h-full">
@@ -46,10 +24,7 @@ function InitGame(): JSX.Element {
           <Card
             key={deck.id}
             className="h-24 cursor-pointer"
-            onClick={() => {
-              SetDeckSelectedId(deck.id);
-              navigate(deck.href);
-            }}
+            onClick={() => navigate(deck.href)}
           >
             <CardContent className="flex justify-center select-none font-medium items-center h-full p-2 text-4xl">
               {deck.text}
@@ -58,7 +33,17 @@ function InitGame(): JSX.Element {
         ))}
       </div>
       <Button
-        onClick={handleStartGame}
+        onClick={() => {
+          setSession((prevSession) => ({
+            ...prevSession,
+            gameStarted: true,
+            numberOfUsersInRoom: 1,
+            redScore: 0,
+            blueScore: 0,
+            turnsPlayed: 0,
+          
+          }));
+        }}
         className="text-4xl h-40 bg-primary select-none mb-56"
       >
         {t("initGame.startGameBtn")}
