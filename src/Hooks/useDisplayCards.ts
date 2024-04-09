@@ -1,23 +1,19 @@
+import i18n from "@/i18n";
 import { Dispatch, SetStateAction, useEffect } from "react";
-import useGameContext from "./useGameContext";
-import RandomWord from "@/Models/randomWord";
-import WikiObj from "@/Models/WikiObj";
 
-function useDisplayCards<T>(
-  wordsArr: T[],
-
-  setShowCards: Dispatch<SetStateAction<boolean[]>>
+function useDisplayCards(
+  setShowCards: Dispatch<SetStateAction<boolean[]>>,
+  cardsType: string
 ) {
-  const { setSession } = useGameContext();
   useEffect(() => {
-    // set the words for display and set delay for "show" state.
-    if (wordsArr?.length) {
-      setSession((prevSession) => ({
-        ...prevSession,
-        cards: wordsArr.slice(0, 25) as RandomWord[] | WikiObj[], // set 25 words for initial setting of the game.
-        spareCards: wordsArr.slice(25) as RandomWord[] | WikiObj[], // set other words for spare, in case user opts to replace some of the words.
-      }));
-
+    if (
+      cardsType === "RandomWord" ||
+      (cardsType === "WikiObj" &&
+        ((localStorage.getItem("en-US-initWikis") &&
+          i18n.language === "en-US") ||
+          (localStorage.getItem("he-IL-initWikis") &&
+            i18n.language === "he-IL")))
+    ) {
       const showDelay = 100;
 
       for (let i = 0; i < 25; i++) {
@@ -31,7 +27,7 @@ function useDisplayCards<T>(
         }, i * showDelay);
       }
     }
-  }, [wordsArr]);
+  }, [cardsType]);
 }
 
 export default useDisplayCards;
