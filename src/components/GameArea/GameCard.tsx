@@ -11,9 +11,9 @@ import useResetCardStatus from "@/Hooks/useResetCardStatus";
 
 type GameCardProps = {
   index: number;
-  isFamily: boolean;
   wordType: string;
   word: any;
+  isCaptain: boolean;
   onReplaceBtnClick: (newWord?: any, index?: number) => void;
   team: string;
   showCard: boolean;
@@ -67,6 +67,7 @@ function GameCard(props: GameCardProps): JSX.Element {
       case "blue":
         return "bg-blue-500";
       case "bomb":
+        if (props.isCaptain) return "captain-bomb";
         return "bomb";
       case "neutral":
         return "";
@@ -75,43 +76,70 @@ function GameCard(props: GameCardProps): JSX.Element {
 
   return (
     <Card
-      onClick={props.cardStatus === "revealed" ? null : handleCardStatus}
-      className={`${props.cardStatus} ${
-        props.cardStatus === "revealed"
-          ? assignClassToTeam(props.team)
-          : "bg-blue-100 dark:bg-zinc-800"
-      } game-card relative
-       ${props.showCard ? "show " : " "} ${
-        session.gameStarted ? "game-in-progress cursor-pointer " : " "
-      } `}
+      onClick={
+        props.cardStatus === "revealed" || props.isCaptain
+          ? null
+          : handleCardStatus
+      }
+      className={`
+    ${/*   general settings:*/ ""} 
+    group relative h-[clamp(${
+      props.isCaptain ? "50px" : "110px"
+    },14vh,15vh)] opacity-0 transform translate-x-5 translate-y-5 transition-all duration-300 ease-in-out
+   
+    ${/*card's status. ".selected" is defined in GameArea.css:*/ ""} 
+    ${props.cardStatus}
+
+    ${/*in case props.showCard is true, show card:*/ ""} 
+    ${props.showCard && "opacity-100 transform translate-x-0 translate-y-0"}
+
+    ${
+      /* in case isCaptain is true or card is revealed, show team-background:*/ ""
+    } 
+    ${
+      props.isCaptain || props.cardStatus === "revealed"
+        ? assignClassToTeam(props.team)
+        : "bg-blue-100 dark:bg-zinc-800"
+    }
+    ${
+      /* in case game has started, transform scale on hover, unless isCaptain is true: */ ""
+    }
+    ${
+      session.gameStarted &&
+      !props.isCaptain &&
+      "hover:scale-110 cursor-pointer"
+    }
+       `}
     >
       <Popover
         open={popoverState}
-        onOpenChange={(isOpen) => {
-          isOpen ? setPopoverState(true) : setPopoverState(false);
-        }}
+        onOpenChange={(isOpen) => setPopoverState(isOpen)}
       >
         <PopoverTrigger
           disabled={props.wordType === "RandomWord"}
-          className="max-w-min absolute top-2 left-2 4xl:top-4 4xl:left-4 4xl:scale-125"
+          className={`max-w-min absolute md:top-[1px] md:left-[1px] md:scale-75 top-2 left-2 4xl:top-4 4xl:left-4 4xl:scale-125`}
           onMouseEnter={() => setPopoverState(true)}
           onMouseLeave={() => setPopoverState(false)}
         >
           <Info className={props.wordType === "RandomWord" ? "hidden" : " "} />
         </PopoverTrigger>
         <PopoverContent
-          className={
-            "popover-text " + (i18n.language === "en-US" ? "ltr " : "rtl ")
-          }
+          onCloseAutoFocus={(e) => {
+            e.preventDefault();
+          }}
+          className={"text-xl " + (i18n.language === "en-US" ? "ltr " : "rtl ")}
         >
           {props.word.extract}
         </PopoverContent>
       </Popover>
 
-      <CardContent className="card-content h-full flex justify-center items-center p-4 ">
+      <CardContent className="card-content h-full flex justify-center items-center p-4 overflow-hidden overflow-ellipsis">
         <CardText
+          isCaptain={props.isCaptain}
           wordHasBeenReplaced={wordHasBeenReplaced}
-          className={"card-text " + i18n.language === "en-US" ? "ltr " : "rtl "}
+          className={
+            "select-none " + i18n.language === "en-US" ? "ltr " : "rtl "
+          }
         >
           {props.wordType === "RandomWord" // card content depending on props.wordType.
             ? i18n.language === "en-US" // card content language depending on current selected language.
@@ -123,7 +151,7 @@ function GameCard(props: GameCardProps): JSX.Element {
 
       {!session.gameStarted && (
         <RefreshCcw
-          className={`replace-btn absolute top-2 right-2 4xl:top-4 4xl:right-2 4xl:scale-125 cursor-pointer`}
+          className={`opacity-0 group-hover:opacity-100 absolute top-2 right-2 4xl:top-4 4xl:right-2 4xl:scale-125 cursor-pointer transition-all duration-300 ease-in-out`}
           onClick={() => {
             setWordHasBeenReplaced((prev) => !prev);
             props.onReplaceBtnClick();
