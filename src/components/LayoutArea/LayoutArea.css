@@ -1,9 +1,0 @@
-.main-container {
-  height: clamp(75vh, 100%, 90vh);
-  display: grid;
-  grid-template-columns: 1fr 6fr;
-  gap: 2rem;
-}
-.text-size-important {
-  font-size: 1.5rem !important;
-}
