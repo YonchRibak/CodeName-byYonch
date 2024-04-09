@@ -3,6 +3,8 @@ import { Button } from "../ui/button";
 import useGameContext from "@/Hooks/useGameContext";
 import CaptainsData from "./CaptainsData";
 import { socketService } from "@/Services/SocketService";
+import { useEffect } from "react";
+import { uid } from "uid";
 
 function ManageGame(): JSX.Element {
   const { t } = useTranslation();
@@ -11,6 +13,8 @@ function ManageGame(): JSX.Element {
   function handleAbortGame() {
     setSession((prevSession) => ({
       ...prevSession,
+      sessionId: uid(6),
+      numberOfUsersInRoom: 0,
       gameStarted: false,
       turnsPlayed: 0,
       blueScore: 0,
@@ -19,9 +23,13 @@ function ManageGame(): JSX.Element {
 
     socketService.closeRoom(session.sessionId);
   }
+
+  useEffect(() => {
+    console.log(session.numberOfUsersInRoom);
+  }, [session.numberOfUsersInRoom]);
   return (
     <div className="h-full flex flex-col justify-around">
-      {session.captainsConnected < 2 ? ( //If less than 2 captains have connected, render Captains data
+      {session.numberOfUsersInRoom < 3 ? ( //If less than 2 captains have connected, render Captains data
         <CaptainsData />
       ) : (
         // if 2 captains have connected, render score and submit button.
