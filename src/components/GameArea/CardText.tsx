@@ -5,12 +5,14 @@ type CardTextProps = {
   children: ReactNode;
   wordHasBeenReplaced: boolean;
   className: string;
+  isCaptain: boolean;
 };
 
 function CardText({
   children,
   wordHasBeenReplaced,
   className,
+  isCaptain,
 }: CardTextProps): JSX.Element {
   const textContainer = useRef(null);
   const [adjustedFontSize, setAdjustedFontSize] = useState("text-4xl");
@@ -21,12 +23,16 @@ function CardText({
       const screenHeight = window.innerHeight;
       const containerRelativeHeight = (containerHeight / screenHeight) * 100;
 
-      if (containerRelativeHeight > 20) {
+      if (containerRelativeHeight > 25) {
+        setAdjustedFontSize("text-sm");
+      } else if (containerRelativeHeight > 20 && containerRelativeHeight < 25) {
         setAdjustedFontSize("text-xl");
       } else if (containerRelativeHeight > 15 && containerRelativeHeight < 20) {
         setAdjustedFontSize("text-2xl");
       } else if (containerRelativeHeight > 9 && containerRelativeHeight < 15) {
-        setAdjustedFontSize("text-3xl");
+        isCaptain
+          ? setAdjustedFontSize("text-2xl")
+          : setAdjustedFontSize("text-3xl");
       }
     }
   }, [wordHasBeenReplaced]);
@@ -34,12 +40,12 @@ function CardText({
   return (
     <div
       ref={textContainer}
-      className={
-        "h-auto w-full font-medium select-none " +
-        adjustedFontSize +
-        " " +
-        className
-      }
+      className={`
+        h-auto w-full font-medium select-none
+        ${isCaptain ? "px-2" : ""}
+        ${adjustedFontSize}
+        ${className}
+      `}
     >
       {children}
     </div>
