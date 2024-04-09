@@ -13,17 +13,17 @@ function useResetCardStatus(
     //resetting neutral cards after being revealed so they can be reselected
     if (team === "neutral" && cardStatus === "revealed") {
       setCardStatus((prev) => {
-        const updatedStatus = [...prev]; // Creating a copy of the previous state
-        updatedStatus[index] = ""; // Updating the status at the specified index
-        return updatedStatus; // Returning the updated array
+        const updatedStatus = [...prev];
+        updatedStatus[index] = "";
+        return updatedStatus;
       });
     }
     if (!session.gameStarted) {
       // resetting cards to initial cardStatus if game is terminated:
       setCardStatus((prev) => {
-        const updatedStatus = [...prev]; // Creating a copy of the previous state
-        updatedStatus[index] = ""; // Updating the status at the specified index
-        return updatedStatus; // Returning the updated array
+        const updatedStatus = [...prev];
+        updatedStatus[index] = "";
+        return updatedStatus;
       });
     }
   }, [cardStatus, session.gameStarted]);
