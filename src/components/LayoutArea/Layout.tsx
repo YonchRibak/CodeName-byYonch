@@ -5,12 +5,13 @@ import Aside from "./Aside";
 import useGameContext from "@/Hooks/useGameContext";
 import ConfettiExplosion from "react-confetti-explosion";
 import { useEffect, useState } from "react";
+import { socketService } from "@/Services/SocketService";
 
 function Layout(): JSX.Element {
   const [blueVictory, setBlueVictory] = useState(false);
   const [redVictory, setRedVictory] = useState(false);
 
-  const { session } = useGameContext();
+  const { session, setSession } = useGameContext();
   const isCaptainScreen = window.location.pathname.includes("/captain");
 
   useEffect(() => {
@@ -18,6 +19,12 @@ function Layout(): JSX.Element {
     if (session.redScore === 9) setRedVictory(true);
   }, [session.blueScore, session.redScore]);
 
+  useEffect(() => {
+    if (session.gameStarted && !socketService.isConnected()) {
+      socketService.connect();
+      socketService.initRoom(session.sessionId, setSession, session);
+    }
+  }, [session.gameStarted]);
   return (
     <div className="h-full relative">
       {!isCaptainScreen && (
@@ -26,7 +33,13 @@ function Layout(): JSX.Element {
         </header>
       )}
 
-      <main className={"main-container " + (!isCaptainScreen ? "p-8" : "")}>
+      <main
+        className={
+          !isCaptainScreen
+            ? "h-[clamp(75vh,100%,90vh)] grid grid-cols-[1fr,6fr] gap-8 p-8 "
+            : "h-full p-8 grid items-center"
+        }
+      >
         {!isCaptainScreen && (
           <aside>
             <Aside />
