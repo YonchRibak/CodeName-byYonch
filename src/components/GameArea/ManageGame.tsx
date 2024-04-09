@@ -3,7 +3,6 @@ import { Button } from "../ui/button";
 import useGameContext from "@/Hooks/useGameContext";
 import CaptainsData from "./CaptainsData";
 import { socketService } from "@/Services/SocketService";
-import { useEffect } from "react";
 import { uid } from "uid";
 
 function ManageGame(): JSX.Element {
@@ -23,10 +22,6 @@ function ManageGame(): JSX.Element {
 
     socketService.closeRoom(session.sessionId);
   }
-
-  useEffect(() => {
-    console.log(session.numberOfUsersInRoom);
-  }, [session.numberOfUsersInRoom]);
   return (
     <div className="h-full flex flex-col justify-around">
       {session.numberOfUsersInRoom < 3 ? ( //If less than 2 captains have connected, render Captains data

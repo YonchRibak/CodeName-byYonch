@@ -13,9 +13,7 @@ function CaptainScreen(): JSX.Element {
 
   const params = useParams();
   useEffect(() => {
-    console.log(socketService.isConnected());
     if (!socketService.isConnected()) {
-      console.log("within", socketService.isConnected());
       // Connect to the socket server
       socketService.connect();
 
@@ -31,13 +29,8 @@ function CaptainScreen(): JSX.Element {
 
   useEffect(() => {
     if (socketService.isConnected()) {
-      console.log("useEffect ran");
       // Receive session data from server:
-      socketService.receiveSessionFromServer((sessionData: Session) => {
-        // setSession(sessionData);
-        // console.log(sessionData);
-        console.log("receiveSession has ran.");
-      });
+      socketService.receiveSessionFromServer(() => {});
     }
   }, [connected]);
   return (

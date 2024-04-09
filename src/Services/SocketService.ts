@@ -39,7 +39,6 @@ class SocketService {
 
     // Client listens to other users requesting session data
     this.socket.on("requestSessionData", (requestingUserId: string) => {
-      console.log("requestSessionData has ran.", requestingUserId);
       this.provideSessionData(requestingUserId, session);
     });
   }
@@ -53,7 +52,6 @@ class SocketService {
     setConnected(true);
     // Client listens to sessionData shared by server:
     this.socket.on("serverSharedSessionData", (sessionData: Session) => {
-      console.log(sessionData);
       setSession(sessionData);
     });
   }
@@ -63,7 +61,6 @@ class SocketService {
   }
 
   public provideSessionData(requestingUserId: string, sessionData: Session) {
-    console.log("provideSessionData has ran.", sessionData);
     this.socket.emit("userProvidesSessionData", {
       sessionData,
       targetUser: requestingUserId,
