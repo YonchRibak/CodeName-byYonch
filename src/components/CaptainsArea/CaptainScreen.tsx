@@ -2,7 +2,6 @@ import useGameContext from "@/Hooks/useGameContext";
 import { socketService } from "@/Services/SocketService";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Session } from "../game-provider";
 import CardsContainer from "../GameArea/CardsContainer";
 import RandomWord from "@/Models/randomWord";
 import WikiObj from "@/Models/WikiObj";

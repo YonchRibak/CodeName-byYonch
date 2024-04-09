@@ -33,7 +33,7 @@ function Header(): JSX.Element {
             {t("header.title")}
           </h1>
         </div>
-        <nav className="mx-6 flex items-center space-x-4 lg:space-x-6 hidden md:block">
+        <nav className="mx-6 flex items-center space-x-4 lg:space-x-6 md:block">
           {routes.map((route, i) => (
             <Button key={i} asChild size="lg" variant="ghost">
               <Link to={route.href} className="!text-2xl select-none">
