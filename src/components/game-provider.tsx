@@ -15,9 +15,8 @@ type GameProviderProps = {
 
 export type Session = {
   sessionId: string;
-  captainsConnected: number;
+  numberOfUsersInRoom: number;
   gameStarted: boolean;
-  currDeck: "Family" | "Adults" | "Wiki" | undefined;
   cards: (RandomWord | WikiObj)[];
   spareCards: RandomWord[] | WikiObj[];
   teamAscription: string[];
@@ -51,9 +50,8 @@ function generateRandomTeamAscription(): string[] {
 export function GameProvider({ children }: GameProviderProps) {
   const [session, setSession] = useState<Session>({
     sessionId: uid(6),
-    captainsConnected: 0,
+    numberOfUsersInRoom: 1,
     gameStarted: false,
-    currDeck: undefined,
     cards: [],
     spareCards: [],
     turnsPlayed: 0,
