@@ -2,13 +2,11 @@
 
 #root {
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
   height: 100%;
   font-family: "Assistant", serif;
   font-weight: 200;
   font-style: normal;
-  /* font-family: "Secular One", sans-serif; */
 }
 body {
   height: 100vh;
