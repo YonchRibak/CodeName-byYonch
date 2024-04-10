@@ -5,45 +5,47 @@ type CardTextProps = {
   children: ReactNode;
   wordHasBeenReplaced: boolean;
   className: string;
-  isCaptain: boolean;
+  valueLength: number;
 };
 
 function CardText({
   children,
   wordHasBeenReplaced,
   className,
-  isCaptain,
+  valueLength,
 }: CardTextProps): JSX.Element {
-  const textContainer = useRef(null);
-  const [adjustedFontSize, setAdjustedFontSize] = useState("text-4xl");
+  const [adjustedFontSize, setAdjustedFontSize] = useState(
+    " 2xl:text-5xl lg:text-4xl md:text-3xl sm:text-xl "
+  );
 
   useEffect(() => {
-    if (textContainer.current) {
-      const containerHeight = textContainer.current.offsetHeight;
-      const screenHeight = window.innerHeight;
-      const containerRelativeHeight = (containerHeight / screenHeight) * 100;
 
-      if (containerRelativeHeight > 25) {
-        setAdjustedFontSize("text-sm");
-      } else if (containerRelativeHeight > 20 && containerRelativeHeight < 25) {
-        setAdjustedFontSize("text-xl");
-      } else if (containerRelativeHeight > 15 && containerRelativeHeight < 20) {
-        setAdjustedFontSize("text-2xl");
-      } else if (containerRelativeHeight > 9 && containerRelativeHeight < 15) {
-        isCaptain
-          ? setAdjustedFontSize("text-2xl")
-          : setAdjustedFontSize("text-3xl");
-      }
+    if (valueLength >= 60) {
+      setAdjustedFontSize("lg:text-2xl md:text-[0.7rem] sm:text-[0.575rem]");
+    } else if (valueLength >= 50 && valueLength < 60) {
+      setAdjustedFontSize("lg:text-2xl md:text-xs sm:text-[0.6rem]");
+    } else if (valueLength >= 40 && valueLength < 50) {
+      setAdjustedFontSize("lg:text-2xl md:text-sm sm:text-[0.6rem]");
+    } else if (valueLength >= 35 && valueLength < 40) {
+      setAdjustedFontSize("lg:text-2xl md:text-sm sm:text-[0.65rem]");
+    } else if (valueLength >= 30 && valueLength < 35) {
+      setAdjustedFontSize("lg:text-3xl md:text-base sm:text-[0.675rem]");
+    } else if (valueLength >= 25 && valueLength < 30) {
+      setAdjustedFontSize("lg:text-3xl md:text-lg sm:text-sm");
+    } else if (valueLength >= 20 && valueLength < 25) {
+      setAdjustedFontSize("lg:text-4xl md:text-lg sm:text-sm");
+    } else if (valueLength >= 15 && valueLength < 20) {
+      setAdjustedFontSize("lg:text-4xl md:text-lg sm:text-base");
+    } else if (valueLength >= 10 && valueLength < 15) {
+      setAdjustedFontSize("lg:text-4xl md:text-2xl sm:text-base");
     }
   }, [wordHasBeenReplaced]);
 
   return (
     <div
-      ref={textContainer}
       className={`
-        h-auto w-full font-medium select-none
-        ${isCaptain ? "px-2" : ""}
-        ${adjustedFontSize}
+        h-auto w-full font-medium select-none sm:leading-tight whitespace-pre-line
+         ${adjustedFontSize}
         ${className}
       `}
     >
