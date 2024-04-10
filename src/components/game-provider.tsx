@@ -23,6 +23,7 @@ export type Session = {
   turnsPlayed: number;
   redScore: number;
   blueScore: number;
+  indicesOfRevealedCards: number[];
 };
 
 type GameModeController = {
@@ -58,6 +59,7 @@ export function GameProvider({ children }: GameProviderProps) {
     teamAscription: generateRandomTeamAscription(),
     redScore: 0,
     blueScore: 0,
+    indicesOfRevealedCards: [],
   });
 
   return (
