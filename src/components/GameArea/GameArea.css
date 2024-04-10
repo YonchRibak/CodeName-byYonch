@@ -1,16 +1,4 @@
-.cards-container {
-  height: fit-content;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(5, 15vh);
-  column-gap: 1.25rem;
-  row-gap: 0.25rem;
-}
-@media (orientation: landscape) {
-  #root {
-    padding: 0;
-  }
-}
+
 .cards-container > .selected {
   box-shadow: 0 0 20px rgba(255, 255, 255, 1) !important;
   box-shadow: 0 0 40px rgba(255, 255, 255, 1) !important;
