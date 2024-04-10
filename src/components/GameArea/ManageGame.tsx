@@ -4,6 +4,7 @@ import useGameContext from "@/Hooks/useGameContext";
 import CaptainsData from "./CaptainsData";
 import { socketService } from "@/Services/SocketService";
 import { uid } from "uid";
+import Score from "./Score";
 
 function ManageGame(): JSX.Element {
   const { t } = useTranslation();
@@ -22,6 +23,14 @@ function ManageGame(): JSX.Element {
 
     socketService.closeRoom(session.sessionId);
   }
+
+  function handleSubmitAnswer() {
+    setSession((prevSession) => ({
+      ...prevSession,
+      turnsPlayed: prevSession.turnsPlayed + 1,
+    }));
+    socketService.updateSessionData(session);
+  }
   return (
     <div className="h-full flex flex-col justify-around">
       {session.numberOfUsersInRoom < 3 ? ( //If less than 2 captains have connected, render Captains data
@@ -29,19 +38,10 @@ function ManageGame(): JSX.Element {
       ) : (
         // if 2 captains have connected, render score and submit button.
         <div>
-          <div className="flex flex-col">
-            <span>{t("manageGame.blueScore") + session.blueScore}</span>
-            <span>{t("manageGame.redScore") + session.redScore}</span>
-          </div>
-
+          <Score />
           <Button
             className="text-4xl h-40 bg-primary w-full "
-            onClick={() =>
-              setSession((prevSession) => ({
-                ...prevSession,
-                turnsPlayed: prevSession.turnsPlayed + 1,
-              }))
-            }
+            onClick={handleSubmitAnswer}
           >
             {t("manageGame.submitBtn")}
           </Button>
