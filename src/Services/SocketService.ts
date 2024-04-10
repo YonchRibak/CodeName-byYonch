@@ -11,13 +11,6 @@ class SocketService {
     this.socket = io(appConfig.baseUrl);
   }
 
-  public receiveSessionFromServer(callback: Function): void {
-    // Client listens to sessionData shared by server:
-    this.socket.on("serverSharedSessionData", (sessionData: Session) => {
-      callback(sessionData);
-    });
-  }
-
   public isConnected(): boolean {
     return this.socket ? this.socket.connected : false;
   }
@@ -44,12 +37,10 @@ class SocketService {
   }
   public joinRoom(
     room: string,
-    setConnected: Dispatch<SetStateAction<boolean>>,
     setSession: Dispatch<SetStateAction<Session>>
   ): void {
     this.socket.emit("joinRoom", room);
 
-    setConnected(true);
     // Client listens to sessionData shared by server:
     this.socket.on("serverSharedSessionData", (sessionData: Session) => {
       setSession(sessionData);
@@ -60,6 +51,9 @@ class SocketService {
     this.socket.emit("closeRoom", room);
   }
 
+  public updateSessionData(updatedSessionData: Session) {
+    this.socket.emit("userProvidesUpdatedSessionData", updatedSessionData);
+  }
   public provideSessionData(requestingUserId: string, sessionData: Session) {
     this.socket.emit("userProvidesSessionData", {
       sessionData,
