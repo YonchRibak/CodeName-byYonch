@@ -26,7 +26,7 @@ function CardsContainer(props: CardsContainerProps): JSX.Element {
   useRevealSelectedCards(cardStatus, setCardStatus);
 
   return (
-    <div className="cards-container">
+    <div className=" grid h-max grid-cols-5 grid-rows-[repeat(5,15vh)] lg:gap-5 sm:gap-2">
       {session.cards?.length &&
         session.cards.map((card, index) => {
           return (
