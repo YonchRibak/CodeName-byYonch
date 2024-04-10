@@ -26,7 +26,7 @@ function Layout(): JSX.Element {
     }
   }, [session.gameStarted]);
   return (
-    <div className="h-full relative">
+    <div className="h-full relative xl:p-4">
       {!isCaptainScreen && (
         <header>
           <Header />
@@ -36,8 +36,8 @@ function Layout(): JSX.Element {
       <main
         className={
           !isCaptainScreen
-            ? "h-[clamp(75vh,100%,90vh)] grid grid-cols-[1fr,6fr] gap-8 p-8 "
-            : "h-full p-8 grid items-center"
+            ? "h-[clamp(75vh,100%,90vh)] grid grid-cols-[1fr,6fr] gap-8 xl:p-8 sm:p-4"
+            : "h-full p-8 sm:p-4 grid items-center"
         }
       >
         {!isCaptainScreen && (
