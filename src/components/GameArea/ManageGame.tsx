@@ -19,6 +19,7 @@ function ManageGame(): JSX.Element {
       turnsPlayed: 0,
       blueScore: 0,
       redScore: 0,
+      indicesOfRevealedCards: [],
     }));
 
     socketService.closeRoom(session.sessionId);
@@ -40,7 +41,7 @@ function ManageGame(): JSX.Element {
         <div>
           <Score />
           <Button
-            className="text-4xl h-40 bg-primary w-full "
+            className="text-4xl h-40 bg-primary dark:bg-[#5686F4] w-full "
             onClick={handleSubmitAnswer}
           >
             {t("manageGame.submitBtn")}
@@ -49,7 +50,7 @@ function ManageGame(): JSX.Element {
       )}
 
       <Button
-        className="text-4xl h-40 bg-destructive w-full"
+        className="text-4xl h-40 bg-destructive dark:bg-red-600 w-full"
         onClick={handleAbortGame}
       >
         {t("manageGame.abortBtn")}
