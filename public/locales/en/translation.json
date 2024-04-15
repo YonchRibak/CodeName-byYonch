@@ -3,13 +3,54 @@
     "wikiLangName": "en",
     "docTitle": "Code Name"
   },
-
+  "gameRules": {
+    "title": "The Game's Rules and Instructions",
+    "concept": {
+      "title": "Game's Concept",
+      "content": "A group game of verbal reasoning and creativity."
+    },
+    "beginningTheGame": {
+      "title": "Starting the Game",
+      "firstInstructions": "Divide into two equal teams: a red team and a blue team.\nEach team selects a representative from within it to be its captain.\nThe two captains sit on one side of the room, while the rest of the team members sit on the other side.",
+      "selectDeck": "Choose a deck of cards that suits you:\nFamily: cards with simple words for children to understand.\nAdults: cards with slightly more complicated words suitable for adult players.\nGo Nuts: random values from Wikipedia, for a complex and amusing game.",
+      "customizeDeck": "Before starting the game, you can always replace words that do not suit you by pressing the replacement button in the upper right corner of the card.\nThe button will appear when you hover over the card with the mouse.",
+      "startGame": "Once the cards that are laid out are to your liking, press the 'Start Game' button.",
+      "captainsLogin": "Now the two captains need to log in to the game:\nThis can be done from any device: mobile phone, tablet, or computer.\nLogging into the game as a captain is done by scanning the QR-code or browsing to the displayed address and entering the game code.",
+      "gameBegins": "Once the two captains have logged in, the game begins.\nThe first team to play is the red team, as it has one more word to guess than the blue team."
+    },
+    "captainsRole": {
+      "title": "The Captain Role",
+      "captainsView": {
+        "explanation": "The captain sees the cards slightly differently from the other team members, as shown here:",
+        "teamAscription": "The red cards are assigned to the red team, the blue ones to the blue team, and those with a neutral background are not assigned to any team.",
+        "bomb": "As you've probably noticed, there is one card with a purple frame and an icon of a bomb in the corner. This is the bomb card, and its role will be explained later."
+      },
+      "goal": "The captain's goal is for his team to discover all the cards associated with his team before the opposing team discovers their cards.\nThe first team to discover all its cards wins the game.",
+      "turn": "Each captain, in his turn, is allowed to give his team a code word and a number.\nThe code word represents a connection between several words that the captain hopes his team will guess.\nThe number represents how many words they need to guess. For example:",
+      "example": "In this situation, the captain of the blue team can say to his team: 'Cream, 3'.\nHe hopes that his team will find the three blue words that match 'cream':\nFrosting, which is made from cream,\nCake, in which cream is often found as one of the ingredients,\nand Cat, an association arising from the phrase: 'leaving the cat to guard the cream'.\nThe captain can only hope that his team will indeed guess these three words, as even the neutral word 'kitchen' fits the cream association.",
+      "number": "As mentioned, the number the captain gives along with the code word represents how many words his team needs to guess in the current turn.\nThere is no limit to the number of words: you can also hint at a single word, although this would pose the risk of the opposing team progressing faster towards victory.\nIt is better to go for two or three words. Four words and above is not for the faint-hearted and deserves appreciation.",
+      "restrictions": {
+        "title": "Code Word Restrictions",
+        "oneWord": "The code word must be a single word.",
+        "inflections": "The code word is not allowed to be an inflection of any of the words in the game.",
+        "contained": "The code word is not allowed to be contained within the words to which the captain hints, for example: 'house' is an invalid hint for the word 'guesthouse'. In fact, in this case, the word 'house' is an invalid code word even if the captain's intention is to hint at other words on the board.",
+        "indexReferencing": "The code word is not allowed to refer to the location of the word on the board. For example, you can give the word 'corner' as a code word if it refers to words like 'around' or 'stone', but not if the captain intends to refer to the word located in the corner of the board.",
+        "spelling": "The code word is not allowed to be based on spelling. For example, 'g, 3' is an invalid hint for the words 'genius', 'golf', and 'grief'.",
+        "language": "Foreign language words are not allowed, unless they are commonly used in English, such as: 'alfresco', 'ad nauseam', or 'deja vu'.",
+        "leadingGestures": "The captain isn't allowed to add comments, such as: 'this will be tricky...', or: 'try to think like Tommy'. Nor can he add physical gestures.",
+        "pokerFace": "The captain is expected to maintain a poker face when his team is deliberating which words to choose."
+      },
+      "violation": "If the captain gives an invalid code word, the turn passes immediately to the other team. Be sure to press the 'Forfeit Turn' button so that the game can keep track of which team's turn is it.",
+      "otherTeamCard": "If by chance you guessed a card belonging to the opposing team, you've simply granted them a free point.\nThe captain should try to steer his team's guesses away from the words associated with the opposing team, but it is easier said than done.",
+      "whenBombIsSelected": "If one of the cards your team guessed is the one marked with the bomb, your team loses the game.\nTherefore, it is especially important that the captains take into account that the code word they give is not likely to inadvertently point their team to the bomb."
+    }
+  },
   "header": {
     "title": "Code Name",
     "routes": {
       "gameRules": "The Rules",
       "about": "About This Project",
-      "settings": "Settings"
+      "home": "Home"
     }
   },
   "initGame": {
@@ -17,7 +58,8 @@
     "family": "Family",
     "adults": "Adults",
     "goNuts": "Go Nuts!",
-    "startGameBtn": "Start the Game"
+    "startGameBtn": "Start the Game",
+    "goNutsPopover": "Random values from Wikipedia"
   },
   "manageGame": {
     "blueScore": "Blue Team's Score: ",
