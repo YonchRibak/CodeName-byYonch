@@ -3,12 +3,15 @@ import { Card, CardContent } from "../ui/card";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
 import useGameContext from "@/Hooks/useGameContext";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Info } from "lucide-react";
+import { useState } from "react";
 
 function InitGame(): JSX.Element {
-
+  const [popoverState, setPopoverState] = useState(false);
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { setSession } = useGameContext();
+  const { session, setSession } = useGameContext();
 
   const decks = [
     { id: 1, text: t("initGame.family"), href: "/family" },
@@ -23,9 +26,39 @@ function InitGame(): JSX.Element {
         {decks.map((deck) => (
           <Card
             key={deck.id}
-            className="h-24 cursor-pointer"
-            onClick={() => navigate(deck.href)}
+            className="h-24 cursor-pointer relative bg-secondary"
+            onClick={() => {
+              setSession((prev) => ({
+                ...prev,
+                lastRoute: deck.href,
+              }));
+              navigate(deck.href);
+            }}
           >
+            {deck.id === 3 && (
+              <Popover
+                open={popoverState}
+                onOpenChange={(isOpen) => setPopoverState(isOpen)}
+              >
+                <PopoverTrigger
+                  className={`max-w-min absolute sm:top-[-2px] sm:left-[-2px] sm:scale-50 md:scale-[60%] md:top-[1px] md:left-[1px] lg:scale-[150%] lg:top-3 lg:left-4 top-2 left-2 xl:top-4 xl:left-4 xl:scale-125`}
+                  onMouseEnter={() => setPopoverState(true)}
+                  onMouseLeave={() => setPopoverState(false)}
+                >
+                  <Info />
+                </PopoverTrigger>
+                <PopoverContent
+                  onCloseAutoFocus={(e) => {
+                    e.preventDefault();
+                  }}
+                  className="text-center"
+                >
+                  <div className="text-xl md:text-3xl sm:text-sm">
+                    {t("initGame.goNutsPopover")}
+                  </div>
+                </PopoverContent>
+              </Popover>
+            )}
             <CardContent className="flex justify-center select-none font-medium items-center h-full p-2 text-4xl">
               {deck.text}
             </CardContent>
@@ -33,6 +66,7 @@ function InitGame(): JSX.Element {
         ))}
       </div>
       <Button
+        disabled={!session.cards.length}
         onClick={() => {
           setSession((prevSession) => ({
             ...prevSession,
@@ -41,7 +75,6 @@ function InitGame(): JSX.Element {
             redScore: 0,
             blueScore: 0,
             turnsPlayed: 0,
-          
           }));
         }}
         className="text-4xl h-40 bg-primary select-none mb-56"
