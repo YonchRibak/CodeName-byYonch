@@ -1,21 +1,17 @@
-import WikiObj from "@/Models/WikiObj";
-import RandomWord from "@/Models/randomWord";
-import i18n from "@/i18n";
 import { Dispatch, SetStateAction, useEffect } from "react";
 
 // This custom hook manages text line breaks based on the word type and length:
 function useManageTextLineBreaks(
-  wordType: string,
-  word: WikiObj | RandomWord,
+  word: string,
   setTextValue: Dispatch<SetStateAction<string>>,
   wordHasBeenReplaced: boolean
 ): void {
   useEffect(() => {
-    if (wordType === "WikiObj") {
-      const words = (word as WikiObj).title.split(" ");
+    const words = word?.split(" ");
+    if (words?.length > 2) {
       let newString = "";
 
-      for (let i = 0; i < words.length; i++) {
+      for (let i = 0; i < words?.length; i++) {
         newString += words[i];
 
         // Determine where the line break is needed based on the length of the first two words:
@@ -25,7 +21,7 @@ function useManageTextLineBreaks(
         ) {
           if (i === 1) {
             newString += "\n"; // Add a line break after the second word
-          } else if (i !== words.length - 1) {
+          } else if (i !== words?.length - 1) {
             newString += " ";
           }
         } else {
@@ -38,11 +34,7 @@ function useManageTextLineBreaks(
       }
       setTextValue(newString); // Update the component's state with the modified text
     } else {
-      setTextValue(
-        i18n.language === "en-US"
-          ? (word as RandomWord).English
-          : (word as RandomWord).Hebrew
-      );
+      setTextValue(word);
     }
   }, [wordHasBeenReplaced]);
 }
