@@ -5,22 +5,24 @@ import { useTranslation } from "react-i18next";
 import "./LayoutArea.css";
 import ThemeToggler from "../SharedArea/ThemeToggler";
 import LangToggler from "../SharedArea/LangToggler";
+import useGameContext from "@/Hooks/useGameContext";
 
 function Header(): JSX.Element {
+  const { session } = useGameContext();
   const { t } = useTranslation();
 
   const routes = [
     {
-      href: "/",
+      href: "/rules",
       label: `${t("header.routes.gameRules")}`,
     },
     {
-      href: "/",
+      href: "/about",
       label: `${t("header.routes.about")}`,
     },
     {
-      href: "/",
-      label: `${t("header.routes.settings")}`,
+      href: session.lastRoute,
+      label: `${t("header.routes.home")}`,
     },
   ];
 
@@ -35,14 +37,20 @@ function Header(): JSX.Element {
         </div>
         <nav className="mx-6 flex items-center space-x-4 lg:space-x-6 md:block">
           {routes.map((route, i) => (
-            <Button key={i} asChild size="lg" variant="ghost">
+            <Button
+              key={i}
+              asChild
+              size="lg"
+              variant="ghost"
+              className="hover:bg-primary active:bg-primary focus:bg-primary"
+            >
               <Link to={route.href} className="!text-2xl select-none">
                 {route.label}
               </Link>
             </Button>
           ))}
-          <ThemeToggler className="mr-6 select-none" />
-          <LangToggler className="text-3xl select-none" />
+          <ThemeToggler className="mr-6 select-none hover:bg-secondary" />
+          <LangToggler className="text-3xl select-none active:bg-primary" />
         </nav>
       </div>
     </div>
