@@ -3,13 +3,12 @@ import i18n from "@/i18n";
 import "./GameArea.css";
 import { Info, RefreshCcw } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import CardText from "./CardText";
 import useGameContext from "@/Hooks/useGameContext";
 import useKeepScore from "@/Hooks/useKeepScore";
 import useResetCardStatus from "@/Hooks/useResetCardStatus";
 import { GiRollingBomb } from "react-icons/gi";
-import useManageTextLineBreaks from "@/Hooks/useManageTextLineBreaks";
 
 type GameCardProps = {
   index: number;
@@ -26,16 +25,8 @@ type GameCardProps = {
 function GameCard(props: GameCardProps): JSX.Element {
   const [popoverState, setPopoverState] = useState(false);
   const [wordHasBeenReplaced, setWordHasBeenReplaced] = useState(false);
-  const [textValue, setTextValue] = useState("");
-  const { session, setSession } = useGameContext();
 
-  useManageTextLineBreaks(
-    // This custom hook manages text line breaks based on the word type and length
-    props.wordType,
-    props.word,
-    setTextValue,
-    wordHasBeenReplaced
-  );
+  const { session, setSession } = useGameContext();
 
   function handleSelection() {
     handleCardStatus();
@@ -66,6 +57,7 @@ function GameCard(props: GameCardProps): JSX.Element {
       props.cardStatus !== "revealed"
     ) {
       // card was first selected
+      console.log(props.index);
       props.setCardStatus((prev) => {
         const updatedStatus = [...prev]; // Creating a copy of the previous state
         updatedStatus[props.index] = "selected"; // Updating the status at the specified index
@@ -95,14 +87,14 @@ function GameCard(props: GameCardProps): JSX.Element {
   function assignClassToTeam(team: string): string {
     switch (team) {
       case "red":
-        return "bg-red-500";
+        return "bg-[#f04d54]";
       case "blue":
-        return "bg-blue-500";
+        return "bg-[#2cb7da]";
       case "bomb":
         if (props.isCaptain) return "captain-bomb";
         return "bomb";
       case "neutral":
-        return "";
+        return "bg-white dark:bg-zinc-700";
     }
   }
 
@@ -114,16 +106,18 @@ function GameCard(props: GameCardProps): JSX.Element {
           : handleSelection
       }
       className={`
+
+      ${/*card's status. ".selected" is defined in GameArea.css:*/ ""} 
+      ${props.cardStatus}
+  
     ${/*   general settings:*/ ""} 
     group relative h-full opacity-0 transform translate-x-5 translate-y-5 transition-all duration-300 ease-in-out
    
-    ${/*card's status. ".selected" is defined in GameArea.css:*/ ""} 
-    ${props.cardStatus}
-
+  
     ${
       props.isCaptain &&
       session.indicesOfRevealedCards.includes(props.index) &&
-      "!border-8 !border-white"
+      "!border-4 sm:!border-2 !border-white"
     }
     ${/*in case props.showCard is true, show card:*/ ""} 
     ${props.showCard && "opacity-100 transform translate-x-0 translate-y-0"}
@@ -135,12 +129,12 @@ function GameCard(props: GameCardProps): JSX.Element {
     ${
       props.team === "bomb" &&
       props.isCaptain &&
-      "!border-4 sm:!border-2 border-pink-600"
+      "!border-4 sm:!border-2 border-pink-600 bg-white dark:bg-zinc-700"
     }
     ${
       props.isCaptain || props.cardStatus === "revealed"
         ? assignClassToTeam(props.team)
-        : "bg-blue-100 dark:bg-zinc-800"
+        : "bg-[#F9F7DC] dark:bg-zinc-700"
     }
     ${
       /* in case game has started, transform scale on hover, unless isCaptain is true: */ ""
@@ -171,7 +165,7 @@ function GameCard(props: GameCardProps): JSX.Element {
           className={i18n.language === "en-US" ? "ltr " : "rtl "}
         >
           <div className="text-xl md:text-3xl sm:text-sm">
-            {props.word.extract}
+            {props.word?.extract}
           </div>
         </PopoverContent>
       </Popover>
@@ -181,21 +175,21 @@ function GameCard(props: GameCardProps): JSX.Element {
           valueLength={
             props.wordType === "RandomWord" // card content depending on props.wordType.
               ? i18n.language === "en-US" // card content language depending on current selected language.
-                ? props.word.English.length
-                : props.word.Hebrew.length
-              : props.word.title.length
+                ? props.word?.English?.length
+                : props.word?.Hebrew?.length
+              : props.word?.title?.length
           }
+          isCaptain={props.isCaptain}
           wordHasBeenReplaced={wordHasBeenReplaced}
           className={
             "select-none " + i18n.language === "en-US" ? "ltr " : "rtl "
           }
         >
-          {/* {props.wordType === "RandomWord" // card content depending on props.wordType.
+          {props.wordType === "RandomWord" // card content depending on props.wordType.
             ? i18n.language === "en-US" // card content language depending on current selected language.
-              ? props.word.English
-              : props.word.Hebrew
-            : props.word.title} */}
-          {textValue}
+              ? props.word?.English
+              : props.word?.Hebrew
+            : props.word?.title}
         </CardText>
       </CardContent>
 
