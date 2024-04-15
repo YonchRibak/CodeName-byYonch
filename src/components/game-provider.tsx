@@ -24,6 +24,7 @@ export type Session = {
   redScore: number;
   blueScore: number;
   indicesOfRevealedCards: number[];
+  lastRoute: string;
 };
 
 type GameModeController = {
@@ -60,6 +61,7 @@ export function GameProvider({ children }: GameProviderProps) {
     redScore: 0,
     blueScore: 0,
     indicesOfRevealedCards: [],
+    lastRoute: "",
   });
 
   return (
