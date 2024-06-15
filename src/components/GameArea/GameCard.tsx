@@ -9,6 +9,7 @@ import useGameContext from "@/Hooks/useGameContext";
 import useKeepScore from "@/Hooks/useKeepScore";
 import useResetCardStatus from "@/Hooks/useResetCardStatus";
 import { GiRollingBomb } from "react-icons/gi";
+import { cardService } from "@/Services/CardService";
 
 type GameCardProps = {
   index: number;
@@ -29,48 +30,17 @@ function GameCard(props: GameCardProps): JSX.Element {
   const { session, setSession } = useGameContext();
 
   function handleSelection() {
-    handleCardStatus();
-    pushOrRemoveIndexFromCardsRevealedArr();
-  }
-
-  function pushOrRemoveIndexFromCardsRevealedArr() {
-    if (props.cardStatus === "selected") {
-      // card is being unselected, remove from array:
-      setSession((prev) => ({
-        ...prev,
-        indicesOfRevealedCards: prev.indicesOfRevealedCards.filter(
-          (index) => index !== props.index
-        ),
-      }));
-    } else {
-      // otherwise, card is being selected, add index to array:
-      setSession((prev) => ({
-        ...prev,
-        indicesOfRevealedCards: [...prev.indicesOfRevealedCards, props.index],
-      }));
-    }
-  }
-  function handleCardStatus() {
-    if (
-      session.gameStarted &&
-      props.cardStatus !== "selected" &&
-      props.cardStatus !== "revealed"
-    ) {
-      // card was first selected
-      console.log(props.index);
-      props.setCardStatus((prev) => {
-        const updatedStatus = [...prev]; // Creating a copy of the previous state
-        updatedStatus[props.index] = "selected"; // Updating the status at the specified index
-        return updatedStatus; // Returning the updated array
-      });
-    }
-    if (session.gameStarted && props.cardStatus === "selected") {
-      // card was clicked again after selection
-      props.setCardStatus((prev) => {
-        const updatedStatus = [...prev]; // Creating a copy of the previous state
-        updatedStatus[props.index] = ""; // Updating the status at the specified index
-        return updatedStatus; // Returning the updated array
-      });
+    if (session.gameStarted) {
+      cardService.handleCardStatus(
+        props.cardStatus,
+        props.index,
+        props.setCardStatus
+      );
+      cardService.pushOrRemoveIndexFromCardsRevealedArr(
+        props.cardStatus,
+        props.index,
+        setSession
+      );
     }
   }
 
@@ -82,21 +52,8 @@ function GameCard(props: GameCardProps): JSX.Element {
     props.setCardStatus,
     props.index
   );
-  useKeepScore(props.cardStatus, props.team); // keeping score according to team ascription after revelation.
 
-  function assignClassToTeam(team: string): string {
-    switch (team) {
-      case "red":
-        return "bg-[#f04d54]";
-      case "blue":
-        return "bg-[#2cb7da]";
-      case "bomb":
-        if (props.isCaptain) return "captain-bomb";
-        return "bomb";
-      case "neutral":
-        return "bg-white dark:bg-zinc-700";
-    }
-  }
+  useKeepScore(props.cardStatus, props.team); // keeping score according to team ascription after revelation.
 
   return (
     <Card
@@ -133,7 +90,7 @@ function GameCard(props: GameCardProps): JSX.Element {
     }
     ${
       props.isCaptain || props.cardStatus === "revealed"
-        ? assignClassToTeam(props.team)
+        ? cardService.assignClassToTeam(props.team, props.isCaptain)
         : "bg-[#F9F7DC] dark:bg-zinc-700"
     }
     ${
@@ -142,7 +99,7 @@ function GameCard(props: GameCardProps): JSX.Element {
     ${
       session.gameStarted &&
       !props.isCaptain &&
-      "hover:scale-110 cursor-pointer"
+      "hover:scale-105 cursor-pointer"
     }
        `}
     >
