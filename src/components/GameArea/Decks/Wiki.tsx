@@ -17,17 +17,18 @@ function Wiki(): JSX.Element {
   useEffect(() => {
     if (
       //  if there are already target items on local storage, set wikis' and spareWikis' states to them.
-      localStorage.getItem(`${i18n.language}-initWikis`) ||
-      localStorage.getItem(`${i18n.language}-spareWikis`)
+      (localStorage.getItem(`${i18n.language}-initWikis`) ||
+        localStorage.getItem(`${i18n.language}-spareWikis`)) &&
+      !session.gameStarted
     ) {
       setSession((prevSession) => ({
         ...prevSession,
-      
+
         cards: JSON.parse(localStorage.getItem(`${i18n.language}-initWikis`)),
       }));
       setSession((prevSession) => ({
         ...prevSession,
-      
+
         spareCards: JSON.parse(
           localStorage.getItem(`${i18n.language}-spareWikis`)
         ),
