@@ -7,7 +7,11 @@ import ConfettiExplosion from "react-confetti-explosion";
 import { useEffect, useState } from "react";
 import { socketService } from "@/Services/SocketService";
 
+
 function Layout(): JSX.Element {
+
+    
+
   const [blueVictory, setBlueVictory] = useState(false);
   const [redVictory, setRedVictory] = useState(false);
 
@@ -20,7 +24,7 @@ function Layout(): JSX.Element {
   }, [session.blueScore, session.redScore]);
 
   useEffect(() => {
-    if (session.gameStarted && !socketService.isConnected()) {
+    if (session.gameStarted) {
       socketService.connect();
       socketService.initRoom(session.sessionId, setSession, session);
     }
