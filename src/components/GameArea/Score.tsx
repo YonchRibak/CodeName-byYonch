@@ -6,8 +6,18 @@ function Score(): JSX.Element {
   const { t } = useTranslation();
   return (
     <div className="flex flex-col">
-      <span>{t("manageGame.blueScore") + session.blueScore}</span>
-      <span>{t("manageGame.redScore") + session.redScore}</span>
+      <table>
+        <tbody className="text-2xl font-semibold">
+          <tr key="">
+            <td className="text-[#2cb7da]">{t("manageGame.blueScore")}</td>
+            <td className="text-[#f04d54]">{t("manageGame.redScore")}</td>
+          </tr>
+          <tr key="">
+            <td>{session.blueScore}</td>
+            <td>{session.redScore}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 }
