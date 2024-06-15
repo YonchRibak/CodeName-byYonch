@@ -5,8 +5,10 @@ import CaptainsData from "./CaptainsData";
 import { socketService } from "@/Services/SocketService";
 import { uid } from "uid";
 import Score from "./Score";
+import { useState } from "react";
 
 function ManageGame(): JSX.Element {
+  const [currIndicesArr, setCurrIndicesArr] = useState<number[]>([]);
   const { t } = useTranslation();
   const { session, setSession } = useGameContext();
 
@@ -30,6 +32,7 @@ function ManageGame(): JSX.Element {
       ...prevSession,
       turnsPlayed: prevSession.turnsPlayed + 1,
     }));
+    setCurrIndicesArr(session.indicesOfRevealedCards);
     socketService.updateSessionData(session);
   }
   return (
@@ -38,19 +41,25 @@ function ManageGame(): JSX.Element {
         <CaptainsData />
       ) : (
         // if 2 captains have connected, render score and submit button.
-        <div>
+        <div className="space-y-7">
           <Score />
           <Button
-            className="text-4xl h-40 bg-primary dark:bg-[#5686F4] w-full "
+            className={`transition ease-in-out duration-500 text-4xl h-40 ${
+              session.indicesOfRevealedCards?.length > currIndicesArr.length
+                ? "bg-primary dark:bg-[#5686F4]"
+                : "bg-[#FFA857] dark:bg-[#EA891B]"
+            } w-full`}
             onClick={handleSubmitAnswer}
           >
-            {t("manageGame.submitBtn")}
+            {session.indicesOfRevealedCards?.length > currIndicesArr.length
+              ? t("manageGame.submitBtn")
+              : t("manageGame.forfeitTurn")}
           </Button>
         </div>
       )}
 
       <Button
-        className="text-4xl h-40 bg-destructive dark:bg-red-600 w-full"
+        className="text-4xl h-40 bg-destructive  w-full"
         onClick={handleAbortGame}
       >
         {t("manageGame.abortBtn")}
