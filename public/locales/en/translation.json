@@ -62,9 +62,10 @@
     "goNutsPopover": "Random values from Wikipedia"
   },
   "manageGame": {
-    "blueScore": "Blue Team's Score: ",
-    "redScore": "Red Team's Score: ",
+    "blueScore": "Blue Team's Score",
+    "redScore": "Red Team's Score",
     "submitBtn": "Submit answer",
+    "forfeitTurn": "Forfeit Turn",
     "abortBtn": "Abort Game"
   },
   "captainsData": {

@@ -62,9 +62,10 @@
     "goNutsPopover": "ערכים אקראיים מויקיפדיה"
   },
   "manageGame": {
-    "blueScore": "הכחולים: ",
-    "redScore": "האדומים: ",
+    "blueScore": "כחולים",
+    "redScore": "אדומים",
     "submitBtn": "הגישו תשובה",
+    "forfeitTurn": "העבר תור",
     "abortBtn": "יציאה מהמשחק"
   },
   "captainsData": {
