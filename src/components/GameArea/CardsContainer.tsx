@@ -32,7 +32,6 @@ function CardsContainer(props: CardsContainerProps): JSX.Element {
 
   useRevealSelectedCards(cardStatus, setCardStatus);
 
-  console.log(props.randomWords);
   return (
     <div className="grid h-max grid-cols-5 grid-rows-[repeat(5,15vh)] lg:gap-5 sm:gap-2">
       {session.cards?.length &&
