@@ -1,11 +1,11 @@
 import { ReactNode, useEffect, useState } from "react";
 import "./GameArea.css";
 import useManageTextLineBreaks from "@/Hooks/useManageTextLineBreaks";
+import i18n from "@/i18n";
 
 type CardTextProps = {
   children: ReactNode;
   wordHasBeenReplaced: boolean;
-  className: string;
   valueLength: number;
   isCaptain: boolean;
 };
@@ -13,7 +13,6 @@ type CardTextProps = {
 function CardText({
   children,
   wordHasBeenReplaced,
-  className,
   valueLength,
   isCaptain,
 }: CardTextProps): JSX.Element {
@@ -55,7 +54,7 @@ function CardText({
       className={`
         h-auto w-full font-medium select-none sm:leading-tight whitespace-pre-line
          ${adjustedFontSize}
-        ${className}
+        ${i18n.language === "en-US" ? "ltr " : "rtl "}
       `}
     >
       {isCaptain ? textValue : children}

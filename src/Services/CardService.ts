@@ -209,6 +209,21 @@ class CardService {
 
     this.increaseIndexForReplacement(wordType, isFamily);
   }
+
+  public calculateWordValueLength(
+    wordType: string,
+    word: RandomWord | WikiObj
+  ): number {
+    if (wordType === "WikiObj") return (word as WikiObj)?.title?.length;
+    if (i18n.language === "en-US") return (word as RandomWord)?.English?.length;
+    return (word as RandomWord)?.Hebrew?.length;
+  }
+
+  public selectWordValue(wordType: string, word: RandomWord | WikiObj): string {
+    if (wordType === "WikiObj") return (word as WikiObj)?.title;
+    if (i18n.language === "en-US") return (word as RandomWord)?.English;
+    return (word as RandomWord)?.Hebrew;
+  }
 }
 
 export const cardService = new CardService();

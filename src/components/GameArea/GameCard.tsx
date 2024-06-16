@@ -1,8 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import i18n from "@/i18n";
 import "./GameArea.css";
-import { Info, RefreshCcw } from "lucide-react";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { RefreshCcw } from "lucide-react";
 import { Dispatch, SetStateAction, useState } from "react";
 import CardText from "./CardText";
 import useGameContext from "@/Hooks/useGameContext";
@@ -108,24 +107,15 @@ function GameCard(props: GameCardProps): JSX.Element {
 
       <CardContent className="card-content h-full flex justify-center items-center p-4 sm:p-1 overflow-hidden overflow-ellipsis">
         <CardText
-          valueLength={
-            props.wordType === "RandomWord" // card content depending on props.wordType.
-              ? i18n.language === "en-US" // card content language depending on current selected language.
-                ? props.word?.English?.length
-                : props.word?.Hebrew?.length
-              : props.word?.title?.length
-          }
+          valueLength={cardService.calculateWordValueLength(
+            props.wordType,
+            props.word
+          )}
           isCaptain={props.isCaptain}
           wordHasBeenReplaced={wordHasBeenReplaced}
-          className={
-            "select-none " + i18n.language === "en-US" ? "ltr " : "rtl "
-          }
         >
-          {props.wordType === "RandomWord" // card content depending on props.wordType.
-            ? i18n.language === "en-US" // card content language depending on current selected language.
-              ? props.word?.English
-              : props.word?.Hebrew
-            : props.word?.title}
+          {/* selects which value to give CardText as child: */}
+          {cardService.selectWordValue(props.wordType, props.word)}
         </CardText>
       </CardContent>
 
