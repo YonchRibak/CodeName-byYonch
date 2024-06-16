@@ -1,7 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import i18n from "@/i18n";
 import "./GameArea.css";
-import { RefreshCcw } from "lucide-react";
 import { Dispatch, SetStateAction, useState } from "react";
 import CardText from "./CardText";
 import useGameContext from "@/Hooks/useGameContext";
@@ -10,6 +8,7 @@ import useResetCardStatus from "@/Hooks/useResetCardStatus";
 import { GiRollingBomb } from "react-icons/gi";
 import { cardService } from "@/Services/CardService";
 import InfoPopover from "./InfoPopover";
+import ReplaceCardIcon from "./ReplaceCardIcon";
 
 type GameCardProps = {
   index: number;
@@ -120,18 +119,11 @@ function GameCard(props: GameCardProps): JSX.Element {
       </CardContent>
 
       {!session.gameStarted && (
-        <RefreshCcw
-          className={`opacity-0 group-hover:opacity-100 absolute top-2 right-2 4xl:top-4 4xl:right-2 4xl:scale-125 cursor-pointer transition-all duration-300 ease-in-out`}
-          onClick={() => {
-            setWordHasBeenReplaced((prev) => !prev);
-            cardService.handleCardReplacement(
-              props.wordType,
-              props.index,
-              setSession,
-              session,
-              props.isFamily
-            );
-          }}
+        <ReplaceCardIcon
+          setWordHasBeenReplaced={setWordHasBeenReplaced}
+          wordType={props.wordType}
+          index={props.index}
+          isFamily={props.isFamily}
         />
       )}
       {props.team === "bomb" && props.isCaptain && (
