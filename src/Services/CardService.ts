@@ -51,20 +51,6 @@ class CardService {
     }
   }
 
-  public assignClassToTeam(team: string, isCaptain: boolean): string {
-    switch (team) {
-      case "red":
-        return "bg-[#f04d54]";
-      case "blue":
-        return "bg-[#2cb7da]";
-      case "bomb":
-        if (isCaptain) return "captain-bomb";
-        return "bomb";
-      case "neutral":
-        return "bg-white dark:bg-zinc-700";
-    }
-  }
-
   private findIndexForReplacement(
     wordType: string,
     isFamily?: boolean
@@ -208,15 +194,6 @@ class CardService {
     }
 
     this.increaseIndexForReplacement(wordType, isFamily);
-  }
-
-  public calculateWordValueLength(
-    wordType: string,
-    word: RandomWord | WikiObj
-  ): number {
-    if (wordType === "WikiObj") return (word as WikiObj)?.title?.length;
-    if (i18n.language === "en-US") return (word as RandomWord)?.English?.length;
-    return (word as RandomWord)?.Hebrew?.length;
   }
 
   public selectWordValue(wordType: string, word: RandomWord | WikiObj): string {
