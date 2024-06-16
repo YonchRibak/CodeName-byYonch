@@ -28,21 +28,6 @@ function GameCard(props: GameCardProps): JSX.Element {
 
   const { session, setSession } = useGameContext();
 
-  function handleSelection() {
-    if (session.gameStarted) {
-      cardService.handleCardStatus(
-        props.cardStatus,
-        props.index,
-        props.setCardStatus
-      );
-      cardService.pushOrRemoveIndexFromCardsRevealedArr(
-        props.cardStatus,
-        props.index,
-        setSession
-      );
-    }
-  }
-
   useResetCardStatus(
     // resetting cards to initial cardStatus when game is terminated
     // and resetting neutral cards to initial cardStatus after revelation so that they can be reselected:
@@ -56,10 +41,15 @@ function GameCard(props: GameCardProps): JSX.Element {
 
   return (
     <Card
-      onClick={
-        props.cardStatus === "revealed" || props.isCaptain
-          ? null
-          : handleSelection
+      onClick={() =>
+        cardService.handleCardSelection(
+          session,
+          props.cardStatus,
+          props.index,
+          props.isCaptain,
+          props.setCardStatus,
+          setSession
+        )
       }
       className={cardStyleService.classListManager(
         // class list is managed according to logic handled in cardStyleService.
@@ -79,7 +69,7 @@ function GameCard(props: GameCardProps): JSX.Element {
           valueLength={
             cardService.selectWordValue(props.wordType, props.word)?.length // the length of the value is needed at CardText to manipulate font-size;
           }
-          isCaptain={props.isCaptain} 
+          isCaptain={props.isCaptain}
           wordHasBeenReplaced={wordHasBeenReplaced}
         >
           {/* selects which value to give CardText as child: */}

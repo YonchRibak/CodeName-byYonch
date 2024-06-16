@@ -5,7 +5,7 @@ import i18n from "@/i18n";
 import { Dispatch, SetStateAction } from "react";
 
 class CardService {
-  public pushOrRemoveIndexFromCardsRevealedArr(
+  private pushOrRemoveIndexFromCardsRevealedArr(
     cardStatus: string,
     index: number,
     setSession: Dispatch<SetStateAction<Session>>
@@ -27,7 +27,7 @@ class CardService {
     }
   }
 
-  public handleCardStatus(
+  private handleCardStatus(
     cardStatus: string,
     index: number,
     setCardStatus: Dispatch<SetStateAction<string[]>>
@@ -194,6 +194,21 @@ class CardService {
     }
 
     this.increaseIndexForReplacement(wordType, isFamily);
+  }
+
+  public handleCardSelection(
+    session: Session,
+    cardStatus: string,
+    index: number,
+    isCaptain: boolean,
+    setCardStatus: Dispatch<SetStateAction<string[]>>,
+    setSession: Dispatch<SetStateAction<Session>>
+  ) {
+    if (isCaptain || cardStatus === "revealed") return; // if card is rendered on a captain's screen OR card has been revealed, have no onClick effect.
+    if (session.gameStarted) {
+      this.handleCardStatus(cardStatus, index, setCardStatus);
+      this.pushOrRemoveIndexFromCardsRevealedArr(cardStatus, index, setSession);
+    }
   }
 
   public selectWordValue(wordType: string, word: RandomWord | WikiObj): string {
