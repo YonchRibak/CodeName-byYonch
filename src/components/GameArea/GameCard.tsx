@@ -52,7 +52,7 @@ function GameCard(props: GameCardProps): JSX.Element {
         )
       }
       className={cardStyleService.classListManager(
-        // class list is managed according to logic handled in cardStyleService.
+        // class list is managed according to logic handled in cardStyleService for readability.
         props.cardStatus,
         props.isCaptain,
         session,
