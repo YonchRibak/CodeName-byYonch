@@ -16,7 +16,7 @@ type GameCardProps = {
   wordType: string;
   word: any;
   isCaptain: boolean;
-  onReplaceBtnClick: (newWord?: any, index?: number) => void;
+  isFamily?: boolean;
   team: string;
   showCard: boolean;
   cardStatus: string;
@@ -155,7 +155,13 @@ function GameCard(props: GameCardProps): JSX.Element {
           className={`opacity-0 group-hover:opacity-100 absolute top-2 right-2 4xl:top-4 4xl:right-2 4xl:scale-125 cursor-pointer transition-all duration-300 ease-in-out`}
           onClick={() => {
             setWordHasBeenReplaced((prev) => !prev);
-            props.onReplaceBtnClick();
+            cardService.handleCardReplacement(
+              props.wordType,
+              props.index,
+              setSession,
+              session,
+              props.isFamily
+            );
           }}
         />
       )}
