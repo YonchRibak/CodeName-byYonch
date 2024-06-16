@@ -10,6 +10,7 @@ import useKeepScore from "@/Hooks/useKeepScore";
 import useResetCardStatus from "@/Hooks/useResetCardStatus";
 import { GiRollingBomb } from "react-icons/gi";
 import { cardService } from "@/Services/CardService";
+import InfoPopover from "./InfoPopover";
 
 type GameCardProps = {
   index: number;
@@ -24,7 +25,6 @@ type GameCardProps = {
 };
 
 function GameCard(props: GameCardProps): JSX.Element {
-  const [popoverState, setPopoverState] = useState(false);
   const [wordHasBeenReplaced, setWordHasBeenReplaced] = useState(false);
 
   const { session, setSession } = useGameContext();
@@ -103,29 +103,8 @@ function GameCard(props: GameCardProps): JSX.Element {
     }
        `}
     >
-      <Popover
-        open={popoverState}
-        onOpenChange={(isOpen) => setPopoverState(isOpen)}
-      >
-        <PopoverTrigger
-          disabled={props.wordType === "RandomWord"}
-          className={`max-w-min absolute sm:top-[-2px] sm:left-[-2px] sm:scale-50 md:scale-[60%] md:top-[1px] md:left-[1px] lg:scale-[150%] lg:top-3 lg:left-4 top-2 left-2 xl:top-4 xl:left-4 xl:scale-125`}
-          onMouseEnter={() => setPopoverState(true)}
-          onMouseLeave={() => setPopoverState(false)}
-        >
-          <Info className={props.wordType === "RandomWord" ? "hidden" : ""} />
-        </PopoverTrigger>
-        <PopoverContent
-          onCloseAutoFocus={(e) => {
-            e.preventDefault();
-          }}
-          className={i18n.language === "en-US" ? "ltr " : "rtl "}
-        >
-          <div className="text-xl md:text-3xl sm:text-sm">
-            {props.word?.extract}
-          </div>
-        </PopoverContent>
-      </Popover>
+      {/* if wordType is "WikiObj" render InfoPopover component: */}
+      {props.wordType === "WikiObj" && <InfoPopover word={props.word} />}
 
       <CardContent className="card-content h-full flex justify-center items-center p-4 sm:p-1 overflow-hidden overflow-ellipsis">
         <CardText
