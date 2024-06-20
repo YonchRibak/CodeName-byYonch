@@ -33,7 +33,7 @@ function ManageGame(): JSX.Element {
               )
             }
           >
-            {session.indicesOfRevealedCards?.length > currIndicesArr.length
+            {session.indicesOfRevealedCards?.length > currIndicesArr.length // assign text depending on whether new cards have been selected for submission.
               ? t("manageGame.submitBtn")
               : t("manageGame.forfeitTurn")}
           </Button>

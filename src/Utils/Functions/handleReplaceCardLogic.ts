@@ -5,6 +5,7 @@ import i18n from "@/i18n";
 import { Dispatch, SetStateAction } from "react";
 
 function handleReplaceCardLogic(
+  lang: "en" | "he",
   cardsType: string,
   index: number,
   session: Session,

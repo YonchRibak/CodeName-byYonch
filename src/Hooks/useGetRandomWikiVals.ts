@@ -2,37 +2,25 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useQueries } from "react-query";
 import useStoreWikiData from "./useStoreWikiData";
-import useGameContext from "./useGameContext";
 
-function useGetRandomWikiVals(lang: string, pages: number) {
-  const [allData, setAllData] = useState([]); // state to regroup all data to.
-  const [isEngStored, setIsEngStored] = useState(true); // boolean to indicate whether there are already items in local storage (rendering the fetch unnecessary)
-  const [isHebStored, setIsHebStored] = useState(true); // boolean to indicate whether there are already items in local storage (rendering the fetch unnecessary)
-  const [blockStoring, setBlockStoring] = useState(true);
-
-  const { session } = useGameContext();
+function useGetRandomWikiVals(lang: "en" | "he", pages: number) {
+  const [fetchedWikis, setFetchedWikis] = useState([]);
+  const [isWikisStored, setIsWikisStored] = useState({
+    en: true,
+    he: true,
+  });
 
   useEffect(() => {
-    if (!allData.length) {
-      setBlockStoring(false);
+    // check if wikis aren't stored in current language and setIsWikisStored accordingly.
+    if (!localStorage.getItem(`${lang}-initWikis`)) {
+      setIsWikisStored((prev) => ({
+        ...prev,
+        [lang]: false,
+      }));
     }
-  }, []);
 
-  useEffect(() => {
-    // if no corresponding items are in storage, set isStored to false.
-    if (
-      !localStorage.getItem(`en-US-initWikis`) ||
-      !localStorage.getItem(`en-US-spareWikis`)
-    ) {
-      setIsEngStored(false);
-    }
-    if (
-      !localStorage.getItem(`he-IL-initWikis`) ||
-      !localStorage.getItem(`he-IL-spareWikis`)
-    ) {
-      setIsHebStored(false);
-    }
-  }, [session.cards]);
+    return () => setFetchedWikis([]); // Clean-up for the hook: reset fetchedWikis to an empty array.
+  }, [localStorage.length, lang]);
 
   const url = `https://${lang}.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts&exsentences=1&exintro&explaintext&generator=random&grnnamespace=0&grnlimit=20`;
 
@@ -44,7 +32,7 @@ function useGetRandomWikiVals(lang: string, pages: number) {
           const res = await axios.get(url);
           return res;
         },
-        enabled: lang === "en" ? !isEngStored : !isHebStored, // only if isStored is falsy (meaning: no items in storage), run the query.
+        enabled: lang === "en" ? !isWikisStored.en : !isWikisStored.he, // only if isStored is falsy (meaning: no items in storage), run the query.
       };
     })
   );
@@ -58,7 +46,7 @@ function useGetRandomWikiVals(lang: string, pages: number) {
         return [...acc, ...Object.values(result.data?.data?.query?.pages)];
       }, []);
 
-      setAllData(
+      setFetchedWikis(
         allWikis.filter(
           (obj) =>
             obj.extract &&
@@ -68,16 +56,10 @@ function useGetRandomWikiVals(lang: string, pages: number) {
             obj.extract.length > 5
         )
       );
-      setBlockStoring(false);
     }
   }, [results.every((res) => res.isSuccess)]);
 
-  useStoreWikiData(
-    allData,
-    lang === "en" ? "en-US" : "he-IL",
-    blockStoring,
-    setBlockStoring
-  ); // store in local storage and in session (GameContext).
+  useStoreWikiData(fetchedWikis, lang, isWikisStored, setIsWikisStored); // store in local storage and in session (GameContext).
 
   const isLoading = results.some((result) => result.isLoading);
   const isError = results.some((result) => result.isError);

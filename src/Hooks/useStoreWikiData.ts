@@ -2,19 +2,25 @@ import { Dispatch, SetStateAction, useEffect } from "react";
 import useGameContext from "./useGameContext";
 import WikiObj from "@/Models/WikiObj";
 
+type isWikisStoredType = {
+  en: boolean;
+  he: boolean;
+};
 function useStoreWikiData(
   wikiData: WikiObj[],
-  lang: string,
-  blockStoring: boolean,
-  setBlockStoring: Dispatch<SetStateAction<boolean>>
+  lang: "en" | "he",
+  isWikiStored: isWikisStoredType,
+  setIsWikiStored: Dispatch<SetStateAction<isWikisStoredType>>
 ) {
   const { setSession } = useGameContext();
+
+  console.log(isWikiStored);
   useEffect(() => {
     if (
       !localStorage.getItem(`${lang}-initWikis`) ||
       !localStorage.getItem(`${lang}-spareWikis`)
     ) {
-      if (wikiData.length > 1 && !blockStoring) {
+      if (wikiData.length > 1 && !isWikiStored[lang]) {
         localStorage.setItem(
           `${lang}-initWikis`,
           JSON.stringify(wikiData.slice(0, 25))
@@ -35,10 +41,13 @@ function useStoreWikiData(
           spareCards: wikiData.slice(25),
         }));
 
-        setBlockStoring(true);
+        setIsWikiStored((prev) => ({
+          ...prev,
+          [lang]: true,
+        }));
       }
     }
-  }, [wikiData, lang, blockStoring]);
+  }, [wikiData, lang, isWikiStored]);
 }
 
 export default useStoreWikiData;

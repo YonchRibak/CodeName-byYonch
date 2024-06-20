@@ -9,10 +9,8 @@ function useDisplayCards(
     if (
       cardsType === "RandomWord" ||
       (cardsType === "WikiObj" &&
-        ((localStorage.getItem("en-US-initWikis") &&
-          i18n.language === "en-US") ||
-          (localStorage.getItem("he-IL-initWikis") &&
-            i18n.language === "he-IL")))
+        ((localStorage.getItem("en-initWikis") && i18n.language === "en-US") ||
+          (localStorage.getItem("he-initWikis") && i18n.language === "he-IL")))
     ) {
       const showDelay = 100;
 
@@ -27,7 +25,7 @@ function useDisplayCards(
         }, i * showDelay);
       }
     }
-  }, [cardsType]);
+  }, [cardsType, localStorage.length]);
 }
 
 export default useDisplayCards;

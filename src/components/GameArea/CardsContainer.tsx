@@ -18,7 +18,7 @@ function CardsContainer(props: CardsContainerProps): JSX.Element {
   const [showCards, setShowCards] = useState<boolean[]>(Array(25).fill(false));
   const [cardStatus, setCardStatus] = useState<string[]>(Array(25).fill(""));
 
-  const { session, setSession } = useGameContext();
+  const { session } = useGameContext();
 
   useStoreCardsToSession(
     props.cardsType,
