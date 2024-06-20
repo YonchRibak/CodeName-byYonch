@@ -3,7 +3,7 @@ import { Card, CardContent } from "../ui/card";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
 import useGameContext from "@/Hooks/useGameContext";
-import GoNutsInfoPopover from "./GoNutsInfoPopover";
+import InfoPopover from "./InfoPopover";
 
 function InitGame(): JSX.Element {
   const { t } = useTranslation();
@@ -32,7 +32,12 @@ function InitGame(): JSX.Element {
               navigate(deck.href);
             }}
           >
-            {deck.id === 3 && <GoNutsInfoPopover />}
+            {deck.id === 3 && (
+              <InfoPopover
+                text={t("initGame.goNutsPopover")}
+                textAlign="text-center"
+              />
+            )}
             <CardContent className="flex justify-center select-none font-medium items-center h-full p-2 text-4xl">
               {deck.text}
             </CardContent>

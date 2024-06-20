@@ -1,11 +1,10 @@
 import { Info } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import i18n from "@/i18n";
 import { useState } from "react";
-import WikiObj from "@/Models/WikiObj";
 
 type InfoPopoverProps = {
-  word: WikiObj;
+  text: string;
+  textAlign: string;
 };
 
 function InfoPopover(props: InfoPopoverProps): JSX.Element {
@@ -26,11 +25,9 @@ function InfoPopover(props: InfoPopoverProps): JSX.Element {
         onCloseAutoFocus={(e) => {
           e.preventDefault();
         }}
-        className={i18n.language === "en-US" ? "ltr " : "rtl "}
+        className={props.textAlign}
       >
-        <div className="text-xl md:text-3xl sm:text-sm">
-          {props.word?.extract}
-        </div>
+        <div className="text-xl md:text-3xl sm:text-sm">{props.text}</div>
       </PopoverContent>
     </Popover>
   );

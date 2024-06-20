@@ -10,6 +10,8 @@ import { cardService } from "@/Services/CardService";
 import InfoPopover from "./InfoPopover";
 import ReplaceCardIcon from "./ReplaceCardIcon";
 import { cardStyleService } from "@/Services/CardStyleService";
+import WikiObj from "@/Models/WikiObj";
+import i18n from "@/i18n";
 
 type GameCardProps = {
   index: number;
@@ -62,7 +64,12 @@ function GameCard(props: GameCardProps): JSX.Element {
       )}
     >
       {/* if wordType is "WikiObj" render InfoPopover component: */}
-      {props.wordType === "WikiObj" && <InfoPopover word={props.word} />}
+      {props.wordType === "WikiObj" && (
+        <InfoPopover
+          text={(props.word as WikiObj)?.extract}
+          textAlign={i18n.language === "en-US" ? "ltr" : "rtl"}
+        />
+      )}
 
       <CardContent className="card-content h-full flex justify-center items-center p-4 sm:p-1 overflow-hidden overflow-ellipsis">
         <CardText
