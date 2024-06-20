@@ -14,6 +14,7 @@ class SocketService {
   public isConnected(): boolean {
     return this.socket ? this.socket.connected : false;
   }
+
   public initRoom(
     room: string,
     callback: Dispatch<SetStateAction<Session>>,
@@ -35,6 +36,7 @@ class SocketService {
       this.provideSessionData(requestingUserId, session);
     });
   }
+
   public joinRoom(
     room: string,
     setSession: Dispatch<SetStateAction<Session>>
@@ -54,12 +56,14 @@ class SocketService {
   public updateSessionData(updatedSessionData: Session) {
     this.socket.emit("userProvidesUpdatedSessionData", updatedSessionData);
   }
+
   public provideSessionData(requestingUserId: string, sessionData: Session) {
     this.socket.emit("userProvidesSessionData", {
       sessionData,
       targetUser: requestingUserId,
     });
   }
+
   public disconnect(): void {
     // Client disconnects from server:
     this.socket.disconnect();
