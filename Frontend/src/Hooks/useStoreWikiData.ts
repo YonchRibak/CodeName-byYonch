@@ -14,7 +14,6 @@ function useStoreWikiData(
 ) {
   const { setSession } = useGameContext();
 
-  console.log(isWikiStored);
   useEffect(() => {
     if (
       !localStorage.getItem(`${lang}-initWikis`) ||

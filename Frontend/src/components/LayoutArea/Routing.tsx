@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom";
-import StartScreen from "./StartScreen";
 import CaptainScreen from "../CaptainsArea/CaptainScreen";
 import DeckContainer from "../GameArea/Decks/DeckContainer";
 import RulesContainer from "../RulesArea/RulesContainer";
+import StartScreen from "./StartScreen";
 
 function Routing(): JSX.Element {
   return (
