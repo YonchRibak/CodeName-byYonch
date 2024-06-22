@@ -85,5 +85,41 @@
       "enterCode": "הזן קוד משחק",
       "enterGame": "היכנס"
     }
+  },
+  "about": {
+    "title": {
+      "title": "על הפרויקט",
+      "description": "זוהי הגרסה שלי למשחק החברה האהוב שם קוד.\nזוהי דרך מבוססת אינטרנט עבור קבוצה של חברים או משפחה לשחק את המשחק.\nנבנה ב-Node.js ו-React, הפרויקט משלב טכנולוגיות, טכניקות וספריות רבות.\nהוא תומך גם באנגלית וגם בעברית."
+    },
+    "technologies": {
+      "title": "טכנולוגיות בשימוש",
+      "frontend": {
+        "title": "צד לקוח",
+        "typeScript": "typeScript",
+        "react": "React",
+        "socket": "Socket.io",
+        "api": "Wikipedia's REST API",
+        "i18n": "i18n",
+        "tailwind": "Tailwind CSS",
+        "shadcn-ui": "Shadcn-ui"
+      },
+      "backend": {
+        "title": "צד שרת",
+        "node": "Node.js",
+        "express": "Express",
+        "mySql": "mySQL"
+      }
+    },
+    "repo": {
+      "title": "  🔗הפרויקט ב-GitHub",
+      "github": "CodeName-ByYonch"
+    },
+    "contact": {
+      "title": "צור קשר",
+      "name": "יונתן ריבק",
+      "email": "yonch.baalil@gmail.com",
+      "linkedIn": "LinkedIn",
+      "github": "GitHub"
+    }
   }
 }

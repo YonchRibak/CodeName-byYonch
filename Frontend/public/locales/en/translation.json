@@ -86,5 +86,41 @@
       "enterCode": "Enter Game Code",
       "enterGame": "Enter"
     }
+  },
+  "about": {
+    "title": {
+      "title": "About The Project",
+      "description": "This is my take on the beloved parlor game Code Name.\nIt is a web-based way for a group of friends or family to play the game.\nBuilt in Node.js and React, this project incorporates many different technologies, techniques and libraries.\nIt supports both English and Hebrew."
+    },
+    "technologies": {
+      "title": "Technologies Used",
+      "frontend": {
+        "title": "Frontend",
+        "typeScript": "typeScript",
+        "react": "React",
+        "socket": "Socket.io",
+        "api": "Wikipedia's REST API",
+        "i18n": "i18n",
+        "tailwind": "Tailwind CSS",
+        "shadcn-ui": "Shadcn-ui"
+      },
+      "backend": {
+        "title": "Backend",
+        "node": "Node.js",
+        "express": "Express",
+        "mySql": "mySQL"
+      }
+    },
+    "repo": {
+      "title": "🔗 Project's Repository in GitHub",
+      "github": "CodeName-ByYonch"
+    },
+    "contact": {
+      "title": "Contact Me",
+      "name": "Jonathan Ribak",
+      "email": "yonch.baalil@gmail.com",
+      "linkedIn": "LinkedIn",
+      "github": "GitHub"
+    }
   }
 }
