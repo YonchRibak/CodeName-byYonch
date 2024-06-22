@@ -1,10 +1,10 @@
 import i18n from "@/i18n";
 import { useTranslation } from "react-i18next";
-import { backendListItems, frontendListItems } from "./ListItem";
 import myPicSrc from "../../assets/images/myPic.jpg";
 import emailSrc from "../../assets/images/email.jpg";
 import linkedinSrc from "../../assets/images/linkedin.png";
 import githubSrc from "../../assets/images/github.png";
+import { aboutService } from "@/Services/AboutService";
 
 function About(): JSX.Element {
   const { t } = useTranslation();
@@ -39,12 +39,9 @@ function About(): JSX.Element {
             {t("about.technologies.frontend.title")}
           </h4>
           <ul className="list-none ms-16 space-y-5 ">
-            {frontendListItems.map((item, index) => (
+            {aboutService.frontendListItems.map((item, index) => (
               <li key={index} className="flex gap-5">
-                <img
-                  src={item.icon}
-                  className="h-[3vh] rounded-md"
-                />
+                <img src={item.icon} className="h-[3vh] rounded-md" />
                 <span className="text-2xl">{item.text}</span>
               </li>
             ))}
@@ -53,7 +50,7 @@ function About(): JSX.Element {
             {t("about.technologies.backend.title")}
           </h4>
           <ul className="list-none ms-16 space-y-5 mb-8">
-            {backendListItems.map((item, index) => (
+            {aboutService.backendListItems.map((item, index) => (
               <li key={index} className="flex gap-5">
                 <img src={item.icon} className="h-[3vh]  rounded-md" />
                 <span className="text-2xl">{item.text}</span>
