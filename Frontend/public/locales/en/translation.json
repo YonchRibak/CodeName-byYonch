@@ -53,6 +53,10 @@
       "home": "Home"
     }
   },
+  "startScreen": {
+    "header": "Welcome to Code Name by Yonch",
+    "description": "Select a deck to start the game,\n or go to 'The Rules' in the navbar to learn how to play"
+  },
   "initGame": {
     "title": "Select a Deck",
     "family": "Family",
