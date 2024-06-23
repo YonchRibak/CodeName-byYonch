@@ -57,6 +57,9 @@
     "header": "Welcome to Code Name by Yonch",
     "description": "Select a deck to start the game,\n or go to 'The Rules' in the navbar to learn how to play"
   },
+  "loading": {
+    "wikisTakeLong": "First time fetching random Wiki values takes between 8-14 seconds,\n but next time it will be instant."
+  },
   "initGame": {
     "title": "Select a Deck",
     "family": "Family",

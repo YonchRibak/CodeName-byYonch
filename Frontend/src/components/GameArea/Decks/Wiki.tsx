@@ -25,7 +25,7 @@ function Wiki(): JSX.Element {
     30
   ); // retrieves random values from wikipedia in English, go to 'Hooks/' to learn more.
 
-  if (isLoading) return <Loading />; // display loading component.
+  if (isLoading) return <Loading isWikiLoading />; // display loading component.
   if (isError) return <div>Error</div>; // display error component.NOTE TO SELF: create error component.
   if ((session.cards[0] as WikiObj)?.pageid)
     return <CardsContainer cardsType="WikiObj" isCaptain={false} />;
