@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useQueries } from "react-query";
 import useStoreWikiData from "./useStoreWikiData";
+import { appConfig } from "@/Utils/appConfig";
 
 function useGetRandomWikiVals(lang: "en" | "he", pages: number) {
   const [fetchedWikis, setFetchedWikis] = useState([]);
@@ -22,14 +23,12 @@ function useGetRandomWikiVals(lang: "en" | "he", pages: number) {
     return () => setFetchedWikis([]); // Clean-up for the hook: reset fetchedWikis to an empty array.
   }, [localStorage.length, lang]);
 
-  const url = `https://${lang}.wikipedia.org/w/api.php?action=query&origin=*&format=json&prop=extracts&exsentences=1&exintro&explaintext&generator=random&grnnamespace=0&grnlimit=20`;
-
   const results = useQueries(
     Array.from({ length: pages }, (_, i) => i).map((index) => {
       return {
         queryKey: [`getRandomWikis-${index}-${lang}`],
         queryFn: async () => {
-          const res = await axios.get(url);
+          const res = await axios.get(appConfig.WikiUrl(lang));
           return res;
         },
         enabled: lang === "en" ? !isWikisStored.en : !isWikisStored.he, // only if isStored is falsy (meaning: no items in storage), run the query.
