@@ -27,7 +27,7 @@ function CardsContainer(props: CardsContainerProps): JSX.Element {
     props.randomWords,
     props.isFamily
   );
-  useDisplayCards(setShowCards, props.cardsType); // visit 'Hooks/' to learn more what the hook does.
+  useDisplayCards(setShowCards, props.cardsType);
 
   useRevealSelectedCards(cardStatus, setCardStatus);
 
