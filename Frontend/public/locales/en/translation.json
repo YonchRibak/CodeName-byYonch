@@ -60,6 +60,11 @@
   "loading": {
     "wikisTakeLong": "First time fetching random Wiki values takes between 8-14 seconds,\n but next time it will be instant."
   },
+  "error": {
+    "message1": "There was some error fetching the data.\nTry again later or",
+    "clickHere": " click here ",
+    "message2": "to Email Yonch directly about the issue."
+  },
   "initGame": {
     "title": "Select a Deck",
     "family": "Family",

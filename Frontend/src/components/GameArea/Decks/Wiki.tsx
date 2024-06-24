@@ -8,6 +8,7 @@ import CardsContainer from "../CardsContainer";
 import { useTranslation } from "react-i18next";
 import WikiObj from "@/Models/WikiObj";
 import useSetStoredWikisToSession from "@/Hooks/useSetStoredWikisToSession";
+import Error from "@/components/SharedArea/Interact/Error";
 
 function Wiki(): JSX.Element {
   const { session, setSession } = useGameContext();
@@ -25,8 +26,8 @@ function Wiki(): JSX.Element {
     30
   ); // retrieves random values from wikipedia in English, go to 'Hooks/' to learn more.
 
-  if (isLoading) return <Loading isWikiLoading />; // display loading component.
-  if (isError) return <div>Error</div>; // display error component.NOTE TO SELF: create error component.
+  if (isLoading) return <Loading isWikiLoading />;
+  if (isError) return <Error />;
   if ((session.cards[0] as WikiObj)?.pageid)
     return <CardsContainer cardsType="WikiObj" isCaptain={false} />;
 }
