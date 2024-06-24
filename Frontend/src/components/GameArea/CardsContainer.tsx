@@ -6,6 +6,7 @@ import useDisplayCards from "@/Hooks/useDisplayCards";
 import useRevealSelectedCards from "@/Hooks/useRevealSelectedCards";
 import WikiObj from "@/Models/WikiObj";
 import useStoreCardsToSession from "@/Hooks/useStoreCardsToSession";
+import { cardsContainerService } from "@/Services/CardsContainerService";
 
 type CardsContainerProps = {
   randomWords?: RandomWord[];
@@ -32,7 +33,10 @@ function CardsContainer(props: CardsContainerProps): JSX.Element {
 
   return (
     <div className="grid h-max grid-cols-5 grid-rows-[repeat(5,15vh)] lg:gap-5 sm:gap-2">
-      {session.cards?.length &&
+      {cardsContainerService.isCardsReadyToRender(
+        props.cardsType,
+        session.cards?.[0]
+      ) &&
         session.cards.map((card, index) => {
           return (
             <GameCard
