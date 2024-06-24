@@ -36,8 +36,8 @@ export const GameContext = createContext<GameModeController | undefined>(
 );
 
 function generateRandomTeamAscription(): string[] {
-  const reds = Array(9).fill("red");
-  const blues = Array(8).fill("blue");
+  const reds = Array(8).fill("red");
+  const blues = Array(9).fill("blue");
   const neutrals = Array(7).fill("neutral");
   const bomb = "bomb";
 

@@ -16,7 +16,7 @@
       "customizeDeck": "Before starting the game, you can always replace words that do not suit you by pressing the replacement button in the upper right corner of the card.\nThe button will appear when you hover over the card with the mouse.",
       "startGame": "Once the cards that are laid out are to your liking, press the 'Start Game' button.",
       "captainsLogin": "Now the two captains need to log in to the game:\nThis can be done from any device: mobile phone, tablet, or computer.\nLogging into the game as a captain is done by scanning the QR-code or browsing to the displayed address and entering the game code.",
-      "gameBegins": "Once the two captains have logged in, the game begins.\nThe first team to play is the red team, as it has one more word to guess than the blue team."
+      "gameBegins": "Once the two captains have logged in, the game begins.\nThe first team to play is the blue team, as it has one more word to guess than the red team."
     },
     "captainsRole": {
       "title": "The Captain Role",
@@ -74,6 +74,7 @@
     "goNutsPopover": "Random values from Wikipedia"
   },
   "manageGame": {
+    "currentTurn": "Current Turn",
     "blueScore": "Blue Team's Score",
     "redScore": "Red Team's Score",
     "submitBtn": "Submit answer",
