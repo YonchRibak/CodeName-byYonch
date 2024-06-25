@@ -81,6 +81,12 @@
     "forfeitTurn": "Forfeit Turn",
     "abortBtn": "Abort Game"
   },
+  "victory": {
+    "blue": "Blue Team Wins!",
+    "red": "Red Team Wins!",
+    "bomb": "The opposing team have selected the bomb,\nand therefore have lost the game!",
+    "cards": "You've revealed all of your cards first\nand therefore have won the game"
+  },
   "captainsData": {
     "instructions": "To enter as a captain, scan the barcode.\n Or, alternatively, just go to\nhttp://localhost:5173/captain\non your device and enter the game code.",
     "sessionCode": "Game Code:  "
