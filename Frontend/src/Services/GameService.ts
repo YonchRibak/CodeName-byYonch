@@ -37,6 +37,7 @@ class GameService {
     setCurrIndicesArr(session.indicesOfRevealedCards);
     socketService.updateSessionData(session);
   }
+
 }
 
 export const gameService = new GameService();

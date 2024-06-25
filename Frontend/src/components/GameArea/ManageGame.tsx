@@ -21,7 +21,8 @@ function ManageGame(): JSX.Element {
           <Score />
           <Button
             className={`transition ease-in-out duration-500 text-4xl h-40 ${
-              session.indicesOfRevealedCards?.length > currIndicesArr.length // assign background depending on whether new cards have been selected for submission.
+              session.indicesOfRevealedCards?.length > currIndicesArr.length ||
+              !session.finishedReveal // assign background depending on whether new cards have been selected for submission.
                 ? "bg-primary dark:bg-[#5686F4]"
                 : "bg-[#FFA857] dark:bg-[#EA891B]"
             } w-full`}
@@ -32,8 +33,10 @@ function ManageGame(): JSX.Element {
                 setCurrIndicesArr
               )
             }
+            disabled={!session.finishedReveal}
           >
-            {session.indicesOfRevealedCards?.length > currIndicesArr.length // assign text depending on whether new cards have been selected for submission.
+            {session.indicesOfRevealedCards?.length > currIndicesArr.length ||
+            !session.finishedReveal // assign text depending on whether new cards have been selected for submission.
               ? t("manageGame.submitBtn")
               : t("manageGame.forfeitTurn")}
           </Button>

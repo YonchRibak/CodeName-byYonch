@@ -22,6 +22,7 @@ export type Session = {
   spareCards: RandomWord[] | WikiObj[];
   teamAscription: string[];
   answerSubmitted: boolean;
+  finishedReveal: boolean;
   turnsPlayed: number;
   redScore: number;
   blueScore: number;
@@ -48,6 +49,7 @@ export function GameProvider({ children }: GameProviderProps) {
     turnsPlayed: 0,
     teamAscription: sessionService.generateRandomTeamAscription(),
     answerSubmitted: false,
+    finishedReveal: true,
     redScore: 0,
     blueScore: 0,
     victory: null,

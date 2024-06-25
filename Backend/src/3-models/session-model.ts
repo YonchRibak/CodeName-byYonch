@@ -7,6 +7,7 @@ export class SessionModel {
   spareCards: RandomWord[] | WikiObj[];
   teamAscription: string[];
   answerSubmitted: boolean;
+  finishedReveal: boolean;
   turnsPlayed: number;
   redScore: number;
   blueScore: number;

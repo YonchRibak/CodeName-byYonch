@@ -27,11 +27,17 @@ function useRevealSelectedCards(
 
     let currentIndex = 0; // Initialize index tracker
 
+    setSession((prev) => ({
+      ...prev,
+      finishedReveal: false,
+    }));
+
     const interval = setInterval(() => {
       // Check if all selected cards have been revealed, stop the interval if so
       if (currentIndex >= selectedIndexes.length) {
         setSession((prev) => ({
           ...prev,
+          finishedReveal: true,
           turnsPlayed: prev.turnsPlayed + 1,
         }));
         clearInterval(interval);
