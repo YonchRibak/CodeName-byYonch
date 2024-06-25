@@ -3,17 +3,17 @@ import { Dispatch, SetStateAction, useEffect } from "react";
 
 function useDeclareVictors(
   session: Session,
-  setVictors: Dispatch<SetStateAction<{ blueTeam: boolean; redTeam: boolean }>>
+  setSession: Dispatch<SetStateAction<Session>>
 ) {
   useEffect(() => {
-    let team = "";
-    if (session.blueScore === 8) team = "blueTeam";
-    if (session.redScore === 9) team = "redTeam";
+    let team: "red" | "blue" | null;
+    if (session.blueScore === 9) team = "blue";
+    if (session.redScore === 8) team = "red";
 
-    if (session.blueScore === 8 || session.redScore === 9)
-      setVictors((prev) => ({
+    if (session.blueScore === 9 || session.redScore === 8)
+      setSession((prev) => ({
         ...prev,
-        [team]: true,
+        victory: team,
       }));
   }, [session.blueScore, session.redScore]);
 }

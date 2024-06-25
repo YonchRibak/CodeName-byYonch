@@ -1,5 +1,6 @@
 import WikiObj from "@/Models/WikiObj";
 import RandomWord from "@/Models/randomWord";
+import { sessionService } from "@/Services/SessionService";
 import {
   Dispatch,
   ReactNode,
@@ -20,9 +21,11 @@ export type Session = {
   cards: (RandomWord | WikiObj)[];
   spareCards: RandomWord[] | WikiObj[];
   teamAscription: string[];
+  answerSubmitted: boolean;
   turnsPlayed: number;
   redScore: number;
   blueScore: number;
+  victory: "blue" | "red" | null;
   indicesOfRevealedCards: number[];
   lastRoute: string;
 };
@@ -35,20 +38,6 @@ export const GameContext = createContext<GameModeController | undefined>(
   undefined
 );
 
-function generateRandomTeamAscription(): string[] {
-  const reds = Array(8).fill("red");
-  const blues = Array(9).fill("blue");
-  const neutrals = Array(7).fill("neutral");
-  const bomb = "bomb";
-
-  let fullArray: string[] = [];
-  const randomizedArray = fullArray
-    .concat(reds, blues, neutrals, bomb)
-    .sort(() => Math.random() - 0.5);
-
-  return randomizedArray;
-}
-
 export function GameProvider({ children }: GameProviderProps) {
   const [session, setSession] = useState<Session>({
     sessionId: uid(6),
@@ -57,9 +46,11 @@ export function GameProvider({ children }: GameProviderProps) {
     cards: [],
     spareCards: [],
     turnsPlayed: 0,
-    teamAscription: generateRandomTeamAscription(),
+    teamAscription: sessionService.generateRandomTeamAscription(),
+    answerSubmitted: false,
     redScore: 0,
     blueScore: 0,
+    victory: null,
     indicesOfRevealedCards: [],
     lastRoute: "",
   });

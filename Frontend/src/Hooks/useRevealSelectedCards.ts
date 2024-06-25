@@ -5,7 +5,7 @@ function useRevealSelectedCards(
   cardStatus: string[],
   setCardStatus: Dispatch<SetStateAction<string[]>>
 ) {
-  const { session } = useGameContext();
+  const { session, setSession } = useGameContext();
 
   useEffect(() => {
     const selectedIndexes = cardStatus.reduce((acc, status, index) => {
@@ -30,6 +30,10 @@ function useRevealSelectedCards(
     const interval = setInterval(() => {
       // Check if all selected cards have been revealed, stop the interval if so
       if (currentIndex >= selectedIndexes.length) {
+        setSession((prev) => ({
+          ...prev,
+          turnsPlayed: prev.turnsPlayed + 1,
+        }));
         clearInterval(interval);
         return;
       }
@@ -47,7 +51,7 @@ function useRevealSelectedCards(
 
     // Clean up function to clear the interval on component unmount or when the session changes
     return () => clearInterval(interval);
-  }, [session.turnsPlayed]);
+  }, [session.answerSubmitted]);
 }
 
 export default useRevealSelectedCards;

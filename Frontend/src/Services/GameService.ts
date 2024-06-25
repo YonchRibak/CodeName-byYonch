@@ -2,6 +2,7 @@ import { Session } from "@/components/game-provider";
 import { Dispatch, SetStateAction } from "react";
 import { socketService } from "./SocketService";
 import { uid } from "uid";
+import { sessionService } from "./SessionService";
 
 class GameService {
   public handleAbortGame(
@@ -14,8 +15,10 @@ class GameService {
       numberOfUsersInRoom: 0,
       gameStarted: false,
       turnsPlayed: 0,
+      teamAscription: sessionService.generateRandomTeamAscription(),
       blueScore: 0,
       redScore: 0,
+      victory: null,
       indicesOfRevealedCards: [],
     }));
 
@@ -29,7 +32,7 @@ class GameService {
   ) {
     setSession((prevSession) => ({
       ...prevSession,
-      turnsPlayed: prevSession.turnsPlayed + 1,
+      answerSubmitted: !prevSession.answerSubmitted,
     }));
     setCurrIndicesArr(session.indicesOfRevealedCards);
     socketService.updateSessionData(session);

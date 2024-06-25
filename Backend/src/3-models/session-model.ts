@@ -6,9 +6,11 @@ export class SessionModel {
   cards: (RandomWord | WikiObj)[];
   spareCards: RandomWord[] | WikiObj[];
   teamAscription: string[];
+  answerSubmitted: boolean;
   turnsPlayed: number;
   redScore: number;
   blueScore: number;
+  victory: "blue" | "red" | null;
   indicesOfRevealedCards: number[];
   lastRoute: string;
 }
