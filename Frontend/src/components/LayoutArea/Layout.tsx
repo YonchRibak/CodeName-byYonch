@@ -3,24 +3,18 @@ import Routing from "./Routing";
 import "./LayoutArea.css";
 import Aside from "./Aside";
 import useGameContext from "@/Hooks/useGameContext";
-import { useState } from "react";
 import useDeclareVictors from "@/Hooks/useDeclareVictors";
-import BlueConfetti from "./BlueConfetti";
-import RedConfetti from "./RedConfetti";
+import VictoryMsgAndConfetti from "./VictoryMsgAndConfetti";
 import useConnectToSocketRoom from "@/Hooks/useConnectToSocketRoom";
 
 function Layout(): JSX.Element {
-  const [victors, setVictors] = useState({
-    redTeam: false,
-    blueTeam: false,
-  });
-
   const { session, setSession } = useGameContext();
   const isCaptainScreen = window.location.pathname.includes("/captain");
 
   useConnectToSocketRoom(session, setSession);
-  useDeclareVictors(session, setVictors);
-  
+  useDeclareVictors(session, setSession);
+
+  console.log(session.victory);
   return (
     <div className="h-full relative xl:p-4">
       {!isCaptainScreen && (
@@ -42,8 +36,7 @@ function Layout(): JSX.Element {
           </aside>
         )}
 
-        {victors.blueTeam && <BlueConfetti />}
-        {victors.redTeam && <RedConfetti />}
+        {session.victory && <VictoryMsgAndConfetti />}
         <Routing />
       </main>
     </div>
