@@ -1,5 +1,4 @@
 import { dal } from "../2-utils/dal";
-import { OkPacketParams } from "mysql2";
 import { WordModel } from "../3-models/word-model";
 
 class DataService {
