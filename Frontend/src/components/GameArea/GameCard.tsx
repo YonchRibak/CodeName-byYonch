@@ -12,6 +12,7 @@ import ReplaceCardIcon from "./ReplaceCardIcon";
 import { cardStyleService } from "@/Services/CardStyleService";
 import WikiObj from "@/Models/WikiObj";
 import i18n from "@/i18n";
+import useDefeatByBombSelection from "@/Hooks/useDefeatByBombSelection";
 
 type GameCardProps = {
   index: number;
@@ -41,6 +42,13 @@ function GameCard(props: GameCardProps): JSX.Element {
 
   useKeepScore(props.cardStatus, props.team); // keeping score according to team ascription after revelation.
 
+  useDefeatByBombSelection(
+    props.team,
+    props.cardStatus,
+    props.isCaptain,
+    session,
+    setSession
+  );
   return (
     <Card
       onClick={() =>
