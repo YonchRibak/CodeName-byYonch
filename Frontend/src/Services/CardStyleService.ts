@@ -8,10 +8,10 @@ class CardStyleService {
       case "blue":
         return "bg-[#2cb7da] ";
       case "bomb":
-        if (isCaptain) return "captain-bomb ";
+        if (isCaptain) return "";
         return "bomb ";
       case "neutral":
-        return "bg-white dark:bg-zinc-700 ";
+        return "bg-[#F9F7DC] dark:bg-zinc-700 ";
     }
   }
   public classListManager(
@@ -34,7 +34,10 @@ class CardStyleService {
     if (session.gameStarted && !isCaptain) {
       classList += "hover:scale-105 cursor-pointer ";
     }
-
+    if (session.gameStarted && !isCaptain && cardStatus === "selected") {
+      classList +=
+        "dark:!shadow-[0_0_40px_10px_rgb(189,166,196)] !shadow-[0_0_40px_10px_rgb(222,204,240)] ";
+    }
     // ======== CAPTAINS SCREEN STYLE CONFIGS: =======================================================
 
     // if card is rendered on a captain's screen OR is revealed, assign background according to team ascription:
@@ -52,7 +55,7 @@ class CardStyleService {
     // if card's team affiliation is 'bomb' AND card is rendered on a captain's screen, add pink border:
     if (team === "bomb" && isCaptain) {
       classList +=
-        "!border-4 sm:!border-2 border-pink-600 bg-white dark:bg-zinc-700 ";
+        "!border-4 sm:!border-2 border-pink-600 bg-[#F9F7DC] dark:bg-zinc-700 ";
     }
 
     return classList;
