@@ -31,7 +31,7 @@ function CardText({
   return (
     <div
       className={`
-        h-auto w-full font-medium select-none sm:leading-tight whitespace-pre-line
+        h-auto w-full font-medium select-none sm:leading-tight whitespace-pre-line 
          ${adjustedFontSize}
         ${i18n.language === "en-US" ? "ltr " : "rtl "}
       `}

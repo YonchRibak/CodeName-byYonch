@@ -36,7 +36,7 @@ function VictoryMsgAndConfetti(): JSX.Element {
           <DialogHeader className="flex justify-center">
             <DialogTitle
               style={{ direction: i18n.language === "en-US" ? "ltr" : "rtl" }}
-              className={`text-8xl font-bold text-center ${
+              className={`text-8xl font-bold custom-text-shadow text-center ${
                 session.victory === "blue" ? "text-primary" : "text-secondary"
               }`}
             >
@@ -47,7 +47,7 @@ function VictoryMsgAndConfetti(): JSX.Element {
           </DialogHeader>
           <div
             style={{ direction: i18n.language === "en-US" ? "ltr" : "rtl" }}
-            className={`text-6xl font-semibold text-center ${
+            className={`text-6xl font-semibold text-center custom-text-shadow ${
               session.victory === "blue" ? "text-secondary" : "text-primary"
             }`}
           >
@@ -57,7 +57,7 @@ function VictoryMsgAndConfetti(): JSX.Element {
           </div>
           <DialogFooter className="flex flex-row justify-end">
             <Button
-              className="text-4xl h-20 bg-destructive  w-full"
+              className="text-4xl h-20 bg-destructive w-full custom-text-shadow"
               onClick={() => gameService.handleAbortGame(session, setSession)}
             >
               {t("manageGame.abortBtn")}

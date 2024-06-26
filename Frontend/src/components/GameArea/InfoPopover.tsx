@@ -22,10 +22,11 @@ function InfoPopover(props: InfoPopoverProps): JSX.Element {
         <Info />
       </PopoverTrigger>
       <PopoverContent
+        align={"start"}
         onCloseAutoFocus={(e) => {
           e.preventDefault();
         }}
-        className={props.textAlign}
+        className={props.textAlign + ""}
       >
         <div className="text-xl md:text-3xl sm:text-sm">{props.text}</div>
       </PopoverContent>

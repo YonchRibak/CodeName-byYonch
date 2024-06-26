@@ -74,6 +74,9 @@ module.exports = {
         },
         shadow: "rgba(var(--selected-shadow))",
       },
+      boxShadow: {
+        "custom-text-shadow": "9px 9px 9px rgba(255, 0, 0, 1)",
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -109,5 +112,13 @@ module.exports = {
       nocompatible: true,
       preferredStrategy: "pseudoelements",
     }),
+    function ({ addUtilities }) {
+      const newUtilities = {
+        ".custom-text-shadow": {
+          textShadow: "2px 2px 2px rgba(0, 0, 0, 0.5)",
+        },
+      };
+      addUtilities(newUtilities, ["responsive", "hover"]);
+    },
   ],
 };

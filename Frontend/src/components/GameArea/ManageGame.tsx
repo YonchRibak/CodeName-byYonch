@@ -12,7 +12,7 @@ function ManageGame(): JSX.Element {
   const { session, setSession } = useGameContext();
 
   return (
-    <div className="h-full flex flex-col justify-around">
+    <div className="h-full flex flex-col justify-around ">
       {session.numberOfUsersInRoom < 3 ? ( //If less than 2 captains have connected, render Captains data
         <CaptainsData />
       ) : (
@@ -20,7 +20,7 @@ function ManageGame(): JSX.Element {
         <div className="space-y-7">
           <Score />
           <Button
-            className={`transition ease-in-out duration-500 text-4xl h-40 ${
+            className={`transition ease-in-out duration-500 custom-text-shadow text-4xl h-40 ${
               session.indicesOfRevealedCards?.length > currIndicesArr.length ||
               !session.finishedReveal // assign background depending on whether new cards have been selected for submission.
                 ? "bg-primary dark:bg-[#5686F4]"
@@ -44,7 +44,7 @@ function ManageGame(): JSX.Element {
       )}
 
       <Button
-        className="text-4xl h-40 bg-destructive  w-full"
+        className="text-4xl h-40 bg-destructive custom-text-shadow  w-full"
         onClick={() => gameService.handleAbortGame(session, setSession)}
       >
         {t("manageGame.abortBtn")}
