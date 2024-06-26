@@ -1,35 +1,31 @@
 import useGameContext from "@/Hooks/useGameContext";
-import { socketService } from "@/Services/SocketService";
-import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import CardsContainer from "../GameArea/CardsContainer";
 import RandomWord from "@/Models/randomWord";
 import WikiObj from "@/Models/WikiObj";
 import useConnectCaptainToSocketRoom from "@/Hooks/useConnectCaptainToSocketRoom";
-// import "../GameArea/GameArea.css";
+import useMediaQuery from "@custom-react-hooks/use-media-query";
+import { useTranslation } from "react-i18next";
+import Header from "../LayoutArea/Header";
+import LangToggler from "../SharedArea/LangToggler";
+
 function CaptainScreen(): JSX.Element {
   const { session, setSession } = useGameContext();
-
+  const { t } = useTranslation();
+  const landscape = useMediaQuery("(orientation: landscape)");
   const params = useParams();
-
-  //   useEffect(() => {
-  //     if (!socketService.isConnected()) {
-  //       // Connect to the socket server
-  //       socketService.connect();
-
-  //       // Emit a connection message to the server indicating a captain is trying to connect
-  //       socketService.joinRoom(params.gameId, setSession);
-  //     }
-
-  //     // Cleanup function to disconnect from the server when the component unmounts
-  //     return () => {
-  //       socketService.disconnect();
-  //     };
-  //   }, []);
 
   useConnectCaptainToSocketRoom(params, setSession);
 
-  
+  if (!landscape)
+    return (
+      <div className="flex flex-col overflow-hidden justify-center items-center gap-3 w-full h-full">
+        <LangToggler className="w-1/4" />
+        <div className="text-2xl font-semibold whitespace-pre-line">
+          {t("captain.landscape")}
+        </div>
+      </div>
+    );
   return (
     <CardsContainer
       randomWords={

@@ -103,7 +103,8 @@
     "loginScreen": {
       "enterCode": "הזן קוד משחק",
       "enterGame": "היכנס"
-    }
+    },
+    "landscape": "אנא העבר את המכשיר\nלמצב אופקי"
   },
   "about": {
     "title": {

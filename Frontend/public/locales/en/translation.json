@@ -104,7 +104,8 @@
     "loginScreen": {
       "enterCode": "Enter Game Code",
       "enterGame": "Enter"
-    }
+    },
+    "landscape": "Please shift your device to\nlandscape orientation."
   },
   "about": {
     "title": {
