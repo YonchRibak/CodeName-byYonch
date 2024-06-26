@@ -20,12 +20,12 @@ function ManageGame(): JSX.Element {
         <div className="space-y-7">
           <Score />
           <Button
-            className={`transition ease-in-out duration-500 custom-text-shadow text-4xl h-40 ${
+            className={`transition ease-in-out duration-500 w-[15vw] custom-dark-shadow text-4xl h-40 ${
               session.indicesOfRevealedCards?.length > currIndicesArr.length ||
               !session.finishedReveal // assign background depending on whether new cards have been selected for submission.
                 ? "bg-primary dark:bg-[#5686F4]"
                 : "bg-[#FFA857] dark:bg-[#EA891B]"
-            } w-full`}
+            }`}
             onClick={() =>
               gameService.handleSubmitAnswer(
                 session,
@@ -44,7 +44,7 @@ function ManageGame(): JSX.Element {
       )}
 
       <Button
-        className="text-4xl h-40 bg-destructive custom-text-shadow  w-full"
+        className="text-4xl h-40 bg-destructive custom-dark-shadow  w-full"
         onClick={() => gameService.handleAbortGame(session, setSession)}
       >
         {t("manageGame.abortBtn")}

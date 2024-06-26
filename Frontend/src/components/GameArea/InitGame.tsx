@@ -23,7 +23,7 @@ function InitGame(): JSX.Element {
         {decks.map((deck) => (
           <Card
             key={deck.id}
-            className="h-24 cursor-pointer relative bg-secondary custom-text-shadow"
+            className="h-24 cursor-pointer relative bg-secondary dark:custom-dark-shadow custom-light-shadow"
             onClick={() => {
               setSession((prev) => ({
                 ...prev,
@@ -56,7 +56,7 @@ function InitGame(): JSX.Element {
             turnsPlayed: 0,
           }));
         }}
-        className="text-4xl h-40 bg-primary select-none mb-56 custom-text-shadow"
+        className="text-4xl h-40 bg-primary select-none mb-56 custom-dark-shadow"
       >
         {t("initGame.startGameBtn")}
       </Button>

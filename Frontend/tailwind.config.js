@@ -69,14 +69,12 @@ module.exports = {
           foreground: "hsl(var(--popover-foreground))",
         },
         card: {
-          DEFAULT: "(var(--card))",
+          DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
         shadow: "rgba(var(--selected-shadow))",
       },
-      boxShadow: {
-        "custom-text-shadow": "9px 9px 9px rgba(255, 0, 0, 1)",
-      },
+
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -114,8 +112,11 @@ module.exports = {
     }),
     function ({ addUtilities }) {
       const newUtilities = {
-        ".custom-text-shadow": {
-          textShadow: "2px 2px 2px rgba(0, 0, 0, 0.5)",
+        ".custom-dark-shadow": {
+          textShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+        },
+        ".custom-light-shadow": {
+          textShadow: "0 2px 4px rgba(211,211,211,0.2)",
         },
       };
       addUtilities(newUtilities, ["responsive", "hover"]);

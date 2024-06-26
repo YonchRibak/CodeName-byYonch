@@ -11,7 +11,7 @@ class CardStyleService {
         if (isCaptain) return "";
         return "bomb ";
       case "neutral":
-        return "bg-[#F9F7DC] dark:bg-zinc-700 ";
+        return "bg-card dark:bg-zinc-700 ";
     }
   }
   public classListManager(
@@ -44,7 +44,7 @@ class CardStyleService {
     if (isCaptain || cardStatus === "revealed") {
       classList += this.assignClassToTeam(team, isCaptain);
     } else {
-      classList += "bg-[#F9F7DC] dark:bg-zinc-700 ";
+      classList += "bg-card dark:bg-zinc-700 ";
     }
 
     // if card is rendered on a captain's screen AND card has been revealed, add white border:
@@ -55,7 +55,7 @@ class CardStyleService {
     // if card's team affiliation is 'bomb' AND card is rendered on a captain's screen, add pink border:
     if (team === "bomb" && isCaptain) {
       classList +=
-        "!border-4 sm:!border-2 border-pink-600 bg-[#F9F7DC] dark:bg-zinc-700 ";
+        "!border-4 sm:!border-2 border-pink-600 bg-card dark:bg-zinc-700 ";
     }
 
     return classList;

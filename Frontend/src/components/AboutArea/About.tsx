@@ -64,7 +64,7 @@ function About(): JSX.Element {
             src={myPicSrc}
             className="border-primary border-8 rounded-full h-[30vh] mb-16"
           />
-          <h5 className="text-5xl font-semibold text-primary mb-8">
+          <h5 className="text-5xl font-semibold text-primary  custom-dark-shadow mb-8">
             {t("about.contact.name")}
           </h5>
 

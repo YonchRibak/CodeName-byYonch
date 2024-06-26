@@ -79,7 +79,7 @@ function GameCard(props: GameCardProps): JSX.Element {
         />
       )}
 
-      <CardContent className="card-content h-full flex justify-center items-center p-4 sm:p-1 overflow-hidden overflow-ellipsis">
+      <CardContent className="h-full flex justify-center items-center p-4 sm:p-1 overflow-hidden overflow-ellipsis">
         <CardText
           valueLength={
             cardService.selectWordValue(props.wordType, props.word)?.length // the length of the value is needed at CardText to manipulate font-size;
